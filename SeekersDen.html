@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeekersDen - Embedded Systems Training</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .tab-active {
+            border-color: #F97316; /* Orange-500 */
+            color: #F97316;
+            background-color: #FFF7ED; /* Orange-50 */
+        }
+        .module-tab-active {
+            background-color: #F97316;
+            color: white;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+        }
+        .nav-active {
+            color: #F97316 !important;
+            font-weight: 700 !important;
+        }
+        [data-aos] {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        [data-aos].is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .offering-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .offering-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+             <div class="w-24"> <!-- Empty div to balance the layout -->
+                 <a href="#"></a>
+            </div>
+            <div id="desktop-nav" class="hidden md:flex items-center space-x-6">
+                <a href="#home" class="text-gray-600 hover:text-orange-500">Home</a>
+                <a href="#courses" class="text-gray-600 hover:text-orange-500">Curriculum</a>
+                <a href="#offerings" class="text-gray-600 hover:text-orange-500">Our Offerings</a>
+                <a href="#instructor" class="text-gray-600 hover:text-orange-500">Instructor</a>
+                <a href="#contact" class="text-gray-600 hover:text-orange-500">Contact</a>
+            </div>
+            <div class="w-auto">
+                 <a href="#offerings" class="hidden md:block bg-orange-500 text-white font-semibold px-5 py-2 rounded-lg hover:bg-orange-600 transition duration-300">Get Started</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+             <a href="#home" class="block py-2 text-gray-600 hover:text-orange-500">Home</a>
+             <a href="#courses" class="block py-2 text-gray-600 hover:text-orange-500">Curriculum</a>
+             <a href="#offerings" class="block py-2 text-gray-600 hover:text-orange-500">Our Offerings</a>
+             <a href="#instructor" class="block py-2 text-gray-600 hover:text-orange-500">Instructor</a>
+             <a href="#contact" class="block py-2 text-gray-600 hover:text-orange-500">Contact</a>
+             <a href="#offerings" class="block mt-2 bg-orange-500 text-white font-semibold text-center px-5 py-2 rounded-lg hover:bg-orange-600 transition duration-300">Get Started</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="bg-white">
+            <div class="container mx-auto px-6 py-12 md:py-16 text-center">
+                <img src="assets/seekersden-logo.png" alt="SeekersDen Logo" class="h-32 md:h-40 w-auto mx-auto mb-8" data-aos>
+                <h1 data-aos class="text-4xl md:text-6xl font-bold text-gray-800 leading-tight">
+                    The Path to a Full Stack IoT Architect
+                </h1>
+                <p data-aos class="mt-4 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                    We're not just a course; we are a career trajectory. Our "Eagle's Tour" of the embedded world gives you the complete landscape, from bare metal to the cloud.
+                </p>
+                <a data-aos href="#courses" class="mt-8 inline-block bg-orange-500 text-white font-bold px-8 py-4 rounded-lg text-lg hover:bg-orange-600 transition duration-300">
+                    Explore The Trajectory
+                </a>
+            </div>
+        </section>
+
+        <!-- Curriculum Section -->
+        <section id="courses" class="py-20 pt-24" data-aos>
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-gray-800">The Complete Curriculum</h2>
+                    <p class="mt-2 text-lg text-gray-600">Our 4-module journey from hardware fundamentals to advanced system architecture.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg lg:flex lg:space-x-8 p-8">
+                    <!-- Module Selection (Vertical Tabs on Desktop) -->
+                    <div class="lg:w-1/4 mb-8 lg:mb-0">
+                        <ul id="module-tabs" class="flex flex-wrap lg:flex-col gap-2">
+                            <!-- Module tabs will be inserted here by JS -->
+                        </ul>
+                    </div>
+
+                    <!-- Course Content -->
+                    <div id="course-content-wrapper" class="lg:w-3/4">
+                        <!-- Content will be inserted here by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Offerings Section (À La Carte Model) -->
+        <section id="offerings" class="py-20 pt-24 bg-white" data-aos>
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-800">Our Offerings</h2>
+                    <p class="mt-2 text-lg text-gray-600">Choose the specific tools and services you need to achieve your goals.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Offering 1: Hardware Kits -->
+                    <div class="offering-card bg-white rounded-2xl shadow-lg border p-8 flex flex-col text-center">
+                        <i class="fas fa-microchip text-4xl text-orange-500 mx-auto"></i>
+                        <h3 class="text-2xl font-bold text-gray-800 mt-6">Hardware Kits</h3>
+                        <p class="mt-2 text-gray-600 flex-grow">Get the official, pre-tested hardware and exclusive printed Project Workbook for our hands-on labs. We offer four distinct kits, one for each module.</p>
+                        <a href="#contact" class="mt-8 block bg-gray-100 text-gray-700 font-semibold px-6 py-3 rounded-lg hover:bg-gray-200 transition duration-300">Purchase Kits</a>
+                    </div>
+                    
+                    <!-- Offering 2: Digital Course Package -->
+                    <div class="offering-card bg-white rounded-2xl shadow-xl border-2 border-orange-500 p-8 flex flex-col text-center">
+                         <i class="fas fa-video text-4xl text-orange-500 mx-auto"></i>
+                        <h3 class="text-2xl font-bold text-gray-800 mt-6">Digital Video Course</h3>
+                        <p class="mt-2 text-gray-600 flex-grow">Our complete collection of narrated video lessons, perfect for visual learners or those who already own the hardware.</p>
+                        <a href="https://seekersden.gumroad.com/" target="_blank" class="mt-8 block bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">Choose Your Course</a>
+                    </div>
+
+                    <!-- Offering 3: 1-on-1 Training -->
+                    <div class="offering-card bg-white rounded-2xl shadow-lg border p-8 flex flex-col text-center">
+                         <i class="fas fa-user-graduate text-4xl text-orange-500 mx-auto"></i>
+                        <h3 class="text-2xl font-bold text-gray-800 mt-6">1-on-1 Training</h3>
+                        <p class="mt-2 text-gray-600 flex-grow">Accelerate your learning. Book private sessions for personalized guidance, code reviews, and in-depth explanations to master difficult topics.</p>
+                        <a href="#contact" class="mt-8 block bg-gray-100 text-gray-700 font-semibold px-6 py-3 rounded-lg hover:bg-gray-200 transition duration-300">Book a Session</a>
+                    </div>
+
+                    <!-- Offering 4: Project Consultancy (Centered on new row for larger screens) -->
+                     <div class="md:col-span-2 lg:col-span-3 flex justify-center pt-8">
+                        <div class="offering-card bg-white rounded-2xl shadow-lg border p-8 flex flex-col text-center lg:w-1/3 md:w-1/2">
+                             <i class="fas fa-project-diagram text-4xl text-orange-500 mx-auto"></i>
+                            <h3 class="text-2xl font-bold text-gray-800 mt-6">Project Consultancy</h3>
+                            <p class="mt-2 text-gray-600 flex-grow">Have a specific college or professional project? Our consultancy service provides targeted support and expert advice to help you succeed.</p>
+                            <a href="#contact" class="mt-8 block bg-gray-100 text-gray-700 font-semibold px-6 py-3 rounded-lg hover:bg-gray-200 transition duration-300">Inquire Now</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        
+        <!-- FAQ Section -->
+        <section id="faq" class="py-20 pt-24" data-aos>
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-gray-800">Frequently Asked Questions</h2>
+                    <p class="mt-2 text-lg text-gray-600">Have a question? We've got answers.</p>
+                </div>
+                <div class="bg-white rounded-2xl shadow-lg p-8">
+                    <div class="space-y-4" id="faq-container">
+                        <!-- FAQ items will be inserted here by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Instructor Section -->
+        <section id="instructor" class="py-20 bg-white pt-24" data-aos>
+            <div class="container mx-auto px-6">
+                <div class="md:flex md:items-center md:space-x-12 bg-white p-8 md:p-12 rounded-2xl shadow-lg border border-gray-100">
+                    <div class="md:w-1/3 text-center">
+                        <img src="assets/instructor-photo.png" alt="Instructor Photo" class="w-48 h-48 rounded-full mx-auto shadow-md">
+                        <h3 class="mt-6 text-2xl font-bold">Krishnananda K Hegde</h3>
+                        <p class="text-gray-500">Embedded Systems Architect</p>
+                    </div>
+                    <div class="md:w-2/3 mt-8 md:mt-0">
+                        <h2 class="text-3xl font-bold text-gray-800">Your Guide for the "Eagle's Tour"</h2>
+                        <p class="mt-4 text-lg text-gray-600">
+                           With over 20 years of experience, I've designed this program to give you the high-level landscape view of the entire embedded world. My goal is to bridge the gap between academic theory and the practical, architectural thinking required to be a high-performing engineer.
+                        </p>
+                        <p class="mt-4 text-lg text-gray-600">
+                           We won't just learn *how* to use a tool; we'll learn *why* it exists and where it fits in the larger system. This is the key to moving from a coder to a true architect, ready to tackle any challenge.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 pt-24" data-aos>
+            <div class="container mx-auto px-6 text-center">
+                 <h2 class="text-4xl font-bold text-gray-800">Ready to Get Started?</h2>
+                 <p class="mt-2 text-lg text-gray-600 max-w-2xl mx-auto">Contact us to purchase a kit, book a session, or inquire about a project. We're ready to help you on your journey.</p>
+                 <a href="mailto:info@seekersden.in" class="mt-8 inline-block bg-orange-500 text-white font-bold px-8 py-4 rounded-lg text-lg hover:bg-orange-600 transition duration-300">
+                    Get in Touch
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <img src="assets/seekersden-logo.png" alt="SeekersDen Logo" class="h-12 w-auto mx-auto">
+            <p class="mt-4 text-gray-400">© 2025 SeekersDen. All rights reserved.</p>
+            <p class="mt-1 text-gray-400">Bengaluru, Karnataka, India</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- DATA ---
+        const courseData = [
+            {
+                module: "Module 1: Foundations & Baremetal",
+                description: "Build an unshakable foundation in microcontroller hardware and the essential bare-metal C programming techniques needed to control it.",
+                levels: [
+                    { name: "Level 1: Hardware Fundamentals", duration: "6 Sessions (2 Weeks)", topics: ["Introduction to ARM Architecture and the STM32 Development Environment.", "Circuit construction, GPIO control for LEDs, and reading switches.", "Implementing hardware interrupts for efficient input handling.", "Utilizing peripherals: ADC for analog input, PWM for output, and Timers."] },
+                    { name: "Level 2: Communication Protocols", duration: "6 Sessions (2 Weeks)", topics: ["Fundamentals of serial and parallel digital communication.", "Interfacing with character LCDs using parallel data transfer.", "Mastering asynchronous serial communication with UART.", "Implementing synchronous serial protocols: SPI and I2C."] },
+                    { name: "Level 3: Interfacing with the World", duration: "6 Sessions (2 Weeks)", topics: ["Interfacing with a variety of common sensors (e.g., temperature, light).", "Understanding DC and Stepper motor principles and control techniques.", "Driving motors effectively using H-Bridge circuits.", "Introduction to Printed Circuit Board (PCB) design concepts."] },
+                    { name: "Level 4: Software Fundamentals", duration: "6 Sessions (2 Weeks)", topics: ["Mastering advanced C concepts like pointers and function pointers.", "Applying bit manipulation techniques for efficient hardware control.", "Designing and implementing robust state machines for event-driven systems.", "Introduction to creating custom, reusable driver libraries."] },
+                ]
+            },
+            {
+                module: "Module 2: RTOS & IoT",
+                description: "Learn to manage real-time complexity using a Real-Time Operating System and to build modern, connected devices.",
+                levels: [
+                    { name: "Level 1: RTOS Fundamentals", duration: "6 Sessions (2 Weeks)", topics: ["Core concepts of Real-Time Operating Systems: tasks, states, and scheduling.", "Getting started with the FreeRTOS ecosystem and configuration.", "Creating, deleting, and managing tasks and their priorities.", "Understanding different scheduling policies and their trade-offs."] },
+                    { name: "Level 2: RTOS Communication", duration: "6 Sessions (2 Weeks)", topics: ["Inter-task communication and data transfer using Queues.", "Synchronization between tasks and interrupts using Semaphores.", "Protecting shared resources with Mutexes.", "Understanding and solving common concurrency problems like priority inversion."] },
+                    { name: "Level 3: Introduction to IoT & Networking", duration: "6 Sessions (2 Weeks)", topics: ["Fundamentals of computer networking: IP, TCP, UDP, and sockets.", "Introduction to common IoT hardware like Wi-Fi and Ethernet modules.", "Understanding the client-server model for connected devices.", "Securing embedded devices with basic principles of network security."] },
+                    { name: "Level 4: Building a Connected Device", duration: "6 Sessions (2 Weeks)", topics: ["Introduction to the MQTT protocol for lightweight IoT communication.", "Sending sensor data from your device to a public MQTT broker.", "Receiving commands from the cloud to control your device.", "Architecting a complete sensor-to-cloud IoT application."] },
+                ]
+            },
+            {
+                module: "Module 3: FPGA Design",
+                description: "Move beyond programming processors and learn to design your own custom digital hardware circuits using FPGAs and Hardware Description Languages (HDL).",
+                levels: [
+                    { name: "Level 1: Digital Logic Fundamentals", duration: "6 Sessions (2 Weeks)", topics: ["Core principles of digital logic: logic gates, Boolean algebra, and number systems.", "Designing and analyzing combinational logic circuits like adders and multiplexers.", "Understanding sequential logic circuits including flip-flops, latches, and registers.", "Introduction to designing and implementing Finite State Machines (FSMs)."] },
+                    { name: "Level 2: Verilog/VHDL Programming", duration: "12 Sessions (4 Weeks)", topics: ["Introduction to a Hardware Description Language (Verilog or VHDL).", "Writing both structural and behavioral code to describe complex digital hardware.", "Developing comprehensive testbenches to simulate and verify your designs.", "Learning best practices for writing clean, efficient, and synthesizable HDL code."] },
+                    { name: "Level 3: FPGA Implementation", duration: "12 Sessions (4 Weeks)", topics: ["Understanding the internal architecture of FPGAs and selecting a development board.", "Using a professional FPGA toolchain (e.g., Xilinx Vivado or Intel Quartus).", "Mastering the complete design flow: synthesis, place-and-route, and timing analysis.", "Programming your hardware design onto a physical FPGA board and testing it in real-time."] },
+                    { name: "Level 4: System-on-Chip (SoC) Design", duration: "12 Sessions (4 Weeks)", topics: ["Integrating pre-built Intellectual Property (IP) cores into your design.", "Interfacing your custom FPGA logic with an embedded soft-core or hard-core processor.", "Designing a custom AXI peripheral and connecting it to a system bus.", "Introduction to High-Level Synthesis (HLS) and advanced on-chip debugging techniques."] },
+                ]
+            },
+            {
+                module: "Module 4: Embedded Linux",
+                description: "Master the most powerful and complex platform in embedded systems, preparing for senior-level roles and system architecture.",
+                levels: [
+                    { name: "Level 1: Linux Fundamentals for Embedded", duration: "6 Sessions (2 Weeks)", topics: ["Understanding the Embedded Linux architecture: kernel space vs. user space.", "Detailed exploration of the Linux boot process on an embedded board.", "Setting up a professional cross-compilation toolchain.", "Basic command-line navigation and system administration."] },
+                    { name: "Level 2: Device Drivers and BSP", duration: "12 Sessions (4 Weeks)", topics: ["Writing and debugging basic character device drivers.", "Understanding the role of the Device Tree in modern Embedded Linux.", "Configuring and customizing the U-Boot bootloader.", "Introduction to the Board Support Package (BSP) concept."] },
+                    { name: "Level 3: Inter-Process Communication", duration: "6 Sessions (2 Weeks)", topics: ["Communicating between processes using Pipes and FIFOs.", "Implementing robust messaging with POSIX and System V Message Queues.", "High-speed data exchange using Shared Memory.", "Process synchronization using semaphores and mutexes in user space."] },
+                    { name: "Level 4: Advanced Linux Applications", duration: "12 Sessions (4 Weeks)", topics: ["Introduction to Real-time Linux (PREEMPT_RT).", "Advanced system debugging and profiling tools (gdb, perf, ftrace).", "Building a custom, minimal Linux distribution with the Yocto Project.", "Developing complex, multi-threaded applications in the Linux user space."] },
+                ]
+            }
+        ];
+        
+        const faqData = [
+            { question: "What is the 'Eagle's Tour' philosophy?", answer: "Our goal is to give you a high-level map of the entire embedded systems landscape, from hardware to cloud. We teach you the fundamentals of each key domain so you understand how they fit together. This creates adaptable, T-shaped engineers who can tackle any challenge, rather than just knowing a single niche." },
+            { question: "What hardware will I need?", answer: "Our curriculum is divided into four distinct modules, and each has its own dedicated hardware kit that you can purchase from us. This ensures you have the exact, pre-tested tools you need for every lab and project." },
+            { question: "Do I need any prior experience?", answer: "No, the program is designed to take you from the ground up, starting with Module 1. While basic programming knowledge in C is helpful, it is not mandatory. We'll guide you through every step." },
+            { question: "How does the 1-on-1 Training work?", answer: "You can book sessions in hourly blocks. These are private, live video calls with the instructor where you can ask in-depth questions, get help with difficult topics, review your code, or discuss career paths." }
+        ];
+
+        // --- DOM ELEMENTS ---
+        const moduleTabsContainer = document.getElementById('module-tabs');
+        const contentWrapper = document.getElementById('course-content-wrapper');
+        const faqContainer = document.getElementById('faq-container');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const desktopNav = document.getElementById('desktop-nav');
+
+        // --- FUNCTIONS ---
+
+        function renderContent(moduleIndex, levelIndex) {
+            const moduleData = courseData[moduleIndex];
+            const levelData = moduleData.levels[levelIndex];
+            const levelTabsHTML = moduleData.levels.map((level, i) => `
+                <button 
+                    class="px-4 py-2 text-sm font-semibold rounded-md transition duration-300 ${i === levelIndex ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}"
+                    onclick="renderContent(${moduleIndex}, ${i})">
+                    ${level.name.split(':')[0]}
+                </button>
+            `).join('');
+            const levelContentHTML = `
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-800">${levelData.name}</h3>
+                        <p class="text-sm text-gray-500 mt-1">${levelData.duration}</p>
+                    </div>
+                </div>
+                <hr class="my-6">
+                <div>
+                    <h4 class="font-semibold text-lg mb-3">Topics Covered:</h4>
+                    <ul class="space-y-2">
+                        ${levelData.topics.map(topic => `
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span>${topic}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+                <div class="mt-8 pt-8 border-t flex flex-col sm:flex-row gap-4">
+                    <a href="#offerings" class="w-full sm:w-auto bg-orange-500 text-white font-semibold text-center px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">Purchase Course</a>
+                    <a href="downloads/seekersden-complete-syllabus.pdf" target="_blank" class="w-full sm:w-auto bg-gray-100 text-gray-700 font-semibold text-center px-6 py-3 rounded-lg hover:bg-gray-200 transition duration-300" download>Download Syllabus</a>
+                </div>
+            `;
+            contentWrapper.innerHTML = `
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-800">${moduleData.module}</h2>
+                    <p class="mt-1 text-gray-600">${moduleData.description}</p>
+                    <div class="mt-6 border-b border-gray-200">
+                        <div class="flex flex-wrap -mb-px gap-x-4">
+                            ${levelTabsHTML}
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        ${levelContentHTML}
+                    </div>
+                </div>
+            `;
+        }
+
+        function initializeCourseSection() {
+            moduleTabsContainer.innerHTML = courseData.map((data, index) => `
+                <li>
+                    <button 
+                        class="module-tab w-full text-left px-6 py-4 font-semibold rounded-lg transition duration-300 ${index === 0 ? 'module-tab-active' : 'bg-white hover:bg-orange-50 text-gray-700'}"
+                        onclick="selectModule(${index})">
+                        ${data.module}
+                    </button>
+                </li>
+            `).join('');
+            renderContent(0, 0);
+        }
+        
+        function selectModule(moduleIndex) {
+            const allModuleTabs = moduleTabsContainer.querySelectorAll('.module-tab');
+            allModuleTabs.forEach((tab, index) => {
+                if (index === moduleIndex) {
+                    tab.classList.add('module-tab-active');
+                    tab.classList.remove('bg-white', 'hover:bg-orange-50', 'text-gray-700');
+                } else {
+                    tab.classList.remove('module-tab-active');
+                    tab.classList.add('bg-white', 'hover:bg-orange-50', 'text-gray-700');
+                }
+            });
+            renderContent(moduleIndex, 0);
+        }
+
+        function initializeFAQ() {
+            faqContainer.innerHTML = faqData.map((item) => `
+                <div class="bg-white border border-gray-200 rounded-lg">
+                    <h2>
+                        <button type="button" class="faq-question flex items-center justify-between w-full p-6 font-semibold text-left text-gray-800">
+                            <span>${item.question}</span>
+                            <svg class="w-6 h-6 shrink-0 faq-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                    </h2>
+                    <div class="faq-answer">
+                        <div class="p-6 pt-0">
+                            <p class="text-gray-600">${item.answer}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.parentElement.nextElementSibling;
+                    const arrow = question.querySelector('.faq-arrow');
+                    const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
+                    
+                    // Close all other answers
+                    document.querySelectorAll('.faq-answer').forEach(ans => {
+                        if (ans !== answer) {
+                            ans.style.maxHeight = '0px';
+                            ans.previousElementSibling.querySelector('.faq-arrow').classList.remove('rotate-180');
+                        }
+                    });
+
+                    // Toggle the clicked answer
+                    if (isOpen) {
+                        answer.style.maxHeight = '0px';
+                        arrow.classList.remove('rotate-180');
+                    } else {
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                        arrow.classList.add('rotate-180');
+                    }
+                });
+            });
+        }
+
+        // --- EVENT LISTENERS & INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            initializeCourseSection();
+            initializeFAQ();
+
+            const sections = document.querySelectorAll('main section[id]');
+            const desktopNavLinks = desktopNav.querySelectorAll('a');
+            const mobileNavLinks = mobileMenu.querySelectorAll('a');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '-50% 0px -50% 0px',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        const updateNav = (links) => {
+                            links.forEach(link => {
+                                link.classList.remove('nav-active');
+                                if (link.getAttribute('href') === `#${id}`) {
+                                    link.classList.add('nav-active');
+                                }
+                            });
+                        };
+                        updateNav(desktopNavLinks);
+                        updateNav(mobileNavLinks);
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            const aosElements = document.querySelectorAll('[data-aos]');
+            const aosObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        aosObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            aosElements.forEach(el => {
+                aosObserver.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
+
