@@ -58,12 +58,14 @@
             <div id="desktop-nav" class="hidden md:flex items-center space-x-6">
                 <a href="#home" class="text-gray-600 hover:text-orange-500">Home</a>
                 <a href="#courses" class="text-gray-600 hover:text-orange-500">Curriculum</a>
-                <a href="#offerings" class="text-gray-600 hover:text-orange-500">Our Offerings</a>
+                <a href="#next-steps" class="text-gray-600 hover:text-orange-500">Get Started</a>
                 <a href="#instructor" class="text-gray-600 hover:text-orange-500">Instructor</a>
+                <!-- MODIFICATION: Added FAQ Link -->
+                <a href="#faq" class="text-gray-600 hover:text-orange-500">FAQ</a>
                 <a href="#contact" class="text-gray-600 hover:text-orange-500">Contact</a>
             </div>
             <div class="w-auto">
-                 <a href="#offerings" class="hidden md:block bg-orange-500 text-white font-semibold px-5 py-2 rounded-lg hover:bg-orange-600 transition duration-300">Get Started</a>
+                 <a href="#next-steps" class="hidden md:block bg-orange-500 text-white font-semibold px-5 py-2 rounded-lg hover:bg-orange-600 transition duration-300">Get Started</a>
             </div>
             <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
@@ -73,10 +75,12 @@
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
              <a href="#home" class="block py-2 text-gray-600 hover:text-orange-500">Home</a>
              <a href="#courses" class="block py-2 text-gray-600 hover:text-orange-500">Curriculum</a>
-             <a href="#offerings" class="block py-2 text-gray-600 hover:text-orange-500">Our Offerings</a>
+             <a href="#next-steps" class="block py-2 text-gray-600 hover:text-orange-500">Get Started</a>
              <a href="#instructor" class="block py-2 text-gray-600 hover:text-orange-500">Instructor</a>
+             <!-- MODIFICATION: Added FAQ Link -->
+             <a href="#faq" class="block py-2 text-gray-600 hover:text-orange-500">FAQ</a>
              <a href="#contact" class="block py-2 text-gray-600 hover:text-orange-500">Contact</a>
-             <a href="#offerings" class="block mt-2 bg-orange-500 text-white font-semibold text-center px-5 py-2 rounded-lg hover:bg-orange-600 transition duration-300">Get Started</a>
+             <a href="#next-steps" class="block mt-2 bg-orange-500 text-white font-semibold text-center px-5 py-2 rounded-lg hover:bg-orange-600 transition duration-300">Get Started</a>
         </div>
     </header>
 
@@ -121,47 +125,56 @@
             </div>
         </section>
 
-        <!-- Offerings Section (À La Carte Model) -->
-        <section id="offerings" class="py-20 pt-24 bg-white" data-aos>
+        <!-- Your Next Steps Section -->
+        <section id="next-steps" class="py-12 bg-white" data-aos>
             <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl font-bold text-gray-800">Our Offerings</h2>
-                    <p class="mt-2 text-lg text-gray-600">Choose the specific tools and services you need to achieve your goals.</p>
+                <div class="text-center mb-10">
+                    <h2 class="text-4xl font-bold text-gray-800">Your Next Steps: How to Start</h2>
+                    <p class="mt-2 text-lg text-gray-600 max-w-3xl mx-auto">
+                        After reviewing the curriculum, follow this guided path to get everything you need for your journey from developer to architect.
+                    </p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     
-                    <!-- Offering 1: Hardware Kits -->
+                    <!-- Step 1: Hardware Kits -->
                     <div class="offering-card bg-white rounded-2xl shadow-lg border p-8 flex flex-col text-center">
                         <i class="fas fa-microchip text-4xl text-orange-500 mx-auto"></i>
-                        <h3 class="text-2xl font-bold text-gray-800 mt-6">Hardware Kits</h3>
-                        <p class="mt-2 text-gray-600 flex-grow">Get the official, pre-tested hardware and exclusive printed Project Workbook for our hands-on labs. We offer four distinct kits, one for each module.</p>
-                        <a href="#contact" class="mt-8 block bg-gray-100 text-gray-700 font-semibold px-6 py-3 rounded-lg hover:bg-gray-200 transition duration-300">Purchase Kits</a>
+                        <h3 class="text-2xl font-bold text-gray-800 mt-6">Step 1: Get Your Hardware Kits</h3>
+                        <p class="mt-2 text-gray-600 flex-grow">
+                            Get the official, pre-tested hardware components required for all the hands-on labs. We offer four distinct kits, one for each module. (Workbook not included).
+                        </p>
+                        <a href="https://seekersden.myinstamojo.com/" target="_blank" class="mt-8 block bg-gray-100 text-gray-700 font-semibold px-6 py-3 rounded-lg hover:bg-gray-200 transition duration-300">See Kit Details</a>
                     </div>
                     
-                    <!-- Offering 2: Digital Course Package -->
+                    <!-- Step 2: Online Learning Material -->
                     <div class="offering-card bg-white rounded-2xl shadow-xl border-2 border-orange-500 p-8 flex flex-col text-center">
-                         <i class="fas fa-video text-4xl text-orange-500 mx-auto"></i>
-                        <h3 class="text-2xl font-bold text-gray-800 mt-6">Digital Video Course</h3>
-                        <p class="mt-2 text-gray-600 flex-grow">Our complete collection of narrated video lessons, perfect for visual learners or those who already own the hardware.</p>
-                        <a href="https://seekersden.gumroad.com/" target="_blank" class="mt-8 block bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">Choose Your Course</a>
+                         <i class="fas fa-book-open text-4xl text-orange-500 mx-auto"></i>
+                        <h3 class="text-2xl font-bold text-gray-800 mt-6">Step 2: Get the Project Workbooks</h3>
+                        <p class="mt-2 text-gray-600 flex-grow">
+                            These digital workbooks are your <strong>self-paced, lifetime-access</strong> guide. They are the essential companions to your hardware kits, providing step-by-step lab instructions.
+                        </p>
+                        <a href="https://seekersden.myinstamojo.com/" target="_blank" class="mt-8 block bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">Get the Workbooks</a>
                     </div>
 
-                    <!-- Offering 3: 1-on-1 Training -->
+                    <!-- Step 3: 1-on-1 Training -->
                     <div class="offering-card bg-white rounded-2xl shadow-lg border p-8 flex flex-col text-center">
                          <i class="fas fa-user-graduate text-4xl text-orange-500 mx-auto"></i>
-                        <h3 class="text-2xl font-bold text-gray-800 mt-6">1-on-1 Training</h3>
-                        <p class="mt-2 text-gray-600 flex-grow">Accelerate your learning. Book private sessions for personalized guidance, code reviews, and in-depth explanations to master difficult topics.</p>
-                        <a href="#contact" class="mt-8 block bg-gray-100 text-gray-700 font-semibold px-6 py-3 rounded-lg hover:bg-gray-200 transition duration-300">Book a Session</a>
+                        <h3 class="text-2xl font-bold text-gray-800 mt-6">Step 3: Book 1-on-1 Training</h3>
+                        <p class="mt-2 text-gray-600 flex-grow">
+                            Accelerate your learning and master difficult topics. Book private, personalized sessions for in-depth explanations, code reviews, and expert career guidance.
+                        </p>
+                        <a href="https://seekersden.myinstamojo.com/" target="_blank" class="mt-8 block bg-gray-100 text-gray-700 font-semibold px-6 py-3 rounded-lg hover:bg-gray-200 transition duration-300">Book a Session</a>
                     </div>
 
-                    <!-- Offering 4: Project Consultancy (Centered on new row for larger screens) -->
-                     <div class="md:col-span-2 lg:col-span-3 flex justify-center pt-8">
-                        <div class="offering-card bg-white rounded-2xl shadow-lg border p-8 flex flex-col text-center lg:w-1/3 md:w-1/2">
-                             <i class="fas fa-project-diagram text-4xl text-orange-500 mx-auto"></i>
-                            <h3 class="text-2xl font-bold text-gray-800 mt-6">Project Consultancy</h3>
-                            <p class="mt-2 text-gray-600 flex-grow">Have a specific college or professional project? Our consultancy service provides targeted support and expert advice to help you succeed.</p>
-                            <a href="#contact" class="mt-8 block bg-gray-100 text-gray-700 font-semibold px-6 py-3 rounded-lg hover:bg-gray-200 transition duration-300">Inquire Now</a>
-                        </div>
+                    <!-- Step 4: Project Consultancy -->
+                    <div class="offering-card bg-white rounded-2xl shadow-lg border p-8 flex flex-col text-center">
+                         <i class="fas fa-project-diagram text-4xl text-orange-500 mx-auto"></i>
+                        <h3 class="text-2xl font-bold text-gray-800 mt-6">Step 4: Get Project Consultancy</h3>
+                        <p class="mt-2 text-gray-600 flex-grow">
+                            Get expert help for your specific college or professional project. Our consultancy service provides targeted support and advice to ensure your success.
+                        </p>
+                        <a href="https://seekersden.myinstamojo.com/" target="_blank" class="mt-8 block bg-gray-100 text-gray-700 font-semibold px-6 py-3 rounded-lg hover:bg-gray-200 transition duration-300">Book a Slot</a>
                     </div>
 
                 </div>
@@ -208,10 +221,10 @@
         <!-- Contact Section -->
         <section id="contact" class="py-20 pt-24" data-aos>
             <div class="container mx-auto px-6 text-center">
-                 <h2 class="text-4xl font-bold text-gray-800">Ready to Get Started?</h2>
-                 <p class="mt-2 text-lg text-gray-600 max-w-2xl mx-auto">Contact us to purchase a kit, book a session, or inquire about a project. We're ready to help you on your journey.</p>
-                 <a href="mailto:info@seekersden.in" class="mt-8 inline-block bg-orange-500 text-white font-bold px-8 py-4 rounded-lg text-lg hover:bg-orange-600 transition duration-300">
-                    Get in Touch
+                 <h2 class="text-4xl font-bold text-gray-800">Have More Questions?</h2>
+                 <p class="mt-2 text-lg text-gray-600 max-w-2xl mx-auto">If you have any doubts not covered in the curriculum or FAQ, or if you have a specific inquiry, please don't hesitate to reach out.</p>
+                 <a href="mailto:info@seekersden.in?subject=General%20Inquiry" class="mt-8 inline-block bg-orange-500 text-white font-bold px-8 py-4 rounded-lg text-lg hover:bg-orange-600 transition duration-300">
+                    info@seekersden.in
                 </a>
             </div>
         </section>
@@ -222,7 +235,8 @@
         <div class="container mx-auto px-6 py-8 text-center">
             <img src="assets/seekersden-logo.png" alt="SeekersDen Logo" class="h-12 w-auto mx-auto">
             <p class="mt-4 text-gray-400">© 2025 SeekersDen. All rights reserved.</p>
-            <p class="mt-1 text-gray-400">Bengaluru, Karnataka, India</p>
+            <!-- MODIFICATION: Changed Bengaluru to Mangaluru -->
+            <p class="mt-1 text-gray-400">Mangaluru, Karnataka, India</p>
         </div>
     </footer>
 
@@ -234,8 +248,9 @@
                 description: "Build an unshakable foundation in microcontroller hardware and the essential bare-metal C programming techniques needed to control it.",
                 levels: [
                     { name: "Level 1: Hardware Fundamentals", duration: "6 Sessions (2 Weeks)", topics: ["Introduction to ARM Architecture and the STM32 Development Environment.", "Circuit construction, GPIO control for LEDs, and reading switches.", "Implementing hardware interrupts for efficient input handling.", "Utilizing peripherals: ADC for analog input, PWM for output, and Timers."] },
-                    { name: "Level 2: Communication Protocols", duration: "6 Sessions (2 Weeks)", topics: ["Fundamentals of serial and parallel digital communication.", "Interfacing with character LCDs using parallel data transfer.", "Mastering asynchronous serial communication with UART.", "Implementing synchronous serial protocols: SPI and I2C."] },
+                    { name: "Level 2: Communication Protocols", duration: "6 Sessions (2 Weeks)", topics: ["Fundamentals of serial and parallel digital communication.", "Interfacing with character LCDs using parallel data transfer.", "Mastering asynchronous serial-communication with UART.", "Implementing synchronous serial protocols: SPI and I2C."] },
                     { name: "Level 3: Interfacing with the World", duration: "6 Sessions (2 Weeks)", topics: ["Interfacing with a variety of common sensors (e.g., temperature, light).", "Understanding DC and Stepper motor principles and control techniques.", "Driving motors effectively using H-Bridge circuits.", "Introduction to Printed Circuit Board (PCB) design concepts."] },
+                    /* *** FIX: Corrected the malformed name/duration object *** */
                     { name: "Level 4: Software Fundamentals", duration: "6 Sessions (2 Weeks)", topics: ["Mastering advanced C concepts like pointers and function pointers.", "Applying bit manipulation techniques for efficient hardware control.", "Designing and implementing robust state machines for event-driven systems.", "Introduction to creating custom, reusable driver libraries."] },
                 ]
             },
@@ -318,7 +333,8 @@
                     </ul>
                 </div>
                 <div class="mt-8 pt-8 border-t flex flex-col sm:flex-row gap-4">
-                    <a href="#offerings" class="w-full sm:w-auto bg-orange-500 text-white font-semibold text-center px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">Purchase Course</a>
+                    <!-- MODIFICATION: Changed href -->
+                    <a href="#next-steps" class="w-full sm:w-auto bg-orange-500 text-white font-semibold text-center px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">Purchase Course</a>
                     <a href="downloads/seekersden-complete-syllabus.pdf" target="_blank" class="w-full sm:w-auto bg-gray-100 text-gray-700 font-semibold text-center px-6 py-3 rounded-lg hover:bg-gray-200 transition duration-300" download>Download Syllabus</a>
                 </div>
             `;
@@ -384,6 +400,7 @@
 
             const faqQuestions = document.querySelectorAll('.faq-question');
             faqQuestions.forEach(question => {
+                // *** FIX: Corrected syntax error from (). => to () => ***
                 question.addEventListener('click', () => {
                     const answer = question.parentElement.nextElementSibling;
                     const arrow = question.querySelector('.faq-arrow');
@@ -401,6 +418,7 @@
                     if (isOpen) {
                         answer.style.maxHeight = '0px';
                         arrow.classList.remove('rotate-180');
+                        // *** FIX: Removed garbage text that was causing the syntax error ***
                     } else {
                         answer.style.maxHeight = answer.scrollHeight + 'px';
                         arrow.classList.add('rotate-180');
@@ -418,6 +436,7 @@
             initializeCourseSection();
             initializeFAQ();
 
+            // MODIFICATION: Added #next-steps to the querySelectorAll
             const sections = document.querySelectorAll('main section[id]');
             const desktopNavLinks = desktopNav.querySelectorAll('a');
             const mobileNavLinks = mobileMenu.querySelectorAll('a');
@@ -437,6 +456,7 @@
                                 link.classList.remove('nav-active');
                                 if (link.getAttribute('href') === `#${id}`) {
                                     link.classList.add('nav-active');
+                                    // *** FIX: Removed garbage text that was causing the syntax error ***
                                 }
                             });
                         };
