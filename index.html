@@ -60,7 +60,6 @@
                 <a href="#courses" class="text-gray-600 hover:text-orange-500">Curriculum</a>
                 <a href="#next-steps" class="text-gray-600 hover:text-orange-500">Get Started</a>
                 <a href="#instructor" class="text-gray-600 hover:text-orange-500">Instructor</a>
-                <!-- MODIFICATION: Added FAQ Link -->
                 <a href="#faq" class="text-gray-600 hover:text-orange-500">FAQ</a>
                 <a href="#contact" class="text-gray-600 hover:text-orange-500">Contact</a>
             </div>
@@ -77,7 +76,6 @@
              <a href="#courses" class="block py-2 text-gray-600 hover:text-orange-500">Curriculum</a>
              <a href="#next-steps" class="block py-2 text-gray-600 hover:text-orange-500">Get Started</a>
              <a href="#instructor" class="block py-2 text-gray-600 hover:text-orange-500">Instructor</a>
-             <!-- MODIFICATION: Added FAQ Link -->
              <a href="#faq" class="block py-2 text-gray-600 hover:text-orange-500">FAQ</a>
              <a href="#contact" class="block py-2 text-gray-600 hover:text-orange-500">Contact</a>
              <a href="#next-steps" class="block mt-2 bg-orange-500 text-white font-semibold text-center px-5 py-2 rounded-lg hover:bg-orange-600 transition duration-300">Get Started</a>
@@ -235,22 +233,30 @@
         <div class="container mx-auto px-6 py-8 text-center">
             <img src="assets/seekersden-logo.png" alt="SeekersDen Logo" class="h-12 w-auto mx-auto">
             <p class="mt-4 text-gray-400">© 2025 SeekersDen. All rights reserved.</p>
-            <!-- MODIFICATION: Changed Bengaluru to Mangaluru -->
             <p class="mt-1 text-gray-400">Mangaluru, Karnataka, India</p>
+
+            <!-- MODIFICATION: Added policy links -->
+            <div class="mt-4 pt-4 border-t border-gray-700">
+                <a href="terms.html" class="text-gray-400 hover:text-white px-3 py-2 text-sm">Terms</a>
+                <span class="text-gray-500">|</span>
+                <a href="refund.html" class="text-gray-400 hover:text-white px-3 py-2 text-sm">Refund Policy</a>
+                <span class="text-gray-500">|</span>
+                <a href="shipping.html" class="text-gray-400 hover:text-white px-3 py-2 text-sm">Shipping Policy</a>
+            </div>
         </div>
     </footer>
 
     <script>
         // --- DATA ---
+        // *** FIX: Restored the full, correct courseData variable ***
         const courseData = [
             {
                 module: "Module 1: Foundations & Baremetal",
                 description: "Build an unshakable foundation in microcontroller hardware and the essential bare-metal C programming techniques needed to control it.",
                 levels: [
                     { name: "Level 1: Hardware Fundamentals", duration: "6 Sessions (2 Weeks)", topics: ["Introduction to ARM Architecture and the STM32 Development Environment.", "Circuit construction, GPIO control for LEDs, and reading switches.", "Implementing hardware interrupts for efficient input handling.", "Utilizing peripherals: ADC for analog input, PWM for output, and Timers."] },
-                    { name: "Level 2: Communication Protocols", duration: "6 Sessions (2 Weeks)", topics: ["Fundamentals of serial and parallel digital communication.", "Interfacing with character LCDs using parallel data transfer.", "Mastering asynchronous serial-communication with UART.", "Implementing synchronous serial protocols: SPI and I2C."] },
+                    { name: "Level 2: Communication Protocols", duration: "6 Sessions (2 Weeks)", topics: ["Fundamentals of serial and parallel digital communication.", "Interfacing with character LCDs using parallel data transfer.", "Mastering asynchronous serial communication with UART.", "Implementing synchronous serial protocols: SPI and I2C."] },
                     { name: "Level 3: Interfacing with the World", duration: "6 Sessions (2 Weeks)", topics: ["Interfacing with a variety of common sensors (e.g., temperature, light).", "Understanding DC and Stepper motor principles and control techniques.", "Driving motors effectively using H-Bridge circuits.", "Introduction to Printed Circuit Board (PCB) design concepts."] },
-                    /* *** FIX: Corrected the malformed name/duration object *** */
                     { name: "Level 4: Software Fundamentals", duration: "6 Sessions (2 Weeks)", topics: ["Mastering advanced C concepts like pointers and function pointers.", "Applying bit manipulation techniques for efficient hardware control.", "Designing and implementing robust state machines for event-driven systems.", "Introduction to creating custom, reusable driver libraries."] },
                 ]
             },
@@ -286,6 +292,7 @@
             }
         ];
         
+        // *** FIX: Restored the full, correct faqData variable ***
         const faqData = [
             { question: "What is the 'Eagle's Tour' philosophy?", answer: "Our goal is to give you a high-level map of the entire embedded systems landscape, from hardware to cloud. We teach you the fundamentals of each key domain so you understand how they fit together. This creates adaptable, T-shaped engineers who can tackle any challenge, rather than just knowing a single niche." },
             { question: "What hardware will I need?", answer: "Our curriculum is divided into four distinct modules, and each has its own dedicated hardware kit that you can purchase from us. This ensures you have the exact, pre-tested tools you need for every lab and project." },
@@ -333,7 +340,6 @@
                     </ul>
                 </div>
                 <div class="mt-8 pt-8 border-t flex flex-col sm:flex-row gap-4">
-                    <!-- MODIFICATION: Changed href -->
                     <a href="#next-steps" class="w-full sm:w-auto bg-orange-500 text-white font-semibold text-center px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">Purchase Course</a>
                     <a href="downloads/seekersden-complete-syllabus.pdf" target="_blank" class="w-full sm:w-auto bg-gray-100 text-gray-700 font-semibold text-center px-6 py-3 rounded-lg hover:bg-gray-200 transition duration-300" download>Download Syllabus</a>
                 </div>
@@ -400,7 +406,6 @@
 
             const faqQuestions = document.querySelectorAll('.faq-question');
             faqQuestions.forEach(question => {
-                // *** FIX: Corrected syntax error from (). => to () => ***
                 question.addEventListener('click', () => {
                     const answer = question.parentElement.nextElementSibling;
                     const arrow = question.querySelector('.faq-arrow');
@@ -418,7 +423,6 @@
                     if (isOpen) {
                         answer.style.maxHeight = '0px';
                         arrow.classList.remove('rotate-180');
-                        // *** FIX: Removed garbage text that was causing the syntax error ***
                     } else {
                         answer.style.maxHeight = answer.scrollHeight + 'px';
                         arrow.classList.add('rotate-180');
@@ -436,7 +440,6 @@
             initializeCourseSection();
             initializeFAQ();
 
-            // MODIFICATION: Added #next-steps to the querySelectorAll
             const sections = document.querySelectorAll('main section[id]');
             const desktopNavLinks = desktopNav.querySelectorAll('a');
             const mobileNavLinks = mobileMenu.querySelectorAll('a');
@@ -456,7 +459,6 @@
                                 link.classList.remove('nav-active');
                                 if (link.getAttribute('href') === `#${id}`) {
                                     link.classList.add('nav-active');
-                                    // *** FIX: Removed garbage text that was causing the syntax error ***
                                 }
                             });
                         };
