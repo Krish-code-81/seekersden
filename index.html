@@ -11,11 +11,13 @@
         body {
             font-family: 'Inter', sans-serif;
         }
+        /* Style for the active sub-tab (What you will learn / Who is it for) */
         .tab-active {
             border-color: #F97316; /* Orange-500 */
             color: #F97316;
             background-color: #FFF7ED; /* Orange-50 */
         }
+        /* Style for the active main module tab (Module 1, Module 2, etc.) */
         .module-tab-active {
             background-color: #F97316;
             color: white;
@@ -45,6 +47,10 @@
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
+        /* Style for internal tab links */
+        .internal-tab-link {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -64,7 +70,7 @@
                 <a href="#contact" class="text-gray-600 hover:text-orange-500">Contact</a>
             </div>
             <div class="w-auto">
-                 <a href="#next-steps" class="hidden md:block bg-orange-500 text-white font-semibold px-5 py-2 rounded-lg hover:bg-orange-600 transition duration-300">Get Started</a>
+                 <a href="downloads/seekersden-complete-syllabus.pdf" target="_blank" class="hidden md:block bg-orange-500 text-white font-semibold px-5 py-2 rounded-lg hover:bg-orange-600 transition duration-300">Download Syllabus</a>
             </div>
             <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
@@ -78,7 +84,7 @@
              <a href="#instructor" class="block py-2 text-gray-600 hover:text-orange-500">Instructor</a>
              <a href="#faq" class="block py-2 text-gray-600 hover:text-orange-500">FAQ</a>
              <a href="#contact" class="block py-2 text-gray-600 hover:text-orange-500">Contact</a>
-             <a href="#next-steps" class="block mt-2 bg-orange-500 text-white font-semibold text-center px-5 py-2 rounded-lg hover:bg-orange-600 transition duration-300">Get Started</a>
+             <a href="downloads/seekersden-complete-syllabus.pdf" target="_blank" class="block mt-2 bg-orange-500 text-white font-semibold text-center px-5 py-2 rounded-lg hover:bg-orange-600 transition duration-300">Download Syllabus</a>
         </div>
     </header>
 
@@ -91,7 +97,7 @@
                     The Path to a Full Stack IoT Architect
                 </h1>
                 <p data-aos class="mt-4 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-                    We're not just a course; we are a career trajectory. Our "Eagle's Tour" of the embedded world gives you the complete landscape, from bare metal to the cloud.
+                    We're not just a course; we are a career trajectory. Our "Eagle's Tour" of the embedded world gives you the hands-on experience of the complete landscape, from bare metal to the cloud.
                 </p>
                 <a data-aos href="#courses" class="mt-8 inline-block bg-orange-500 text-white font-bold px-8 py-4 rounded-lg text-lg hover:bg-orange-600 transition duration-300">
                     Explore The Trajectory
@@ -109,7 +115,7 @@
 
                 <div class="bg-white rounded-2xl shadow-lg lg:flex lg:space-x-8 p-8">
                     <!-- Module Selection (Vertical Tabs on Desktop) -->
-                    <div class="lg:w-1/4 mb-8 lg:mb-0">
+                    <div class="lg:w-1D/4 mb-8 lg:mb-0">
                         <ul id="module-tabs" class="flex flex-wrap lg:flex-col gap-2">
                             <!-- Module tabs will be inserted here by JS -->
                         </ul>
@@ -127,54 +133,20 @@
         <section id="next-steps" class="py-12 bg-white" data-aos>
             <div class="container mx-auto px-6">
                 <div class="text-center mb-10">
-                    <h2 class="text-4xl font-bold text-gray-800">Your Next Steps: How to Start</h2>
+                    <h2 class="text-4xl font-bold text-gray-800">Your Next Steps: Getting Started</h2>
                     <p class="mt-2 text-lg text-gray-600 max-w-3xl mx-auto">
-                        After reviewing the curriculum, follow this guided path to get everything you need for your journey from developer to architect.
+                        Ready to begin your journey? All our products are available on our secure storefront.
                     </p>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    
-                    <!-- Step 1: Hardware Kits -->
-                    <div class="offering-card bg-white rounded-2xl shadow-lg border p-8 flex flex-col text-center">
-                        <i class="fas fa-microchip text-4xl text-orange-500 mx-auto"></i>
-                        <h3 class="text-2xl font-bold text-gray-800 mt-6">Step 1: Get Your Hardware Kits</h3>
-                        <p class="mt-2 text-gray-600 flex-grow">
-                            Get the official, pre-tested hardware components required for all the hands-on labs. We offer four distinct kits, one for each module. (Workbook not included).
-                        </p>
-                        <a href="https://seekersden.myinstamojo.com/" target="_blank" class="mt-8 block bg-gray-100 text-gray-700 font-semibold px-6 py-3 rounded-lg hover:bg-gray-200 transition duration-300">See Kit Details</a>
-                    </div>
-                    
-                    <!-- Step 2: Online Learning Material -->
-                    <div class="offering-card bg-white rounded-2xl shadow-xl border-2 border-orange-500 p-8 flex flex-col text-center">
-                         <i class="fas fa-book-open text-4xl text-orange-500 mx-auto"></i>
-                        <h3 class="text-2xl font-bold text-gray-800 mt-6">Step 2: Get the Project Workbooks</h3>
-                        <p class="mt-2 text-gray-600 flex-grow">
-                            These digital workbooks are your <strong>self-paced, lifetime-access</strong> guide. They are the essential companions to your hardware kits, providing step-by-step lab instructions.
-                        </p>
-                        <a href="https://seekersden.myinstamojo.com/" target="_blank" class="mt-8 block bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">Get the Workbooks</a>
-                    </div>
-
-                    <!-- Step 3: 1-on-1 Training -->
-                    <div class="offering-card bg-white rounded-2xl shadow-lg border p-8 flex flex-col text-center">
-                         <i class="fas fa-user-graduate text-4xl text-orange-500 mx-auto"></i>
-                        <h3 class="text-2xl font-bold text-gray-800 mt-6">Step 3: Book 1-on-1 Training</h3>
-                        <p class="mt-2 text-gray-600 flex-grow">
-                            Accelerate your learning and master difficult topics. Book private, personalized sessions for in-depth explanations, code reviews, and expert career guidance.
-                        </p>
-                        <a href="https://seekersden.myinstamojo.com/" target="_blank" class="mt-8 block bg-gray-100 text-gray-700 font-semibold px-6 py-3 rounded-lg hover:bg-gray-200 transition duration-300">Book a Session</a>
-                    </div>
-
-                    <!-- Step 4: Project Consultancy -->
-                    <div class="offering-card bg-white rounded-2xl shadow-lg border p-8 flex flex-col text-center">
-                         <i class="fas fa-project-diagram text-4xl text-orange-500 mx-auto"></i>
-                        <h3 class="text-2xl font-bold text-gray-800 mt-6">Step 4: Get Project Consultancy</h3>
-                        <p class="mt-2 text-gray-600 flex-grow">
-                            Get expert help for your specific college or professional project. Our consultancy service provides targeted support and advice to ensure your success.
-                        </p>
-                        <a href="https://seekersden.myinstamojo.com/" target="_blank" class="mt-8 block bg-gray-100 text-gray-700 font-semibold px-6 py-3 rounded-lg hover:bg-gray-200 transition duration-300">Book a Slot</a>
-                    </div>
-
+                <!-- *** MODIFICATION: Simplified "Getting Started" section *** -->
+                <div class="max-w-md mx-auto bg-white rounded-2xl shadow-xl border-2 border-orange-500 p-8 flex flex-col text-center">
+                     <i class="fas fa-shopping-cart text-4xl text-orange-500 mx-auto"></i>
+                    <h3 class="text-2xl font-bold text-gray-800 mt-6">Visit Our Secure Store</h3>
+                    <p class="mt-2 text-gray-600 flex-grow">
+                        Visit our official store to get your workbooks, hardware kits, and book training sessions all in one place.
+                    </p>
+                    <a href="https://seekersden.myinstamojo.com/" target="_blank" class="mt-8 block bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">Go to Secure Store</a>
                 </div>
             </div>
         </section>
@@ -235,7 +207,6 @@
             <p class="mt-4 text-gray-400">© 2025 SeekersDen. All rights reserved.</p>
             <p class="mt-1 text-gray-400">Mangaluru, Karnataka, India</p>
 
-            <!-- MODIFICATION: Added policy links -->
             <div class="mt-4 pt-4 border-t border-gray-700">
                 <a href="terms.html" class="text-gray-400 hover:text-white px-3 py-2 text-sm">Terms</a>
                 <span class="text-gray-500">|</span>
@@ -248,57 +219,202 @@
 
     <script>
         // --- DATA ---
-        // *** FIX: Restored the full, correct courseData variable ***
+        
         const courseData = [
             {
                 module: "Module 1: Foundations & Baremetal",
                 description: "Build an unshakable foundation in microcontroller hardware and the essential bare-metal C programming techniques needed to control it.",
                 levels: [
-                    { name: "Level 1: Hardware Fundamentals", duration: "6 Sessions (2 Weeks)", topics: ["Introduction to ARM Architecture and the STM32 Development Environment.", "Circuit construction, GPIO control for LEDs, and reading switches.", "Implementing hardware interrupts for efficient input handling.", "Utilizing peripherals: ADC for analog input, PWM for output, and Timers."] },
-                    { name: "Level 2: Communication Protocols", duration: "6 Sessions (2 Weeks)", topics: ["Fundamentals of serial and parallel digital communication.", "Interfacing with character LCDs using parallel data transfer.", "Mastering asynchronous serial communication with UART.", "Implementing synchronous serial protocols: SPI and I2C."] },
-                    { name: "Level 3: Interfacing with the World", duration: "6 Sessions (2 Weeks)", topics: ["Interfacing with a variety of common sensors (e.g., temperature, light).", "Understanding DC and Stepper motor principles and control techniques.", "Driving motors effectively using H-Bridge circuits.", "Introduction to Printed Circuit Board (PCB) design concepts."] },
-                    { name: "Level 4: Software Fundamentals", duration: "6 Sessions (2 Weeks)", topics: ["Mastering advanced C concepts like pointers and function pointers.", "Applying bit manipulation techniques for efficient hardware control.", "Designing and implementing robust state machines for event-driven systems.", "Introduction to creating custom, reusable driver libraries."] },
-                ]
+                    { name: "Level 1: Hardware Fundamentals", duration: "4 Sessions (1-2 Weeks)", topics: ["Introduction to ARM Architecture and the STM32 Development Environment.", "Circuit construction, GPIO control for LEDs, and reading switches.", "Implementing hardware interrupts for efficient input handling.", "Utilizing peripherals: ADC for analog input, PWM for output, and Timers."] },
+                    { name: "Level 2: Communication Protocols", duration: "4 Sessions (1-2 Weeks)", topics: ["Fundamentals of serial and parallel digital communication.", "Interfacing with character LCDs using parallel data transfer.", "Mastering asynchronous serial communication with UART.", "Implementing synchronous serial protocols: SPI and I2C."] },
+                    { name: "Level 3: Interfacing with the World", duration: "4 Sessions (1-2 Weeks)", topics: ["Interfacing with a variety of common sensors (e.g., temperature, light).", "Understanding DC and Stepper motor principles and control techniques.", "Driving motors effectively using H-Bridge circuits.", "Introduction to Printed Circuit Board (PCB) design concepts."] },
+                    { name: "Level 4: Software Fundamentals", duration: "4 Sessions (1-2 Weeks)", topics: ["Mastering advanced C concepts like pointers and function pointers.", "Applying bit manipulation techniques for efficient hardware control.", "Designing and implementing robust state machines for event-driven systems.", "Introduction to creating custom, reusable driver libraries."] },
+                ],
+                whoFor: [
+                    "**Junior Engineers (1-3 years):** Who want to build a strong, foundational understanding of microcontroller hardware and bare-metal C programming.",
+                    "**Computer Science Students:** Seeking to bridge the gap between software theory and real-world hardware application.",
+                    "**Hobbyists and Makers:** Who want to move beyond basic Arduino sketches to professional, register-level C programming techniques.",
+                    "**Professionals Transitioning:** From other fields (like web or enterprise software) who need a ground-up introduction to embedded systems."
+                ],
+                workbook: {
+                    image: "assets/M1.png",
+                    description: "The Module 1 Workbook is your self-paced, lifetime-access guide. It contains detailed instructions for every lab, from blinking an LED to register-level C programming, complete circuit diagrams, and the full hardware parts list."
+                },
+                hardware: {
+                    introText: "The heart of your Module 1 Hardware Kit is the **STM32 NUCLEO-L476RG** development board. This is a powerful and versatile platform from STMicroelectronics, perfect for learning and prototyping.",
+                    name: "NUCLEO-L476RG",
+                    whyTitle: "Why the STM32 Platform?",
+                    whyText: "The STMicroelectronics STM32 family is the **most popular and widely-used ARM Cortex-M platform in the world**. By learning on this hardware, you gain direct experience with the tools and architecture used in countless commercial products, making your skills highly relevant in the industry.",
+                    keyFeatures: [
+                        "**High-Performance Core:** Features a powerful ARM Cortex-M4 processor with a Floating Point Unit (FPU) for complex math.",
+                        "**Generous Memory:** With 1MB of Flash memory and 128KB of SRAM, you have plenty of space for our complex, bare-metal applications.",
+                        "**On-Board Debugger:** The integrated ST-LINK/V2-1 means you don't need expensive external hardware to program or debug your code.",
+                        "**Flexible Headers:** Arduino Uno & ST Morpho headers give you full access to the microcontroller's pins for projects."
+                    ],
+                    official: "Official Module 1 Hardware Kit",
+                    diy: "STM32 Nucleo-64 (NUCLEO-L476RG) board and basic components.",
+                    image: "assets/module1-hw.png"
+                },
+                tools: {
+                    host: "A laptop / computer (Windows, macOS, or Linux) with a USB port.",
+                    software: [
+                        { name: "STM32CubeIDE", description: "The official, all-in-one C/C++ development environment from STMicroelectronics." }
+                    ],
+                    recommended: [
+                        { name: "Digital Multimeter", description: "For checking circuit continuity, voltages, and resistance." },
+                        { name: "Logic Analyzer", description: "Highly recommended for debugging communication protocols like UART, SPI, and I2C in Level 2." }
+                    ]
+                }
             },
             {
                 module: "Module 2: RTOS & IoT",
                 description: "Learn to manage real-time complexity using a Real-Time Operating System and to build modern, connected devices.",
                 levels: [
-                    { name: "Level 1: RTOS Fundamentals", duration: "6 Sessions (2 Weeks)", topics: ["Core concepts of Real-Time Operating Systems: tasks, states, and scheduling.", "Getting started with the FreeRTOS ecosystem and configuration.", "Creating, deleting, and managing tasks and their priorities.", "Understanding different scheduling policies and their trade-offs."] },
-                    { name: "Level 2: RTOS Communication", duration: "6 Sessions (2 Weeks)", topics: ["Inter-task communication and data transfer using Queues.", "Synchronization between tasks and interrupts using Semaphores.", "Protecting shared resources with Mutexes.", "Understanding and solving common concurrency problems like priority inversion."] },
-                    { name: "Level 3: Introduction to IoT & Networking", duration: "6 Sessions (2 Weeks)", topics: ["Fundamentals of computer networking: IP, TCP, UDP, and sockets.", "Introduction to common IoT hardware like Wi-Fi and Ethernet modules.", "Understanding the client-server model for connected devices.", "Securing embedded devices with basic principles of network security."] },
-                    { name: "Level 4: Building a Connected Device", duration: "6 Sessions (2 Weeks)", topics: ["Introduction to the MQTT protocol for lightweight IoT communication.", "Sending sensor data from your device to a public MQTT broker.", "Receiving commands from the cloud to control your device.", "Architecting a complete sensor-to-cloud IoT application."] },
-                ]
+                    { name: "Level 1: RTOS Fundamentals", duration: "4 Sessions (1-2 Weeks)", topics: ["Core concepts of Real-Time Operating Systems: tasks, states, and scheduling.", "Getting started with the FreeRTOS ecosystem and configuration.", "Creating, deleting, and managing tasks and their priorities.", "Understanding different scheduling policies and their trade-offs."] },
+                    { name: "Level 2: RTOS Communication", duration: "4 Sessions (1-2 Weeks)", topics: ["Inter-task communication and data transfer using Queues.", "Synchronization between tasks and interrupts using Semaphores.", "Protecting shared resources with Mutexes.", "Understanding and solving common concurrency problems like priority inversion."] },
+                    { name: "Level 3: Introduction to IoT & Networking", duration: "4 Sessions (1-2 Weeks)", topics: ["Fundamentals of computer networking: IP, TCP, UDP, and sockets.", "Introduction to common IoT hardware like Wi-Fi and Ethernet modules.", "Understanding the client-server model for connected devices.", "Securing embedded devices with basic principles of network security."] },
+                    { name: "Level 4: Building a Connected Device", duration: "4 Sessions (1-2 Weeks)", topics: ["Introduction to the MQTT protocol for lightweight IoT communication.", "Sending sensor data from your device to a public MQTT broker.", "Receiving commands from the cloud to control your device.", "Architecting a complete sensor-to-cloud IoT application."] },
+                ],
+                whoFor: [
+                    "**Embedded Developers:** Who find their bare-metal projects are becoming too complex and need to manage multiple tasks efficiently.",
+                    "**Engineers:** Who need to build responsive, multi-threaded applications and understand core RTOS concepts like tasks, queues, and mutexes.",
+                    "**IoT Aspirants:** Who want to learn how to connect their hardware projects to the internet and cloud services using protocols like MQTT.",
+                    "**Advanced Hobbyists:** Looking to build more sophisticated projects that can handle multiple sensors and communication streams simultaneously."
+                ],
+                workbook: {
+                    image: "assets/M2.png",
+                    description: "The Module 2 Workbook guides you through managing real-time complexity. You'll learn FreeRTOS concepts like tasks, queues, and mutexes, and build a complete sensor-to-cloud IoT project using Wi-Fi and MQTT."
+                },
+                hardware: {
+                    introText: "The heart of your Module 2 Hardware Kit is the **STM32 B-L475E-IOT01A**, a development board purpose-built for creating IoT applications. Its biggest advantage is the on-board connectivity and sensors, which allow you to start building connected devices right out of the box.",
+                    name: "B-L475E-IOT01A Discovery Kit",
+                    whyTitle: "Why This Board for RTOS & IoT?",
+                    whyText: "This board is **purpose-built for creating IoT applications**. Its biggest advantage is the on-board connectivity and sensors, which allow you to start building connected devices right out of the box, eliminating complex wiring so you can focus on the software.",
+                    keyFeatures: [
+                        "**Powerful Core:** Features the same ARM Cortex-M4 processor as Module 1, making the transition seamless.",
+                        "**Integrated Connectivity:** Comes with a certified Wi-Fi and Bluetooth module directly on the board.",
+                        "**Rich Sensor Array:** Includes on-board temperature, humidity, pressure, motion (3-axis accelerometer/gyroscope), and a magnetometer.",
+                        "**Flexible Headers:** Standardized Arduino & Pmod headers make it easy to expand your projects."
+                    ],
+                    official: "Official Module 2 Hardware Kit",
+                    diy: "B-L475E-IOT01A Discovery Kit.",
+                    image: "assets/module2-hw.png"
+                },
+                tools: {
+                    host: "A laptop / computer (Windows, macOS, or Linux) with a USB port and Wi-Fi capability.",
+                    software: [
+                        { name: "STM32CubeIDE", description: "The same professional IDE used in Module 1 for a seamless transition." },
+                        { name: "MQTT Explorer", description: "A handy tool for visualizing and debugging MQTT messages from your IoT device." }
+                    ],
+                    recommended: [
+                        { name: "Digital Multimeter", description: "Continues to be essential for any hardware lab work." },
+                        { name: "2.4GHz Wi-Fi Network", description: "A standard home router is required for the IoT levels." }
+                    ]
+                }
             },
             {
                 module: "Module 3: FPGA Design",
                 description: "Move beyond programming processors and learn to design your own custom digital hardware circuits using FPGAs and Hardware Description Languages (HDL).",
                 levels: [
-                    { name: "Level 1: Digital Logic Fundamentals", duration: "6 Sessions (2 Weeks)", topics: ["Core principles of digital logic: logic gates, Boolean algebra, and number systems.", "Designing and analyzing combinational logic circuits like adders and multiplexers.", "Understanding sequential logic circuits including flip-flops, latches, and registers.", "Introduction to designing and implementing Finite State Machines (FSMs)."] },
-                    { name: "Level 2: Verilog/VHDL Programming", duration: "12 Sessions (4 Weeks)", topics: ["Introduction to a Hardware Description Language (Verilog or VHDL).", "Writing both structural and behavioral code to describe complex digital hardware.", "Developing comprehensive testbenches to simulate and verify your designs.", "Learning best practices for writing clean, efficient, and synthesizable HDL code."] },
-                    { name: "Level 3: FPGA Implementation", duration: "12 Sessions (4 Weeks)", topics: ["Understanding the internal architecture of FPGAs and selecting a development board.", "Using a professional FPGA toolchain (e.g., Xilinx Vivado or Intel Quartus).", "Mastering the complete design flow: synthesis, place-and-route, and timing analysis.", "Programming your hardware design onto a physical FPGA board and testing it in real-time."] },
-                    { name: "Level 4: System-on-Chip (SoC) Design", duration: "12 Sessions (4 Weeks)", topics: ["Integrating pre-built Intellectual Property (IP) cores into your design.", "Interfacing your custom FPGA logic with an embedded soft-core or hard-core processor.", "Designing a custom AXI peripheral and connecting it to a system bus.", "Introduction to High-Level Synthesis (HLS) and advanced on-chip debugging techniques."] },
-                ]
+                    { name: "Level 1: Digital Logic Fundamentals", duration: "4 Sessions (1-2 Weeks)", topics: ["Core principles of digital logic: logic gates, Boolean algebra, and number systems.", "Designing and analyzing combinational logic circuits like adders and multiplexers.", "Understanding sequential logic circuits including flip-flops, latches, and registers.", "Introduction to designing and implementing Finite State Machines (FSMs)."] },
+                    { name: "Level 2: Verilog/VHDL Programming", duration: "4 Sessions (1-2 Weeks)", topics: ["Introduction to a Hardware Description Language (Verilog or VHDL).", "Writing both structural and behavioral code to describe complex digital hardware.", "Developing comprehensive testbenches to simulate and verify your designs.", "Learning best practices for writing clean, efficient, and synthesizable HDL code."] },
+                    { name: "Level 3: FPGA Implementation", duration: "4 Sessions (1-2 Weeks)", topics: ["Understanding the internal architecture of FPGAs and selecting a development board.", "Using a professional FPGA toolchain (e.g., Xilinx Vivado or Intel Quartus).", "Mastering the complete design flow: synthesis, place-and-route, and timing analysis.", "Programming your hardware design onto a physical FPGA board and testing it in real-time."] },
+                    { name: "Level 4: System-on-Chip (SoC) Design", duration: "4 Sessions (1-2 Weeks)", topics: ["Integrating pre-built Intellectual Property (IP) cores into your design.", "Interfacing your custom FPGA logic with an embedded soft-core or hard-core processor.", "Designing a custom AXI peripheral and connecting it to a system bus.", "Introduction to High-Level Synthesis (HLS) and advanced on-chip debugging techniques."] },
+                ],
+                whoFor: [
+                    "**Software & Embedded Engineers:** Who are limited by processors and want to learn how to design custom hardware for high-performance applications.",
+                    "**Developers:** Who want to transition from a software role into a digital design or FPGA engineering career path.",
+                    "**Electronics Students:** Who want practical, hands-on experience with a Hardware Description Language (Verilog/VHDL) and professional FPGA toolchains.",
+                    "**High-Performance Hobbyists:** With projects requiring high-speed parallel processing, like custom retro-computing, audio, or video processing."
+                ],
+                workbook: {
+                    image: "assets/M3.png",
+                    description: "The Module 3 Workbook takes you beyond software. You will learn to design your own custom digital hardware circuits using a Hardware Description Language (Verilog/VHDL) and implement them on an FPGA, mastering the complete design flow from synthesis to testing."
+                },
+                 hardware: {
+                    introText: "The heart of your Module 3 Hardware Kit is the **Digilent Arty S7-25**, a powerful yet affordable board featuring a Xilinx Spartan-7 FPGA. It's the perfect platform for learning the industry-standard AMD-Xilinx toolchain.",
+                    name: "Digilent Arty S7-25",
+                    whyTitle: "Why the Arty S7-25?",
+                    whyText: "This board is the perfect platform for learning the **industry-standard AMD-Xilinx toolchain**. While microcontrollers execute software sequentially, FPGAs allow you to design hardware that processes data in a truly parallel fashion, offering massive performance gains.",
+                    keyFeatures: [
+                        "**Powerful FPGA:** The Xilinx Spartan-7 FPGA provides substantial logic resources for complex digital designs.",
+                        "**Professional Toolchain:** Supported by the free Xilinx Vivado design suite, giving you hands-on experience with the #1 toolchain in the FPGA industry.",
+                        "**On-board Peripherals:** Comes with built-in switches, LEDs, and buttons for immediate, hands-on learning.",
+                        "**USB JTAG Programming:** The board can be programmed and debugged directly over a single USB cable, with no need for an external programmer."
+                    ],
+                    official: "Official Module 3 Hardware Kit",
+                    diy: "Digilent Arty Spartan-7 (Arty S7-25).",
+                    image: "assets/module3-hw.png"
+                },
+                tools: {
+                    host: "A laptop / computer (Windows or Linux) with a USB port. (Note: Vivado has limited native macOS support).",
+                    software: [
+                        { name: "Xilinx Vivado Design Suite", description: "The industry-standard professional toolchain for Xilinx/AMD FPGAs. We will use the free WebPACK edition." }
+                    ],
+                    recommended: [
+                        { name: "Logic Analyzer", description: "Extremely useful for observing the timing of your custom digital logic signals in real-time." }
+                    ]
+                }
             },
             {
                 module: "Module 4: Embedded Linux",
                 description: "Master the most powerful and complex platform in embedded systems, preparing for senior-level roles and system architecture.",
                 levels: [
-                    { name: "Level 1: Linux Fundamentals for Embedded", duration: "6 Sessions (2 Weeks)", topics: ["Understanding the Embedded Linux architecture: kernel space vs. user space.", "Detailed exploration of the Linux boot process on an embedded board.", "Setting up a professional cross-compilation toolchain.", "Basic command-line navigation and system administration."] },
-                    { name: "Level 2: Device Drivers and BSP", duration: "12 Sessions (4 Weeks)", topics: ["Writing and debugging basic character device drivers.", "Understanding the role of the Device Tree in modern Embedded Linux.", "Configuring and customizing the U-Boot bootloader.", "Introduction to the Board Support Package (BSP) concept."] },
-                    { name: "Level 3: Inter-Process Communication", duration: "6 Sessions (2 Weeks)", topics: ["Communicating between processes using Pipes and FIFOs.", "Implementing robust messaging with POSIX and System V Message Queues.", "High-speed data exchange using Shared Memory.", "Process synchronization using semaphores and mutexes in user space."] },
-                    { name: "Level 4: Advanced Linux Applications", duration: "12 Sessions (4 Weeks)", topics: ["Introduction to Real-time Linux (PREEMPT_RT).", "Advanced system debugging and profiling tools (gdb, perf, ftrace).", "Building a custom, minimal Linux distribution with the Yocto Project.", "Developing complex, multi-threaded applications in the Linux user space."] },
-                ]
+                    { name: "Level 1: Linux Fundamentals for Embedded", duration: "4 Sessions (1-2 Weeks)", topics: ["Understanding the Embedded Linux architecture: kernel space vs. user space.", "Detailed exploration of the Linux boot process on an embedded board.", "Setting up a professional cross-compilation toolchain.", "Basic command-line navigation and system administration."] },
+                    { name: "Level 2: Device Drivers and BSP", duration: "4 Sessions (1-2 Weeks)", topics: ["Writing and debugging basic character device drivers.", "Understanding the role of the Device Tree in modern Embedded Linux.", "Configuring and customizing the U-Boot bootloader.", "Introduction to the Board Support Package (BSP) concept."] },
+                    { name: "Level 3: Inter-Process Communication", duration: "4 Sessions (1-2 Weeks)", topics: ["Communicating between processes using Pipes and FIFOs.", "Implementing robust messaging with POSIX and System V Message Queues.", "High-speed data exchange using Shared Memory.", "Process synchronization using semaphores and mutexes in user space."] },
+                    { name: "Level 4: Advanced Linux Applications", duration: "4 Sessions (1-2 Weeks)", topics: ["Introduction to Real-time Linux (PREEMPT_RT).", "Advanced system debugging and profiling tools (gdb, perf, ftrace).", "Building a custom, minimal Linux distribution with the Yocto Project.", "Developing complex, multi-threaded applications in the Linux user space."] },
+                ],
+                whoFor: [
+                    "**Experienced Embedded Engineers:** Who need to master Linux to work on complex products like networking gateways, IoT hubs, and automotive systems.",
+                    "**Developers aiming for an Architect role:** As mastering the top of the embedded stack is essential for becoming a 'Full Stack IoT Architect'.",
+                    "**System Administrators:** Or enterprise Linux developers who want to specialize their skills for the embedded domain.",
+                    "**System Builders:** Who want to learn how to create a complete, custom Linux OS from the ground up using professional tools."
+                ],
+                workbook: {
+                    image: "assets/M4.png",
+                    description: "The Module 4 Workbook teaches you to master Embedded Linux. You'll learn to customize bootloaders, write device drivers, understand the Yocto Project, and build a complete custom Linux distribution from scratch for a powerful MPU."
+                },
+                hardware: {
+                    introText: "The heart of your Module 4 Hardware Kit is the **STM32MP157C-DK2 Discovery Kit**. This is a high-performance Microprocessor Unit (MPU) board designed specifically for running Embedded Linux.",
+                    name: "STM32MP1 Discovery Kit",
+                    whyTitle: "Why Not a Raspberry Pi?",
+                    whyText: "A Raspberry Pi is a great tool, but it's designed to be easy to use like a desktop, hiding the low-level details. Our chosen platform, the **STM32MP1**, is a superior learning tool because it forces you to do the real work of an architect: configuring bootloaders (U-Boot), writing device trees, and building a custom OS from scratch. **We teach you to create the magic, not just use it.**",
+                    keyFeatures: [
+                        "**Heterogeneous Architecture:** Features a powerful dual-core ARM Cortex-A7 (to run Linux) and a Cortex-M4 co-processor (for real-time tasks).",
+                        "**Rich Peripherals:** Comes equipped with essential connectivity options like Ethernet, Wi-Fi, Bluetooth, and USB-C.",
+                        "**Display & Audio:** Features a built-in 4\" touchscreen display, HDMI, and audio codec, making it a perfect platform for HMI development.",
+                        "**Ample Memory:** Includes 512MB of DDR3L RAM and a MicroSD card slot to run a full Linux operating system."
+                    ],
+                    official: "Official Module 4 Hardware Kit",
+                    diy: "STM32MP1 Discovery Kit (STM32MP157C-DK2).",
+                    image: "assets/module4-hw.png"
+                },
+                tools: {
+                    host: "A powerful laptop / computer (Linux or macOS recommended, or Windows with VM) with at least 16GB of RAM and 100GB of free disk space for Yocto builds.",
+                    software: [
+                        { name: "Linux Host Environment", description: "A Linux OS (natively or in a VM) is required for the Yocto Project and cross-compilation." },
+                        { name: "VS Code", description: "A modern, lightweight code editor for writing and debugging user-space applications." },
+                        { name: "Yocto Project", description: "The professional framework used to build our custom Embedded Linux distribution." }
+                    ],
+                    recommended: [
+                        { name: "Serial-to-USB Adapter", description: "Essential for connecting to the board's console/debug UART." },
+                        { name: "Ethernet Cable & Switch", description: "For network connectivity to the board." }
+                    ]
+                }
             }
         ];
         
-        // *** FIX: Restored the full, correct faqData variable ***
+        // *** MODIFICATION: Updated FAQ question ***
         const faqData = [
             { question: "What is the 'Eagle's Tour' philosophy?", answer: "Our goal is to give you a high-level map of the entire embedded systems landscape, from hardware to cloud. We teach you the fundamentals of each key domain so you understand how they fit together. This creates adaptable, T-shaped engineers who can tackle any challenge, rather than just knowing a single niche." },
-            { question: "What hardware will I need?", answer: "Our curriculum is divided into four distinct modules, and each has its own dedicated hardware kit that you can purchase from us. This ensures you have the exact, pre-tested tools you need for every lab and project." },
+            { question: "Is this program self-paced, or are there live classes?", answer: "This is a fully self-paced program. The digital workbooks are your primary guide, allowing you to learn on your own schedule. The 1-on-1 training sessions are optional and can be booked whenever you need extra help or guidance." },
             { question: "Do I need any prior experience?", answer: "No, the program is designed to take you from the ground up, starting with Module 1. While basic programming knowledge in C is helpful, it is not mandatory. We'll guide you through every step." },
             { question: "How does the 1-on-1 Training work?", answer: "You can book sessions in hourly blocks. These are private, live video calls with the instructor where you can ask in-depth questions, get help with difficult topics, review your code, or discuss career paths." }
         ];
+
+        // --- GLOBAL STATE ---
+        let currentSubTab = 'whoFor'; // Default to 'whoFor'
 
         // --- DOM ELEMENTS ---
         const moduleTabsContainer = document.getElementById('module-tabs');
@@ -310,54 +426,296 @@
 
         // --- FUNCTIONS ---
 
-        function renderContent(moduleIndex, levelIndex) {
+        function renderContent(moduleIndex) {
             const moduleData = courseData[moduleIndex];
-            const levelData = moduleData.levels[levelIndex];
-            const levelTabsHTML = moduleData.levels.map((level, i) => `
-                <button 
-                    class="px-4 py-2 text-sm font-semibold rounded-md transition duration-300 ${i === levelIndex ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}"
-                    onclick="renderContent(${moduleIndex}, ${i})">
-                    ${level.name.split(':')[0]}
-                </button>
-            `).join('');
-            const levelContentHTML = `
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="text-2xl font-bold text-gray-800">${levelData.name}</h3>
-                        <p class="text-sm text-gray-500 mt-1">${levelData.duration}</p>
+            
+            const levelsHtml = moduleData.levels.map((level, i) => `
+                <div class="level-card mb-6 pb-6 ${i < moduleData.levels.length - 1 ? 'border-b border-gray-200' : ''}">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800">${level.name}</h3>
+                            <p class="text-sm text-gray-500 mt-1">${level.duration}</p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <h4 class="font-semibold text-lg mb-3">Topics Covered:</h4>
+                        <ul class="space-y-2">
+                            ${level.topics.map(topic => `
+                                <li class="flex items-start">
+                                    <svg class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <span>${topic}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
                     </div>
                 </div>
-                <hr class="my-6">
+            `).join('');
+
+            const whoForHtml = `<ul class="list-none space-y-3">
+                ${moduleData.whoFor.map(item => {
+                    const formattedItem = item.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-800">$1</strong>');
+                    return `
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="text-gray-600">${formattedItem}</span>
+                        </li>
+                    `
+                }).join('')}
+            </ul>`;
+
+            // *** NEW: Combined tab content for "What We Provide You" ***
+            const provideHtml = `
+                <div class="space-y-10">
+                    <!-- Section 1: Digital Workbook -->
+                    <div class="flex flex-col md:flex-row gap-8 items-start">
+                        <div class="md:w-1/3 flex-shrink-0">
+                            <img src="${moduleData.workbook.image}" alt="Module ${moduleIndex + 1} Workbook" class="rounded-lg shadow-md w-full h-auto object-cover border border-gray-200">
+                        </div>
+                        <div class="md:w-2/3 space-y-4">
+                            <h3 class="text-2xl font-bold text-gray-800">Module ${moduleIndex + 1} Digital Workbook</h3>
+                            <p class="text-lg text-gray-600">
+                                ${moduleData.workbook.description}
+                            </p>
+                            <p class="text-gray-600">
+                                This is the core of the self-paced program, designed to be followed step-by-step.
+                            </p>
+                            <a href="https://seekersden.myinstamojo.com/" target="_blank" class="inline-block bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">Get the Workbook</a>
+                        </div>
+                    </div>
+
+                    <!-- Divider -->
+                    <hr class="border-gray-200">
+
+                    <!-- Section 2: Hardware Kit -->
+                    <div class="flex flex-col md:flex-row gap-8 items-start">
+                        <div class="md:w-1/3 flex-shrink-0">
+                            <img src="${moduleData.hardware.image}" alt="${moduleData.hardware.name}" class="rounded-lg shadow-md w-full h-auto object-cover border border-gray-200">
+                             <h4 class="font-bold text-lg mt-4 text-gray-800">${moduleData.hardware.name}</h4>
+                        </div>
+                        <div class="md:w-2/3 space-y-4">
+                             <h3 class="text-2xl font-bold text-gray-800">Module ${moduleIndex + 1} Hardware Kit</h3>
+                             <p class="text-lg text-gray-600">${moduleData.hardware.introText.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-800">$1</strong>')}</p>
+                             <h4 class="font-semibold text-xl text-orange-500">${moduleData.hardware.whyTitle}</h4>
+                             <p class="text-gray-600">${moduleData.hardware.whyText.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-800">$1</strong>')}</p>
+                            <a href="https://seekersden.myinstamojo.com/" target="_blank" class="inline-block bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">Get the Hardware Kit</a>
+                        </div>
+                    </div>
+
+                    <!-- Divider -->
+                    <hr class="border-gray-200">
+
+                    <!-- Section 3: 1-on-1 Training -->
+                    <div class="flex flex-col md:flex-row gap-8 items-start">
+                        <div class="md:w-1/3 flex-shrink-0 text-center">
+                             <i class="fas fa-user-graduate text-8xl text-orange-500 mx-auto mt-4"></i>
+                        </div>
+                        <div class="md:w-2/3 space-y-4">
+                            <h3 class="text-2xl font-bold text-gray-800">1-on-1 Training (Optional)</h3>
+                            <p class="text-lg text-gray-600">
+                                Accelerate your learning and master difficult topics. You can book private, personalized sessions for in-depth explanations, code reviews, and expert career guidance.
+                            </p>
+                            <p class="text-gray-600">
+                                This is the perfect way to get unstuck or dive deeper into a specific area of interest.
+                            </p>
+                            <a href="https://seekersden.myinstamojo.com/" target="_blank" class="inline-block bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">Book a Session</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // *** MODIFICATION: Updated "How You Will Learn" content ***
+            const hardwareKitHtml = `
                 <div>
-                    <h4 class="font-semibold text-lg mb-3">Topics Covered:</h4>
-                    <ul class="space-y-2">
-                        ${levelData.topics.map(topic => `
+                    <h4 class="font-semibold text-xl mb-3 text-orange-500 flex items-center">
+                        <i class="fas fa-microchip text-xl text-orange-500 mr-3"></i>
+                        Module ${moduleIndex + 1} Hardware Kit
+                    </h4>
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <p class="text-gray-600 mb-2">
+                            Next, you'll need the hardware. You can purchase our official, pre-tested kit or source the components yourself (DIY).
+                        </p>
+                        <ul class="list-disc list-outside text-gray-600 space-y-2 ml-5">
+                            <li>
+                                <strong class="font-semibold text-gray-800">Purchase Official Kit:</strong> We offer the <strong class="font-semibold text-gray-800">${moduleData.hardware.official}</strong>.
+                            </li>
+                            <li>
+                                <strong class="font-semibold text-gray-800">DIY Sourcing:</strong> The full parts list is in the workbook. The primary component is the <strong class="font-semibold text-gray-800">${moduleData.hardware.diy}</strong>
+                            </li>
+                        </ul>
+                        <a class="internal-tab-link mt-3 inline-block text-sm font-semibold text-orange-600 hover:text-orange-500" data-target-tab="provide">See the Hardware Kit details &rarr;</a>
+                    </div>
+                </div>
+            `;
+
+            const moduleWorkbookHtml = `
+                <div>
+                    <h4 class="font-semibold text-xl mb-3 text-orange-500 flex items-center">
+                         <i class="fas fa-book-open text-xl text-orange-500 mr-3"></i>
+                        Module ${moduleIndex + 1} Workbook
+                    </h4>
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <p class="text-gray-600">
+                            Your first step is to get the digital workbook. This self-paced, lifetime-access guide contains all instructions, labs, and the full hardware list.
+                        </p>
+                        <a class="internal-tab-link mt-3 inline-block text-sm font-semibold text-orange-600 hover:text-orange-500" data-target-tab="provide">See the Workbook details &rarr;</a>
+                    </div>
+                </div>
+            `;
+
+            const yourSetupHtml = `
+                <div>
+                    <h4 class="font-semibold text-xl mb-3 text-orange-500">Your Computer</h4>
+                    <ul class="list-none space-y-3">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="text-gray-600">${moduleData.tools.host}</span>
+                        </li>
+                    </ul>
+                </div>
+            `;
+
+            const coreSoftwareHtml = `
+                <div>
+                    <h4 class="font-semibold text-xl mb-3 text-orange-500">Core Software</h4>
+                    <ul class="list-none space-y-3">
+                        ${moduleData.tools.software.map(item => `
                             <li class="flex items-start">
                                 <svg class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <span>${topic}</span>
+                                <span class="text-gray-600"><strong class="font-semibold text-gray-800">${item.name}:</strong> ${item.description}</span>
                             </li>
                         `).join('')}
                     </ul>
                 </div>
-                <div class="mt-8 pt-8 border-t flex flex-col sm:flex-row gap-4">
-                    <a href="#next-steps" class="w-full sm:w-auto bg-orange-500 text-white font-semibold text-center px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">Purchase Course</a>
-                    <a href="downloads/seekersden-complete-syllabus.pdf" target="_blank" class="w-full sm:w-auto bg-gray-100 text-gray-700 font-semibold text-center px-6 py-3 rounded-lg hover:bg-gray-200 transition duration-300" download>Download Syllabus</a>
+            `;
+
+            const recommendedGearHtml = `
+                <div>
+                    <h4 class="font-semibold text-xl mb-3 text-orange-500">Recommended Test Gear</h4>
+                    <p class="text-gray-600 mb-3">While not strictly required for all labs, we strongly recommend these tools for a professional debugging experience:</p>
+                    <ul class="list-none space-y-3">
+                        ${moduleData.tools.recommended.map(item => `
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span class="text-gray-600"><strong class="font-semibold text-gray-800">${item.name}:</strong> ${item.description}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
                 </div>
             `;
-            contentWrapper.innerHTML = `
+
+            const trainingHtml = `
+                <div>
+                    <h4 class="font-semibold text-xl mb-3 text-orange-500 flex items-center">
+                        <i class="fas fa-user-graduate text-xl text-orange-500 mr-3"></i>
+                        1-on-1 Training (Optional)
+                    </h4>
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <p class="text-gray-600">
+                            To accelerate your learning, you can book private, personalized sessions for in-depth explanations, code reviews, and expert guidance.
+                        </p>
+                        <!-- *** MODIFICATION: Link now points to the 'provide' tab *** -->
+                        <a class="internal-tab-link mt-3 inline-block text-sm font-semibold text-orange-600 hover:text-orange-500" data-target-tab="provide">See details &rarr;</a>
+                    </div>
+                </div>
+            `;
+
+            const toolsHtml = `
+                <div class="space-y-6">
+                    <p class="text-lg text-gray-600 mb-6">To complete this module, you will need the following components for your learning setup:</p>
+                    ${moduleWorkbookHtml}   <!-- 1. Module Workbook -->
+                    ${hardwareKitHtml}      <!-- 2. Module X Hardware Kit -->
+                    ${yourSetupHtml}        <!-- 3. Your Computer -->
+                    ${coreSoftwareHtml}     <!-- 4. Core Software -->
+                    ${recommendedGearHtml}   <!-- 5. Recommended Test Gear -->
+                    ${trainingHtml}         <!-- 6. 1-on-1 Training -->
+                </div>
+            `;
+
+            const contentHTML = `
                 <div>
                     <h2 class="text-3xl font-bold text-gray-800">${moduleData.module}</h2>
                     <p class="mt-1 text-gray-600">${moduleData.description}</p>
+                    
                     <div class="mt-6 border-b border-gray-200">
                         <div class="flex flex-wrap -mb-px gap-x-4">
-                            ${levelTabsHTML}
+                            <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md ${currentSubTab === 'whoFor' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="whoFor">
+                                Who Is It For
+                            </button>
+                            <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md ${currentSubTab === 'learn' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="learn">
+                                What You Will Learn
+                            </button>
+                            
+                            <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md ${currentSubTab === 'tools' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="tools">
+                                How You Will Learn
+                            </button>
+                            <!-- *** MODIFICATION: New combined tab *** -->
+                            <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md ${currentSubTab === 'provide' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="provide">
+                                What We Provide You
+                            </button>
                         </div>
                     </div>
+                    
                     <div class="mt-6">
-                        ${levelContentHTML}
+                        <div class="sub-tab-content ${currentSubTab === 'whoFor' ? '' : 'hidden'}" data-content="whoFor">
+                            ${whoForHtml}
+                        </div>
+                        <div class="sub-tab-content ${currentSubTab === 'learn' ? '' : 'hidden'}" data-content="learn">
+                            ${levelsHtml}
+                        </div>
+                        <!-- *** MODIFICATION: New tab content div *** -->
+                        <div class="sub-tab-content ${currentSubTab === 'provide' ? '' : 'hidden'}" data-content="provide">
+                            ${provideHtml}
+                        </div>
+                        <div class="sub-tab-content ${currentSubTab === 'tools' ? '' : 'hidden'}" data-content="tools">
+                            ${toolsHtml}
+                        </div>
                     </div>
                 </div>
             `;
+            
+            contentWrapper.innerHTML = contentHTML;
+            addModuleSubTabListeners();
+        }
+
+        function addModuleSubTabListeners() {
+            const subTabs = contentWrapper.querySelectorAll('.curriculum-sub-tab');
+            const subContents = contentWrapper.querySelectorAll('.sub-tab-content');
+
+            subTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabName = tab.dataset.tab;
+                    currentSubTab = tabName; // Update global state
+
+                    // Deactivate all sub-tabs
+                    subTabs.forEach(t => t.classList.remove('tab-active', 'text-gray-600', 'hover:bg-orange-50'));
+                    // Activate clicked tab
+                    tab.classList.add('tab-active');
+                    // Add text-gray-600 to inactive tabs
+                    subTabs.forEach(t => {
+                        if (!t.classList.contains('tab-active')) {
+                            t.classList.add('text-gray-600', 'hover:bg-orange-50');
+                        }
+                    });
+
+                    // Hide all content
+                    subContents.forEach(c => c.classList.add('hidden'));
+                    // Show active content
+                    contentWrapper.querySelector(`[data-content="${tabName}"]`).classList.remove('hidden');
+                });
+            });
+
+            const internalLinks = contentWrapper.querySelectorAll('.internal-tab-link');
+            internalLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault(); // Prevent default link behavior
+                    const targetTabName = link.dataset.targetTab;
+                    const targetTabButton = contentWrapper.querySelector(`.curriculum-sub-tab[data-tab="${targetTabName}"]`);
+                    
+                    if (targetTabButton) {
+                        targetTabButton.click(); // Programmatically click the target tab
+                    }
+                });
+            });
         }
 
         function initializeCourseSection() {
@@ -365,33 +723,37 @@
                 <li>
                     <button 
                         class="module-tab w-full text-left px-6 py-4 font-semibold rounded-lg transition duration-300 ${index === 0 ? 'module-tab-active' : 'bg-white hover:bg-orange-50 text-gray-700'}"
-                        onclick="selectModule(${index})">
+                        data-module-index="${index}">
                         ${data.module}
                     </button>
                 </li>
             `).join('');
-            renderContent(0, 0);
-        }
-        
-        function selectModule(moduleIndex) {
-            const allModuleTabs = moduleTabsContainer.querySelectorAll('.module-tab');
-            allModuleTabs.forEach((tab, index) => {
-                if (index === moduleIndex) {
+
+            document.querySelectorAll('.module-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const moduleIndex = parseInt(tab.dataset.moduleIndex);
+                    
+                    // Update active tab visual state
+                    document.querySelectorAll('.module-tab').forEach(t => {
+                        t.classList.remove('module-tab-active');
+                        t.classList.add('bg-white', 'hover:bg-orange-50', 'text-gray-700');
+                    });
                     tab.classList.add('module-tab-active');
                     tab.classList.remove('bg-white', 'hover:bg-orange-50', 'text-gray-700');
-                } else {
-                    tab.classList.remove('module-tab-active');
-                    tab.classList.add('bg-white', 'hover:bg-orange-50', 'text-gray-700');
-                }
-            });
-            renderContent(moduleIndex, 0);
-        }
 
+                    // Render content for the new module, preserving the current sub-tab
+                    renderContent(moduleIndex);
+                });
+            });
+
+            renderContent(0);
+        }
+        
         function initializeFAQ() {
             faqContainer.innerHTML = faqData.map((item) => `
                 <div class="bg-white border border-gray-200 rounded-lg">
                     <h2>
-                        <button type="button" class="faq-question flex items-center justify-between w-full p-6 font-semibold text-left text-gray-800">
+                        <button type"button" class="faq-question flex items-center justify-between w-full p-6 font-semibold text-left text-gray-800">
                             <span>${item.question}</span>
                             <svg class="w-6 h-6 shrink-0 faq-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
@@ -452,7 +814,7 @@
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
+                    if (entry.isIntersecting) { // Corrected from isIntersectDacting
                         const id = entry.target.getAttribute('id');
                         const updateNav = (links) => {
                             links.forEach(link => {
