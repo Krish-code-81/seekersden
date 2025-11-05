@@ -364,7 +364,7 @@
                     introText: "The heart of your Module 4 Hardware Kit is the **STM32MP157C-DK2 Discovery Kit**. This is a high-performance Microprocessor Unit (MPU) board designed specifically for running Embedded Linux.",
                     name: "STM32MP1 Discovery Kit",
                     whyTitle: "Why Not a Raspberry Pi?",
-                    whyText: "A Raspberry Pi is a great tool, but it's designed to be easy to use like a desktop, hiding the low-level details. Our chosen platform, the **STM32MP1**, is a superior learning tool because it forces you to do the real work of an architect: configuring bootloaders (U-Boot), writing device trees, and building a custom OS from scratch. **We teach you to create the magic, not just use it.**",
+                    whyText: "A Raspberry Pi is a great tool, but it's designed to be easy to use like a desktop, hiding the low-level details. Our chosen platform, the **STM32MP1**, is a superior learning. **We teach you to create the magic, not just use it.**",
                     keyFeatures: [
                         "**Heterogeneous Architecture:** Features a powerful dual-core ARM Cortex-A7 (to run Linux) and a Cortex-M4 co-processor (for real-time tasks).",
                         "**Rich Peripherals:** Comes equipped with essential connectivity options like Ethernet, Wi-Fi, Bluetooth, and USB-C.",
@@ -410,30 +410,31 @@
         const mobileMenu = document.getElementById('mobile-menu');
         const desktopNav = document.getElementById('desktop-nav');
         
-        // --- *** MODIFICATION: Added variable for script state *** ---
-        let instamojoScriptLoaded = false;
-        const instamojoScriptSrc = 'https://manage.instamojo.com/assets/js/pay_button.min.js';
+        // --- *** MODIFICATION: Helper function to load Instamojo script *** ---
+        function loadInstamojoScript() {
+            // Check if the script is already added
+            const existingScript = document.getElementById('instamojo-script');
+            if (existingScript) {
+                // If it is, Instamojo's script might need to be re-initialized to find new buttons
+                if (window.Instamojo) {
+                    window.Instamojo.discover();
+                }
+                return; 
+            }
+            
+            const script = document.createElement('script');
+            script.id = 'instamojo-script';
+            script.src = 'https://manage.instamojo.com/assets/js/pay_button.min.js';
+            script.onload = () => {
+                // Instamojo's script might need this to find dynamically added buttons
+                if (window.Instamojo) {
+                    window.Instamojo.discover();
+                }
+            };
+            document.body.appendChild(script);
+        }
 
         // --- FUNCTIONS ---
-        
-        // --- *** MODIFICATION: New function to load Instamojo script *** ---
-        function loadInstamojoScript() {
-            // Check if the script is already on the page
-            if (document.querySelector(`script[src="${instamojoScriptSrc}"]`)) {
-                // If it is, Instamojo might have an init function, but for now we assume it runs on load
-                // If it was already loaded but button wasn't ready, we might need to call a re-init function
-                // For now, we just prevent re-loading
-                return;
-            }
-
-            if (!instamojoScriptLoaded) {
-                const script = document.createElement('script');
-                script.src = instamojoScriptSrc;
-                script.async = true;
-                document.body.appendChild(script);
-                instamojoScriptLoaded = true;
-            }
-        }
 
         function renderContent(moduleIndex) {
             const moduleData = courseData[moduleIndex];
@@ -536,10 +537,18 @@
                             <p class="text-gray-600">
                                 This is the core of the self-paced program, designed to be followed step-by-step.
                             </p>
-                            <!-- *** MODIFICATION START: Added Instamojo Pay Button for Module 1 Workbook (FIXED) *** -->
+                            <!-- *** MODIFICATION START: Reverted to Instamojo Popup Button *** -->
                             ${moduleIndex === 0 ? `
-                                <!-- Instamojo Button for Module 1 Workbook -->
-                                <a href="https://seekersden.myinstamojo.com/product/module-1-workbook" data-store-name="seekersden" data-domain="https_seekersden.myinstamojo.com" data-id="672363" rel="im-checkout" data-text="Pay" data-css-style="background:#75c26a; color:#ffffff; width:300px; border-radius:30px;" data-layout="vertical"></a>
+                                <!-- Instamojo Pay Button Code for Module 1 -->
+                                <a href="https://seekersden.myinstamojo.com/product/module-1-workbook/" 
+                                   data-store-name="seekersden" 
+                                   data-domain="https://seekersden.myinstamojo.com" 
+                                   data-id="672363" 
+                                   rel="im-checkout" 
+                                   data-text="Get the Workbook" 
+                                   data-css-style="background:#F97316; color:#ffffff; font-weight:600; padding-left:1.5rem; padding-right:1.5rem; padding-top:0.75rem; padding-bottom:0.75rem; border-radius:0.5rem;" 
+                                   data-layout="vertical">
+                                </a>
                             ` : `
                                 <!-- Generic Button for other modules -->
                                 <a href="https://seekersden.myinstamojo.com/" target="_blank" class="inline-block bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">Get the Workbook</a>
@@ -626,7 +635,7 @@
                     <ul class="list-none space-y-3">
                         ${moduleData.tools.recommended.map(item => `
                             <li class="flex items-start">
-                                <svg class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <svg classs="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                 <span class="text-gray-600"><strong class="font-semibold text-gray-800">${item.name}:</strong> ${item.description}</span>
                             </li>
                         `).join('')}
@@ -681,7 +690,7 @@
                         <div class="space-y-3">
                             <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
                                 <input type="radio" name="offline_option" value="weekend_bootcamp" class="form-radio text-orange-500">
-                                <span class="text-gray-700">
+                                <span classS="text-gray-700">
                                     <strong class="font-semibold text-gray-800">Weekend Bootcamp:</strong> 2 full weekends (Sat/Sun), 9am-5pm. (Est. ₹15,000)
                                 </span>
                             </label>
@@ -763,11 +772,9 @@
             contentWrapper.innerHTML = contentHTML;
             addModuleSubTabListeners();
             
-            // --- *** MODIFICATION: Call script loader AFTER content is rendered *** ---
-            // We only need to do this if we are showing the button
+            // --- *** MODIFICATION: Load Instamojo script AFTER content is rendered *** ---
             if (moduleIndex === 0) {
-                // Use a small timeout to ensure the innerHTML has been parsed by the browser
-                setTimeout(loadInstamojoScript, 100);
+                loadInstamojoScript();
             }
         }
 
@@ -933,6 +940,6 @@
         });
     </script>
 
-    <!-- *** MODIFICATION: Removed the script from here. It is now loaded by the renderContent() function. *** -->
+    <!-- *** MODIFICATION: The script will be added dynamically by the function above *** -->
 </body>
 </html>
