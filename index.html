@@ -409,8 +409,31 @@
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         const desktopNav = document.getElementById('desktop-nav');
+        
+        // --- *** MODIFICATION: Added variable for script state *** ---
+        let instamojoScriptLoaded = false;
+        const instamojoScriptSrc = 'https://manage.instamojo.com/assets/js/pay_button.min.js';
 
         // --- FUNCTIONS ---
+        
+        // --- *** MODIFICATION: New function to load Instamojo script *** ---
+        function loadInstamojoScript() {
+            // Check if the script is already on the page
+            if (document.querySelector(`script[src="${instamojoScriptSrc}"]`)) {
+                // If it is, Instamojo might have an init function, but for now we assume it runs on load
+                // If it was already loaded but button wasn't ready, we might need to call a re-init function
+                // For now, we just prevent re-loading
+                return;
+            }
+
+            if (!instamojoScriptLoaded) {
+                const script = document.createElement('script');
+                script.src = instamojoScriptSrc;
+                script.async = true;
+                document.body.appendChild(script);
+                instamojoScriptLoaded = true;
+            }
+        }
 
         function renderContent(moduleIndex) {
             const moduleData = courseData[moduleIndex];
@@ -739,6 +762,13 @@
             
             contentWrapper.innerHTML = contentHTML;
             addModuleSubTabListeners();
+            
+            // --- *** MODIFICATION: Call script loader AFTER content is rendered *** ---
+            // We only need to do this if we are showing the button
+            if (moduleIndex === 0) {
+                // Use a small timeout to ensure the innerHTML has been parsed by the browser
+                setTimeout(loadInstamojoScript, 100);
+            }
         }
 
         function addModuleSubTabListeners() {
@@ -903,7 +933,6 @@
         });
     </script>
 
-    <!-- *** MODIFICATION: Moved Instamojo script to be INSIDE the <body> tag *** -->
-    <script src="https://manage.instamojo.com/assets/js/pay_button.min.js"></script>
+    <!-- *** MODIFICATION: Removed the script from here. It is now loaded by the renderContent() function. *** -->
 </body>
 </html>
