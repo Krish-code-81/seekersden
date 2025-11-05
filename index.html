@@ -176,7 +176,14 @@
                 
                 <a href="mailto:info@seekersden.in?subject=General%20Inquiry" class="mt-8 inline-block bg-orange-500 text-white font-bold px-8 py-4 rounded-lg text-lg hover:bg-orange-600 transition duration-300">
                    info@seekersden.in
-               </a>
+                </a>
+
+                <!-- *** MODIFICATION: Added Legal Name and Address *** -->
+                <div class="mt-12 text-gray-500 text-sm">
+                    <p class="font-semibold text-gray-600">Legal Name: SeekersDen</p>
+                    <p>Mangaluru, Karnataka, India</p>
+                    <p class="mt-4">This section is provided to comply with payment partner requirements.</p>
+                </div>
             </div>
         </section>
     </main>
@@ -383,7 +390,7 @@
                         { name: "Yocto Project", description: "The professional framework used to build our custom Embedded Linux distribution." }
                     ],
                     recommended: [
-                        { name: "Serial-to-USB Adapter", description: "Essential for connecting to the board's console/debug UART." },
+                        { name:"Serial-to-USB Adapter", description: "Essential for connecting to the board's console/debug UART." },
                         { name: "Ethernet Cable & Switch", description: "For network connectivity to the board." }
                     ]
                 }
@@ -396,7 +403,7 @@
             { question: "Is this program self-paced, or are there live classes?", answer: "This is a fully self-paced program. The digital workbooks are your primary guide, allowing you to learn on your own schedule. The 1-on-4 online training sessions are optional and can be booked whenever you need extra help or guidance." },
             { question: "Do I need any prior experience?", answer: "No, the program is designed to take you from the ground up, starting with Module 1. While basic programming knowledge in C is helpful, it is not mandatory. We'll guide you through every step." },
             // *** MODIFICATION: Updated FAQ question and answer ***
-            { question: "How does the 1-on-4 Online Training work?", answer: "You can book sessions in hourly blocks. These are small-group (max 4 students), live video calls with the instructor where you can ask in-depth questions, get help with difficult topics, review your code, or discuss career paths." }
+            { question: "How does the 1-on-4 Online Training work?", answer: "You can book sessions in hourly blocks. These are small-group (max 4 students), live video calls with the instructorwhere you can ask in-depth questions, get help with difficult topics, review your code, or discuss career paths." }
         ];
 
         // --- GLOBAL STATE ---
@@ -424,7 +431,8 @@
             
             const script = document.createElement('script');
             script.id = 'instamojo-script';
-            script.src = 'https://manage.instamojo.com/assets/js/pay_button.min.js';
+            // *** MODIFICATION: CORRECTED THE SCRIPT URL ***
+            script.src = 'https://manage.instamojo.com/assets/js/pay_button/button.min.js';
             script.onload = () => {
                 // Instamojo's script might need this to find dynamically added buttons
                 if (window.Instamojo) {
@@ -537,14 +545,14 @@
                             <p class="text-gray-600">
                                 This is the core of the self-paced program, designed to be followed step-by-step.
                             </p>
-                            <!-- *** MODIFICATION START: Reverted to Instamojo Popup Button *** -->
+                            <!-- *** MODIFICATION START: Corrected data-id="6723363" *** -->
                             ${moduleIndex === 0 ? `
                                 <!-- Instamojo Pay Button Code for Module 1 -->
                                 <a href="https://seekersden.myinstamojo.com/product/module-1-workbook/" 
                                    data-store-name="seekersden" 
                                    data-domain="https://seekersden.myinstamojo.com" 
-                                   data-id="672363" 
-                                   rel="im-checkout" 
+                                   data-id="6723363" 
+                                   rel="im-new-checkout" 
                                    data-text="Get the Workbook" 
                                    data-css-style="background:#F97316; color:#ffffff; font-weight:600; padding-left:1.5rem; padding-right:1.5rem; padding-top:0.75rem; padding-bottom:0.75rem; border-radius:0.5rem;" 
                                    data-layout="vertical">
