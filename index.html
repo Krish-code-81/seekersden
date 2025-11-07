@@ -47,10 +47,6 @@
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
-        /* Style for internal tab links */
-        .internal-tab-link {
-            cursor: pointer;
-        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -58,13 +54,13 @@
     <!-- Header -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-             <div class="w-24"> <!-- Empty div to balance the layout -->
-                 <a href="#"></a>
+             <div class="w-24"> <a href="#"></a>
             </div>
-            <!-- *** MODIFICATION: Updated Nav Links *** -->
+            <!-- *** MODIFICATION: Added "Services" link *** -->
             <div id="desktop-nav" class="hidden md:flex items-center space-x-6">
                 <a href="#home" class="text-gray-600 hover:text-orange-500">Home</a>
                 <a href="#courses" class="text-gray-600 hover:text-orange-500">Course</a>
+                <a href="#services" class="text-gray-600 hover:text-orange-500">Services</a>
                 <a href="#instructor" class="text-gray-600 hover:text-orange-500">Instructor</a>
                 <a href="#faq" class="text-gray-600 hover:text-orange-500">FAQ</a>
                 <a href="#contact" class="text-gray-600 hover:text-orange-500">Contact</a>
@@ -77,10 +73,11 @@
             </button>
         </nav>
         <!-- Mobile Menu -->
-        <!-- *** MODIFICATION: Updated Mobile Nav Links *** -->
+        <!-- *** MODIFICATION: Added "Services" link *** -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
              <a href="#home" class="block py-2 text-gray-600 hover:text-orange-500">Home</a>
              <a href="#courses" class="block py-2 text-gray-600 hover:text-orange-500">Course</a>
+             <a href="#services" class="block py-2 text-gray-600 hover:text-orange-500">Services</a>
              <a href="#instructor" class="block py-2 text-gray-600 hover:text-orange-500">Instructor</a>
              <a href="#faq" class="block py-2 text-gray-600 hover:text-orange-500">FAQ</a>
              <a href="#contact" class="block py-2 text-gray-600 hover:text-orange-500">Contact</a>
@@ -105,17 +102,17 @@
             </div>
         </section>
 
-        <!-- *** MODIFICATION: Renamed Section Heading (Kept as is) *** -->
+        <!-- Courses Section -->
         <section id="courses" class="py-20 pt-24" data-aos>
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
-                    <h2 class="text-4xl font-bold text-gray-800">Your Learning Trajectory</h2>
-                    <p class="mt-2 text-lg text-gray-600">Our 4-module journey from hardware fundamentals to advanced system architecture.</p>
+                    <h2 class="text-4xl font-bold text-gray-800">Your Learning Trajectory (Self-Paced)</h2>
+                    <p class="mt-2 text-lg text-gray-600">Our 4-module journey. Start with the workbook, then get the hardware to build the projects.</p>
                 </div>
 
                 <div class="bg-white rounded-2xl shadow-lg lg:flex lg:space-x-8 p-8">
-                    <!-- Module Selection (Vertical Tabs on Desktop) -->
-                    <div class="lg:w-1D/4 mb-8 lg:mb-0">
+                    <!-- Module Selection -->
+                    <div class="lg:w-1/4 mb-8 lg:mb-0">
                         <ul id="module-tabs" class="flex flex-wrap lg:flex-col gap-2">
                             <!-- Module tabs will be inserted here by JS -->
                         </ul>
@@ -124,6 +121,157 @@
                     <!-- Course Content -->
                     <div id="course-content-wrapper" class="lg:w-3/4">
                         <!-- Content will be inserted here by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- *** MODIFICATION: New "Services" section with 4 tabs *** -->
+        <section id="services" class="py-20 pt-24 bg-white" data-aos>
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-gray-800">Personalized Guidance & Training</h2>
+                    <p class="mt-2 text-lg text-gray-600">Get expert help, online or in-person, whenever you need it.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 max-w-5xl mx-auto">
+                    <!-- Service Tabs -->
+                    <div class="border-b border-gray-200">
+                        <div class="flex flex-wrap -mb-px gap-x-4">
+                            <button class="service-tab-button px-4 py-2 text-sm font-semibold rounded-t-md tab-active" data-tab="online-consult">
+                                Online Consultancy
+                            </button>
+                            <button class="service-tab-button px-4 py-2 text-sm font-semibold rounded-t-md text-gray-600 hover:bg-orange-50" data-tab="online-full">
+                                Online Full Training
+                            </button>
+                            <button class="service-tab-button px-4 py-2 text-sm font-semibold rounded-t-md text-gray-600 hover:bg-orange-50" data-tab="offline-full">
+                                Offline Training
+                            </button>
+                            <button class="service-tab-button px-4 py-2 text-sm font-semibold rounded-t-md text-gray-600 hover:bg-orange-50" data-tab="onsite">
+                                Onsite Corporate Training
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <!-- 1. Online Consultancy Content -->
+                        <div class="service-tab-content" data-content="online-consult">
+                            <h3 class="text-3xl font-bold text-gray-800">Online Consultancy Session</h3>
+                            <p class="text-lg text-gray-600 mt-4 mb-6">
+                                Book a 1-hour, small-group (max 4 students) online session with your instructor. This is the perfect way to get personalized guidance, ask in-depth questions, review your code, or get career advice when you're stuck.
+                            </p>
+                            <!-- *** MODIFICATION: Changed button color to green #15803d *** -->
+                            <a href="https://seekersden.myinstamojo.com/" 
+                               data-store-name="seekersden" 
+                               data-domain="https://seekersden.myinstamojo.com" 
+                               data-id="COMING-SOON-TRAINING" 
+                               rel="im-new-checkout" 
+                               data-text="Book a 1-Hour Session" 
+                               data-css-style="background:#15803d; color:#ffffff; font-weight:600; padding-left:1.5rem; padding-right:1.5rem; padding-top:0.75rem; padding-bottom:0.75rem; border-radius:0.5rem;" 
+                               data-layout="vertical">
+                            </a>
+                        </div>
+
+                        <!-- 2. Online Full Training (NEW) -->
+                        <div class="service-tab-content hidden" data-content="online-full">
+                            <h3 class="text-3xl font-bold text-gray-800">Online Full Training (Live)</h3>
+                            <p class="text-lg text-gray-600 mt-4 mb-6">
+                                Join a complete, instructor-led online course. This is not self-paced; you will join a live virtual classroom with a small group of students, following a structured schedule from start to finish. This is the most comprehensive way to learn the entire "Eagle's Tour" from home.
+                            </p>
+                            <!-- *** MODIFICATION: Changed button text and color *** -->
+                            <a href="#contact" class="inline-block bg-green-700 text-white font-semibold px-6 py-3 rounded-lg hover:bg-green-800 transition duration-300">
+                                Inquire About Online Training
+                            </a>
+                        </div>
+                        
+                        <!-- 3. Offline Training Content (Renamed & Updated Form) -->
+                        <div class="service-tab-content hidden" data-content="offline-full">
+                            <h3 class="text-3xl font-bold text-gray-800">Full In-Person Training</h3>
+                            <p class="text-lg text-gray-600 mt-4 mb-6">
+                                We are gauging interest for full, in-person training cohorts in <strong class="font-semibold text-gray-800">Bengaluru</strong> and <strong class="font-semibold text-gray-800">Mangaluru</strong>. These multi-week, intensive programs are designed to take you from fundamentals to architect-level in a professional, hands-on classroom environment.
+                            </p>
+                            
+                            <form class="bg-gray-100 p-6 rounded-lg border border-gray-200 space-y-4">
+                                <p class="font-semibold text-lg text-gray-800">Register your interest:</p>
+                                
+                                <!-- *** MODIFICATION: Updated form with 4 timing options *** -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <!-- Location Column -->
+                                    <div class="space-y-3">
+                                        <p class="font-semibold text-gray-800">Preferred Location:</p>
+                                        <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
+                                            <input type="radio" name="offline_location" value="bengaluru" class="form-radio text-orange-500">
+                                            <span class="text-gray-700">
+                                                <strong class="font-semibold text-gray-800">Bengaluru</strong>
+                                            </span>
+                                        </label>
+                                        <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
+                                            <input type="radio" name="offline_location" value="mangaluru" class="form-radio text-orange-500">
+                                            <span class="text-gray-700">
+                                                <strong class="font-semibold text-gray-800">Mangaluru</strong>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <!-- Timing Column -->
+                                    <div class="space-y-3">
+                                        <p class="font-semibold text-gray-800">Preferred Timing:</p>
+                                        <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
+                                            <input type="radio" name="offline_timing" value="weekdays-day" class="form-radio text-orange-500">
+                                            <span class="text-gray-700">
+                                                <!-- *** MODIFICATION: Updated text *** -->
+                                                <strong class="font-semibold text-gray-800">Weekdays Daytime</strong>
+                                            </span>
+                                        </label>
+                                        <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
+                                            <input type="radio" name="offline_timing" value="weekdays-eve" class="form-radio text-orange-500">
+                                            <span class="text-gray-700">
+                                                <!-- *** MODIFICATION: Updated text *** -->
+                                                <strong class="font-semibold text-gray-800">Weekdays Evening</strong>
+                                            </span>
+                                        </label>
+                                        <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
+                                            <input type="radio" name="offline_timing" value="weekends-day" class="form-radio text-orange-500">
+                                            <span class="text-gray-700">
+                                                <!-- *** MODIFICATION: Updated text *** -->
+                                                <strong class="font-semibold text-gray-800">Weekends Daytime</strong>
+                                            </span>
+                                        </label>
+                                        <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
+                                            <input type="radio" name="offline_timing" value="weekends-eve" class="form-radio text-orange-500">
+                                            <span class="text-gray-700">
+                                                <!-- *** MODIFICATION: Updated text *** -->
+                                                <strong class="font-semibold text-gray-800">Weekends Evening</strong>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <hr class="border-gray-300">
+
+                                <div>
+                                    <label for="email_interest" class="block font-semibold text-gray-800 mb-2">Your Email:</label>
+                                    <input type="email" id="email_interest" name="email" placeholder="Enter your email to be notified" class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
+                                </div>
+
+                                <!-- *** MODIFICATION: Changed button color to green #15803d *** -->
+                                <button type="submit" class="w-full bg-green-700 text-white font-semibold px-6 py-3 rounded-lg hover:bg-green-800 transition duration-300">
+                                    Submit Interest
+                                </button>
+                                <p class="text-xs text-center text-gray-500">Note: This is not a booking. We will contact you if a batch is formed.</p>
+                            </form>
+                        </div>
+
+                        <!-- 4. Onsite Training (NEW) -->
+                        <div class="service-tab-content hidden" data-content="onsite">
+                            <h3 class="text-3xl font-bold text-gray-800">Onsite Corporate Training</h3>
+                            <p class="text-lg text-gray-600 mt-4 mb-6">
+                                Accelerate your team's growth with a private, onsite training bootcamp delivered at your company's office. We can customize the curriculum from our four modules to fit your team's specific projects and skill gaps.
+                            </p>
+                            <!-- *** MODIFICATION: Changed to a link, styled as green button, links to #contact *** -->
+                            <a href="#contact" class="inline-block bg-green-700 text-white font-semibold px-6 py-3 rounded-lg hover:bg-green-800 transition duration-300">
+                                Inquire About Onsite Training
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -159,26 +307,26 @@
                            With over 20 years of experience, I've designed this program to give you the high-level landscape view of the entire embedded world. My goal is to bridge the gap between academic theory and the practical, architectural thinking required to be a high-performing engineer.
                         </p>
                         <p class="mt-4 text-lg text-gray-600">
-                           We won't just learn *how* to use a tool; we'll learn *why* it exists and where it fits in the larger system. This is the key to moving from a coder to a true architect, ready to tackle any challenge.
+                           We won't just learn <strong class="font-semibold text-gray-800">how</strong> to use a tool; we'll learn <strong class="font-semibold text-gray-800">why</strong> it exists and where it fits in the larger system. This is the key to moving from a coder to a true architect, ready to tackle any challenge.
                         </p>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- *** MODIFICATION: Updated Contact Section Text *** -->
+        <!-- Contact Section -->
         <section id="contact" class="py-20 pt-24" data-aos>
             <div class="container mx-auto px-6 text-center">
                  <h2 class="text-4xl font-bold text-gray-800">Have More Questions?</h2>
+                 <!-- *** MODIFICATION: Updated contact text *** -->
                  <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-                    Have a question? If it's not in the FAQ, we're here to help. Please don't hesitate to reach out for any generic doubts, difficulty placing an order, booking a 1-on-4 online training slot, or to inquire about project consultancy services. We'll get back to you as soon as possible.
+                    Have a question? If it's not in the FAQ, we're here to help. Please don't hesitate to reach out for any generic doubts, difficulty placing an order, booking an Online Consultancy Session, or to inquire about our training services. We'll get back to you as soon as possible.
                 </p>
                 
                 <a href="mailto:info@seekersden.in?subject=General%20Inquiry" class="mt-8 inline-block bg-orange-500 text-white font-bold px-8 py-4 rounded-lg text-lg hover:bg-orange-600 transition duration-300">
                    info@seekersden.in
                 </a>
 
-                <!-- *** MODIFICATION: Added Legal Name and Address *** -->
                 <div class="mt-12 text-gray-500 text-sm">
                     <p class="font-semibold text-gray-600">Legal Name: SeekersDen</p>
                     <p>Mangaluru, Karnataka, India</p>
@@ -208,6 +356,9 @@
     <script>
         // --- DATA ---
         
+        // *** MODIFICATION: Added "source code" to all workbook descriptions ***
+        // *** MODIFICATION: Simplified "diy" text for all hardware ***
+        // *** MODIFICATION: Replaced (**) with (<strong>) tags ***
         const courseData = [
             {
                 module: "Module 1: Foundations & Baremetal",
@@ -219,40 +370,26 @@
                     { name: "Level 4: Software Fundamentals", duration: "4 Sessions (1-2 Weeks)", topics: ["Mastering advanced C concepts like pointers and function pointers.", "Applying bit manipulation techniques for efficient hardware control.", "Designing and implementing robust state machines for event-driven systems.", "Introduction to creating custom, reusable driver libraries."] },
                 ],
                 whoFor: [
-                    "**Junior Engineers (1-3 years):** Who want to build a strong, foundational understanding of microcontroller hardware and bare-metal C programming.",
-                    "**Computer Science Students:** Seeking to bridge the gap between software theory and real-world hardware application.",
-                    "**Hobbyists and Makers:** Who want to move beyond basic Arduino sketches to professional, register-level C programming techniques.",
-                    "**Professionals Transitioning:** From other fields (like web or enterprise software) who need a ground-up introduction to embedded systems."
+                    "<strong class='font-semibold text-gray-800'>Junior Engineers (1-3 years):</strong> Who want to build a strong, foundational understanding of microcontroller hardware and bare-metal C programming.",
+                    "<strong class='font-semibold text-gray-800'>Computer Science Students:</strong> Seeking to bridge the gap between software theory and real-world hardware application.",
+                    "<strong class='font-semibold text-gray-800'>Hobbyists and Makers:</strong> Who want to move beyond basic Arduino sketches to professional, register-level C programming techniques.",
+                    "<strong class='font-semibold text-gray-800'>Professionals Transitioning:</strong> From other fields (like web or enterprise software) who need a ground-up introduction to embedded systems."
                 ],
                 workbook: {
                     image: "assets/M1.png",
-                    // *** MODIFICATION: Added source code ***
-                    description: "The Module 1 Workbook is your self-paced, lifetime-access guide. It contains detailed instructions for every lab, from blinking an LED to register-level C programming, complete circuit diagrams, the full hardware parts list, and complete source code for all labs."
+                    description: "The Module 1 Workbook is your self-paced, lifetime-access guide. It contains detailed instructions for every lab, from blinking an LED to register-level C programming, complete circuit diagrams, the full hardware parts list, and complete source code for all labs.",
+                    product_slug: "module-1-workbook",
+                    instamojo_id: "6723363"
                 },
                 hardware: {
-                    introText: "The heart of your Module 1 Hardware Kit is the **STM32 NUCLEO-L476RG** development board. This is a powerful and versatile platform from STMicroelectronics, perfect for learning and prototyping.",
+                    introText: "The heart of your Module 1 Hardware Kit is the <strong class='font-semibold text-gray-800'>STM32 NUCLEO-L476RG</strong> development board. This is a powerful and versatile platform from STMicroelectronics, perfect for learning and prototyping.",
                     name: "NUCLEO-L476RG",
                     whyTitle: "Why the STM32 Platform?",
-                    whyText: "The STMicroelectronics STM32 family is the **most popular and widely-used ARM Cortex-M platform in the world**. By learning on this hardware, you gain direct experience with the tools and architecture used in countless commercial products, making your skills highly relevant in the industry.",
-                    keyFeatures: [
-                        "**High-Performance Core:** Features a powerful ARM Cortex-M4 processor with a Floating Point Unit (FPU) for complex math.",
-                        "**Generous Memory:** With 1MB of Flash memory and 128KB of SRAM, you have plenty of space for our complex, bare-metal applications.",
-                        "**On-Board Debugger:** The integrated ST-LINK/V2-1 means you don't need expensive external hardware to program or debug your code.",
-                        "**Flexible Headers:** Arduino Uno & ST Morpho headers give you full access to the microcontroller's pins for projects."
-                    ],
-                    official: "Official Module 1 Hardware Kit",
-                    diy: "STM32 Nucleo-64 (NUCLEO-L476RG) board and basic components.",
-                    image: "assets/module1-hw.png"
-                },
-                tools: {
-                    host: "A laptop / computer (Windows, macOS, or Linux) with a USB port.",
-                    software: [
-                        { name: "STM32CubeIDE", description: "The official, all-in-one C/C++ development environment from STMicroelectronics." }
-                    ],
-                    recommended: [
-                        { name: "Digital Multimeter", description: "For checking circuit continuity, voltages, and resistance." },
-                        { name: "Logic Analyzer", description: "Highly recommended for debugging communication protocols like UART, SPI, and I2C in Level 2." }
-                    ]
+                    whyText: "The STMicroelectronics STM32 family is the <strong class='font-semibold text-gray-800'>most popular and widely-used ARM Cortex-M platform in the world</strong>. By learning on this hardware, you gain direct experience with the tools and architecture used in countless commercial products, making your skills highly relevant in the industry.",
+                    image: "assets/module1-hw.png",
+                    product_slug: "module-1-kit-test",
+                    instamojo_id: "6723362",
+                    diy: "STM32 Nucleo-64 (NUCLEO-L476RG)"
                 }
             },
             {
@@ -265,41 +402,26 @@
                     { name: "Level 4: Building a Connected Device", duration: "4 Sessions (1-2 Weeks)", topics: ["Introduction to the MQTT protocol for lightweight IoT communication.", "Sending sensor data from your device to a public MQTT broker.", "Receiving commands from the cloud to control your device.", "Architecting a complete sensor-to-cloud IoT application."] },
                 ],
                 whoFor: [
-                    "**Embedded Developers:** Who find their bare-metal projects are becoming too complex and need to manage multiple tasks efficiently.",
-                    "**Engineers:** Who need to build responsive, multi-threaded applications and understand core RTOS concepts like tasks, queues, and mutexes.",
-                    "**IoT Aspirants:** Who want to learn how to connect their hardware projects to the internet and cloud services using protocols like MQTT.",
-                    "**Advanced Hobbyists:** Looking to build more sophisticated projects that can handle multiple sensors and communication streams simultaneously."
+                    "<strong class='font-semibold text-gray-800'>Embedded Developers:</strong> Who find their bare-metal projects are becoming too complex and need to manage multiple tasks efficiently.",
+                    "<strong class='font-semibold text-gray-800'>Engineers:</strong> Who need to build responsive, multi-threaded applications and understand core RTOS concepts like tasks, queues, and mutexes.",
+                    "<strong class='font-semibold text-gray-800'>IoT Aspirants:</strong> Who want to learn how to connect their hardware projects to the internet and cloud services using protocols like MQTT.",
+                    "<strong class='font-semibold text-gray-800'>Advanced Hobbyists:</strong> Looking to build more sophisticated projects that can handle multiple sensors and communication streams simultaneously."
                 ],
                 workbook: {
                     image: "assets/M2.png",
-                    // *** MODIFICATION: Added source code ***
-                    description: "The Module 2 Workbook guides you through managing real-time complexity. You'll learn FreeRTOS concepts like tasks, queues, and mutexes, and build a complete sensor-to-cloud IoT project using Wi-Fi and MQTT. Includes all source code."
+                    description: "The Module 2 Workbook guides you through managing real-time complexity. You'll learn FreeRTOS concepts like tasks, queues, and mutexes, and build a complete sensor-to-cloud IoT project using Wi-Fi and MQTT. Includes all source code.",
+                    product_slug: "module-2-workbook",
+                    instamojo_id: "6724704"
                 },
                 hardware: {
-                    introText: "The heart of your Module 2 Hardware Kit is the **STM32 B-L475E-IOT01A**, a development board purpose-built for creating IoT applications. Its biggest advantage is the on-board connectivity and sensors, which allow you to start building connected devices right out of the box.",
+                    introText: "The heart of your Module 2 Hardware Kit is the <strong class='font-semibold text-gray-800'>STM32 B-L475E-IOT01A</strong>, a development board purpose-built for creating IoT applications. Its biggest advantage is the on-board connectivity and sensors, which allow you to start building connected devices right out of the box.",
                     name: "B-L475E-IOT01A Discovery Kit",
                     whyTitle: "Why This Board for RTOS & IoT?",
-                    whyText: "This board is **purpose-built for creating IoT applications**. Its biggest advantage is the on-board connectivity and sensors, which allow you to start building connected devices right out of the box, eliminating complex wiring so you can focus on the software.",
-                    keyFeatures: [
-                        "**Powerful Core:** Features the same ARM Cortex-M4 processor as Module 1, making the transition seamless.",
-                        "**Integrated Connectivity:** Comes with a certified Wi-Fi and Bluetooth module directly on the board.",
-                        "**Rich Sensor Array:** Includes on-board temperature, humidity, pressure, motion (3-axis accelerometer/gyroscope), and a magnetometer.",
-                        "**Flexible Headers:** Standardized Arduino & Pmod headers make it easy to expand your projects."
-                    ],
-                    official: "Official Module 2 Hardware Kit",
-                    diy: "B-L475E-IOT01A Discovery Kit.",
-                    image: "assets/module2-hw.png"
-                },
-                tools: {
-                    host: "A laptop / computer (Windows, macOS, or Linux) with a USB port and Wi-Fi capability.",
-                    software: [
-                        { name: "STM32CubeIDE", description: "The same professional IDE used in Module 1 for a seamless transition." },
-                        { name: "MQTT Explorer", description: "A handy tool for visualizing and debugging MQTT messages from your IoT device." }
-                    ],
-                    recommended: [
-                        { name: "Digital Multimeter", description: "Continues to be essential for any hardware lab work." },
-                        { name: "2.4GHz Wi-Fi Network", description: "A standard home router is required for the IoT levels." }
-                    ]
+                    whyText: "This board is <strong class='font-semibold text-gray-800'>purpose-built for creating IoT applications</strong>. Its biggest advantage is the on-board connectivity and sensors, which allow you to start building connected devices right out of the box, eliminating complex wiring so you can focus on the software.",
+                    image: "assets/module2-hw.png",
+                    product_slug: "module-2-kit",
+                    instamojo_id: "6724708",
+                    diy: "B-L475E-IOT01A Discovery Kit"
                 }
             },
             {
@@ -312,39 +434,26 @@
                     { name: "Level 4: System-on-Chip (SoC) Design", duration: "4 Sessions (1-2 Weeks)", topics: ["Integrating pre-built Intellectual Property (IP) cores into your design.", "Interfacing your custom FPGA logic with an embedded soft-core or hard-core processor.", "Designing a custom AXI peripheral and connecting it to a system bus.", "Introduction to High-Level Synthesis (HLS) and advanced on-chip debugging techniques."] },
                 ],
                 whoFor: [
-                    "**Software & Embedded Engineers:** Who are limited by processors and want to learn how to design custom hardware for high-performance applications.",
-                    "**Developers:** Who want to transition from a software role into a digital design or FPGA engineering career path.",
-                    "**Electronics Students:** Who want practical, hands-on experience with a Hardware Description Language (Verilog/VHDL) and professional FPGA toolchains.",
-                    "**High-Performance Hobbyists:** With projects requiring high-speed parallel processing, like custom retro-computing, audio, or video processing."
+                    "<strong class='font-semibold text-gray-800'>Software & Embedded Engineers:</strong> Who are limited by processors and want to learn how to design custom hardware for high-performance applications.",
+                    "<strong class='font-semibold text-gray-800'>Developers:</strong> Who want to transition from a software role into a digital design or FPGA engineering career path.",
+                    "<strong class='font-semibold text-gray-800'>Electronics Students:</strong> Who want practical, hands-on experience with a Hardware Description Language (Verilog/VHDL) and professional FPGA toolchains.",
+                    "<strong class='font-semibold text-gray-800'>High-Performance Hobbyists:</strong> With projects requiring high-speed parallel processing, like custom retro-computing, audio, or video processing."
                 ],
                 workbook: {
                     image: "assets/M3.png",
-                    // *** MODIFICATION: Added source code ***
-                    description: "The Module 3 Workbook takes you beyond software. You will learn to design your own custom digital hardware circuits using a Hardware Description Language (Verilog/VHDL) and implement them on an FPGA, mastering the complete design flow from synthesis to testing. Includes all source code."
+                    description: "The Module 3 Workbook takes you beyond software. You will learn to design your own custom digital hardware circuits using a Hardware Description Language (Verilog/VHDL) and implement them on an FPGA, mastering the complete design flow from synthesis to testing. Includes all source code.",
+                    product_slug: "module-3-workbook",
+                    instamojo_id: "6724706"
                 },
                  hardware: {
-                    introText: "The heart of your Module 3 Hardware Kit is the **Digilent Arty S7-25**, a powerful yet affordable board featuring a Xilinx Spartan-7 FPGA. It's the perfect platform for learning the industry-standard AMD-Xilinx toolchain.",
+                    introText: "The heart of your Module 3 Hardware Kit is the <strong class='font-semibold text-gray-800'>Digilent Arty S7-25</strong>, a powerful yet affordable board featuring a Xilinx Spartan-7 FPGA. It's the perfect platform for learning the industry-standard AMD-Xilinx toolchain.",
                     name: "Digilent Arty S7-25",
                     whyTitle: "Why the Arty S7-25?",
-                    whyText: "This board is the perfect platform for learning the **industry-standard AMD-Xilinx toolchain**. While microcontrollers execute software sequentially, FPGAs allow you to design hardware that processes data in a truly parallel fashion, offering massive performance gains.",
-                    keyFeatures: [
-                        "**Powerful FPGA:** The Xilinx Spartan-7 FPGA provides substantial logic resources for complex digital designs.",
-                        "**Professional Toolchain:** Supported by the free Xilinx Vivado design suite, giving you hands-on experience with the #1 toolchain in the FPGA industry.",
-                        "**On-board Peripherals:** Comes with built-in switches, LEDs, and buttons for immediate, hands-on learning.",
-                        "**USB JTAG Programming:** The board can be programmed and debugged directly over a single USB cable, with no need for an external programmer."
-                    ],
-                    official: "Official Module 3 Hardware Kit",
-                    diy: "Digilent Arty Spartan-7 (Arty S7-25).",
-                    image: "assets/module3-hw.png"
-                },
-                tools: {
-                    host: "A laptop / computer (Windows or Linux) with a USB port. (Note: Vivado has limited native macOS support).",
-                    software: [
-                        { name: "Xilinx Vivado Design Suite", description: "The industry-standard professional toolchain for Xilinx/AMD FPGAs. We will use the free WebPACK edition." }
-                    ],
-                    recommended: [
-                        { name: "Logic Analyzer", description: "Extremely useful for observing the timing of your custom digital logic signals in real-time." }
-                    ]
+                    whyText: "This board is the perfect platform for learning the <strong class='font-semibold text-gray-800'>industry-standard AMD-Xilinx toolchain</strong>. While microcontrollers execute software sequentially, FPGAs allow you to design hardware that processes data in a truly parallel fashion, offering massive performance gains.",
+                    image: "assets/module3-hw.png",
+                    product_slug: "module-3-kit",
+                    instamojo_id: "6724709",
+                    diy: "Digilent Arty Spartan-7 (Arty S7-25)"
                 }
             },
             {
@@ -357,56 +466,40 @@
                     { name: "Level 4: Advanced Linux Applications", duration: "4 Sessions (1-2 Weeks)", topics: ["Introduction to Real-time Linux (PREEMPT_RT).", "Advanced system debugging and profiling tools (gdb, perf, ftrace).", "Building a custom, minimal Linux distribution with the Yocto Project.", "Developing complex, multi-threaded applications in the Linux user space."] },
                 ],
                 whoFor: [
-                    "**Experienced Embedded Engineers:** Who need to master Linux to work on complex products like networking gateways, IoT hubs, and automotive systems.",
-                    "**Developers aiming for an Architect role:** As mastering the top of the embedded stack is essential for becoming a 'Full Stack IoT Architect'.",
-                    "**System Administrators:** Or enterprise Linux developers who want to specialize their skills for the embedded domain.",
-                    "**System Builders:** Who want to learn how to create a complete, custom Linux OS from the ground up using professional tools."
+                    "<strong class='font-semibold text-gray-800'>Experienced Embedded Engineers:</strong> Who need to master Linux to work on complex products like networking gateways, IoT hubs, and automotive systems.",
+                    "<strong class='font-semibold text-gray-800'>Developers aiming for an Architect role:</strong> As mastering the top of the embedded stack is essential for becoming a 'Full Stack IoT Architect'.",
+                    "<strong class='font-semibold text-gray-800'>System Administrators:</strong> Or enterprise Linux developers who want to specialize their skills for the embedded domain.",
+                    "<strong class='font-semibold text-gray-800'>System Builders:</strong> Who want to learn how to create a complete, custom Linux OS from the ground up using professional tools."
                 ],
                 workbook: {
                     image: "assets/M4.png",
-                    // *** MODIFICATION: Added source code ***
-                    description: "The Module 4 Workbook teaches you to master Embedded Linux. You'll learn to customize bootloaders, write device drivers, understand the Yotco Project, and build a complete custom Linux distribution from scratch for a powerful MPU. Includes all source code."
+                    description: "The Module 4 Workbook teaches you to master Embedded Linux. You'll learn to customize bootloaders, write device drivers, understand the Yotco Project, and build a complete custom Linux distribution from scratch for a powerful MPU. Includes all source code.",
+                    product_slug: "module-4-workbook",
+                    instamojo_id: "6724707"
                 },
                 hardware: {
-                    introText: "The heart of your Module 4 Hardware Kit is the **STM32MP157C-DK2 Discovery Kit**. This is a high-performance Microprocessor Unit (MPU) board designed specifically for running Embedded Linux.",
+                    introText: "The heart of your Module 4 Hardware Kit is the <strong class='font-semibold text-gray-800'>STM32MP157C-DK2 Discovery Kit</strong>. This is a high-performance Microprocessor Unit (MPU) board designed specifically for running Embedded Linux.",
                     name: "STM32MP1 Discovery Kit",
                     whyTitle: "Why Not a Raspberry Pi?",
-                    whyText: "A Raspberry Pi is a great tool, but it's designed to be easy to use like a desktop, hiding the low-level details. Our chosen platform, the **STM32MP1**, is a superior learning. **We teach you to create the magic, not just use it.**",
-                    keyFeatures: [
-                        "**Heterogeneous Architecture:** Features a powerful dual-core ARM Cortex-A7 (to run Linux) and a Cortex-M4 co-processor (for real-time tasks).",
-                        "**Rich Peripherals:** Comes equipped with essential connectivity options like Ethernet, Wi-Fi, Bluetooth, and USB-C.",
-                        "**Display & Audio:** Features a built-in 4\" touchscreen display, HDMI, and audio codec, making it a perfect platform for HMI development.",
-                        "**Ample Memory:** Includes 512MB of DDR3L RAM and a MicroSD card slot to run a full Linux operating system."
-                    ],
-                    official: "Official Module 4 Hardware Kit",
-                    diy: "STM32MP1 Discovery Kit (STM32MP157C-DK2).",
-                    image: "assets/module4-hw.png"
-                },
-                tools: {
-                    host: "A powerful laptop / computer (Linux or macOS recommended, or Windows with VM) with at least 16GB of RAM and 100GB of free disk space for Yocto builds.",
-                    software: [
-                        { name: "Linux Host Environment", description: "A Linux OS (natively or in a VM) is required for the Yocto Project and cross-compilation." },
-                        { name: "VS Code", description: "A modern, lightweight code editor for writing and debugging user-space applications." },
-                        { name: "Yocto Project", description: "The professional framework used to build our custom Embedded Linux distribution." }
-                    ],
-                    recommended: [
-                        { name:"Serial-to-USB Adapter", description: "Essential for connecting to the board's console/debug UART." },
-                        { name: "Ethernet Cable & Switch", description: "For network connectivity to the board." }
-                    ]
+                    whyText: "A Raspberry Pi is a great tool, but it's designed to be easy to use like a desktop, hiding the low-level details. Our chosen platform, the <strong class='font-semibold text-gray-800'>STM32MP1</strong>, is a superior learning. <strong class='font-semibold text-gray-800'>We teach you to create the magic, not just use it.</strong>",
+                    image: "assets/module4-hw.png",
+                    product_slug: "module-4-kit",
+                    instamojo_id: "6724710",
+                    diy: "STM32MP1 Discovery Kit (STM32MP157C-DK2)"
                 }
             }
         ];
         
-        // *** MODIFICATION: Updated FAQ question ***
+        // *** MODIFICATION: Updated FAQ text ***
         const faqData = [
             { question: "What is the 'Eagle's Tour' philosophy?", answer: "Our goal is to give you a high-level map of the entire embedded systems landscape, from hardware to cloud. We teach you the fundamentals of each key domain so you understand how they fit together. This creates adaptable, T-shaped engineers who can tackle any challenge, rather than just knowing a single niche." },
-            { question: "Is this program self-paced, or are there live classes?", answer: "This is a fully self-paced program. The digital workbooks are your primary guide, allowing you to learn on your own schedule. The 1-on-4 online training sessions are optional and can be booked whenever you need extra help or guidance." },
+            { question: "Is this program self-paced, or are there live classes?", answer: "This is a fully self-paced program. The digital workbooks are your primary guide, allowing you to learn on your own schedule. The online consultancy sessions are optional and can be booked whenever you need extra help or guidance." },
             { question: "Do I need any prior experience?", answer: "No, the program is designed to take you from the ground up, starting with Module 1. While basic programming knowledge in C is helpful, it is not mandatory. We'll guide you through every step." },
-            // *** MODIFICATION: Updated FAQ question and answer ***
-            { question: "How does the 1-on-4 Online Training work?", answer: "You can book sessions in hourly blocks. These are small-group (max 4 students), live video calls with the instructorwhere you can ask in-depth questions, get help with difficult topics, review your code, or discuss career paths." }
+            { question: "How do the Online Consultancy Sessions work?", answer: "You can book sessions in hourly blocks. These are small-group (max 4 students), live video calls with the instructor where you can ask in-depth questions, get help with difficult topics, review your code, or discuss career paths." }
         ];
 
         // --- GLOBAL STATE ---
+        // *** MODIFICATION: "Sticky tab" fix - This variable is no longer reset inside initializeCourseSection ***
         let currentSubTab = 'idealFor'; // Default to 'idealFor'
 
         // --- DOM ELEMENTS ---
@@ -417,30 +510,39 @@
         const mobileMenu = document.getElementById('mobile-menu');
         const desktopNav = document.getElementById('desktop-nav');
         
-        // --- *** MODIFICATION: Helper function to load Instamojo script *** ---
-        function loadInstamojoScript() {
-            // Check if the script is already added
+        // --- Instamojo Script Logic ---
+        function discoverInstamojoButtons(retryCount = 0) {
+            if (window.Instamojo && typeof window.Instamojo.discover === 'function') {
+                window.Instamojo.discover();
+            } else if (retryCount < 5) {
+                setTimeout(() => {
+                    discoverInstamojoButtons(retryCount + 1);
+                }, 100);
+            }
+        }
+
+        function loadInstamojoScript(forceReload = false) {
             const existingScript = document.getElementById('instamojo-script');
-            if (existingScript) {
-                // If it is, Instamojo's script might need to be re-initialized to find new buttons
+            
+            if (forceReload && existingScript) {
+                existingScript.remove();
                 if (window.Instamojo) {
-                    window.Instamojo.discover();
+                    delete window.Instamojo;
                 }
+            } else if (existingScript) {
                 return; 
             }
             
             const script = document.createElement('script');
             script.id = 'instamojo-script';
-            // *** MODIFICATION: CORRECTED THE SCRIPT URL ***
             script.src = 'https://manage.instamojo.com/assets/js/pay_button/button.min.js';
             script.onload = () => {
-                // Instamojo's script might need this to find dynamically added buttons
-                if (window.Instamojo) {
-                    window.Instamojo.discover();
-                }
+                discoverInstamojoButtons();
             };
             document.body.appendChild(script);
         }
+        // --- End Instamojo Script Logic ---
+
 
         // --- FUNCTIONS ---
 
@@ -471,7 +573,8 @@
 
             const whoForHtml = `<ul class="list-none space-y-3">
                 ${moduleData.whoFor.map(item => {
-                    const formattedItem = item.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-800">$1</strong>');
+                    // *** MODIFICATION: All **text** is now correctly parsed ***
+                    const formattedItem = item; 
                     return `
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -481,26 +584,26 @@
                 }).join('')}
             </ul>`;
 
-            // *** MODIFICATION: Helper variables for the new "Learn Online" tab ***
             
-            // --- Hardware Kit ---
-            // *** MODIFICATION: Combined Summary & Detail, fixed heading style ***
+            // --- *** MODIFICATION: Hardware Kit Block *** ---
             const hardwareKitHtml = `
                 <div>
                     <h3 class="text-2xl font-bold text-gray-800 flex items-center mb-6">
                         <i class="fas fa-microchip text-2xl text-orange-500 mr-3"></i>
-                        Module ${moduleIndex + 1} Hardware Kit
+                        Module ${moduleIndex + 1} Hardware
                     </h3>
+
+                    <!-- *** MODIFICATION: Clarified DIY text *** -->
                     <div class="bg-gray-100 p-4 rounded-lg mb-6">
                         <p class="text-gray-600 mb-2">
-                            Your first step is to get the hardware. You can purchase our official, pre-tested kit or source the components yourself (DIY).
+                            Once you have the workbook, you can perform the labs. You have two options for hardware:
                         </p>
                         <ul class="list-disc list-outside text-gray-600 space-y-2 ml-5">
                             <li>
-                                <strong class="font-semibold text-gray-800">Purchase Official Kit:</strong> We offer the <strong class="font-semibold text-gray-800">${moduleData.hardware.official}</strong>.
+                                <strong class="font-semibold text-gray-800">Purchase Official Kit:</strong> We offer the official, pre-tested kit which includes every component you need.
                             </li>
                             <li>
-                                <strong class="font-semibold text-gray-800">DIY Sourcing:</strong> The full parts list is in the workbook. The primary component is the <strong class="font-semibold text-gray-800">${moduleData.hardware.diy}</strong>
+                                <strong class="font-semibold text-gray-800">DIY Sourcing:</strong> The workbook contains a complete parts list. You can source the main board (e.g., <strong class="font-semibold text-gray-800">${moduleData.hardware.diy}</strong>) and all other components yourself.
                             </li>
                         </ul>
                     </div>
@@ -508,29 +611,42 @@
                     <div class="flex flex-col md:flex-row gap-8 items-start">
                         <div class="md:w-1/3 flex-shrink-0">
                             <img src="${moduleData.hardware.image}" alt="${moduleData.hardware.name}" class="rounded-lg shadow-md w-full h-auto object-cover border border-gray-200">
-                             <h4 class="font-bold text-lg mt-4 text-gray-800">${moduleData.hardware.name}</h4>
+                             <!-- *** MODIFICATION: Removed board name caption *** -->
                         </div>
                         <div class="md:w-2/3 space-y-4">
-                             <p class="text-lg text-gray-600">${moduleData.hardware.introText.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-800">$1</strong>')}</p>
+                             <!-- *** MODIFICATION: All **text** is now correctly parsed *** -->
+                             <p class="text-lg text-gray-600">${moduleData.hardware.introText}</p>
                              <h4 class="font-semibold text-xl text-orange-500">${moduleData.hardware.whyTitle}</h4>
-                             <p class="text-gray-600">${moduleData.hardware.whyText.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-800">$1</strong>')}</p>
-                            <a href="https://seekersden.myinstamojo.com/" target="_blank" class="inline-block bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">Get the Hardware Kit</a>
+                             <p class="text-gray-600">${moduleData.hardware.whyText}</p>
+                            <!-- *** MODIFICATION: Centered button & changed color *** -->
+                            <div class="pt-4 flex justify-center md:justify-start">
+                                <a href="https://seekersden.myinstamojo.com/product/${moduleData.hardware.product_slug}/" 
+                                   data-store-name="seekersden" 
+                                   data-domain="https://seekersden.myinstamojo.com" 
+                                   data-id="${moduleData.hardware.instamojo_id}" 
+                                   rel="im-new-checkout" 
+                                   data-text="Get the Official Hardware Kit" 
+                                   data-css-style="background:#15803d; color:#ffffff; font-weight:600; padding-left:1.5rem; padding-right:1.5rem; padding-top:0.75rem; padding-bottom:0.75rem; border-radius:0.5rem;" 
+                                   data-layout="vertical">
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             `;
 
-            // --- Workbook ---
-            // *** MODIFICATION: Combined Summary & Detail, fixed heading style ***
+            // --- *** MODIFICATION: Workbook Block *** ---
             const moduleWorkbookHtml = `
                 <div>
                     <h3 class="text-2xl font-bold text-gray-800 flex items-center mb-6">
                          <i class="fas fa-book-open text-2xl text-orange-500 mr-3"></i>
                         Module ${moduleIndex + 1} Workbook
                     </h3>
+
+                    <!-- *** MODIFICATION: Added introductory text *** -->
                     <div class="bg-gray-100 p-4 rounded-lg mb-6">
                         <p class="text-gray-600">
-                            Once you have your hardware, you can self-study using online resources (like YouTube) or purchase our official workbook, which contains all step-by-step instructions, labs, source code, and the full hardware list.
+                            We recommend starting here. The workbook is a low-cost, immediately available digital download. It provides the complete "Eagle's Tour" of the subject and contains the full curriculum, all lab instructions, the complete hardware parts list for the DIY path, and complete source code for all labs.
                         </p>
                     </div>
                     
@@ -538,205 +654,29 @@
                         <div class="md:w-1/3 flex-shrink-0">
                             <img src="${moduleData.workbook.image}" alt="Module ${moduleIndex + 1} Workbook" class="rounded-lg shadow-md w-full h-auto object-cover border border-gray-200">
                         </div>
-                        <div class="md:w-2/3 space-y-4">
-                            <p class="text-lg text-gray-600">
-                                ${moduleData.workbook.description}
-                            </p>
-                            <p class="text-gray-600">
-                                This is the core of the self-paced program, designed to be followed step-by-step.
-                            </p>
-                            <!-- *** MODIFICATION START: Corrected data-id="6723363" *** -->
-                            ${moduleIndex === 0 ? `
-                                <!-- Instamojo Pay Button Code for Module 1 -->
-                                <a href="https://seekersden.myinstamojo.com/product/module-1-workbook/" 
+                        <div class="md:w-2/3 space-y-4 flex flex-col"> <!-- Added flex flex-col -->
+                            <div class="flex-grow"> <!-- Added flex-grow wrapper -->
+                                <p class="text-lg text-gray-600">
+                                    ${moduleData.workbook.description}
+                                </p>
+                            </div>
+                            <!-- *** MODIFICATION: Centered button & changed color *** -->
+                            <div class="pt-4 flex justify-center md:justify-start">
+                                <a href="https://seekersden.myinstamojo.com/product/${moduleData.workbook.product_slug}/" 
                                    data-store-name="seekersden" 
                                    data-domain="https://seekersden.myinstamojo.com" 
-                                   data-id="6723363" 
+                                   data-id="${moduleData.workbook.instamojo_id}" 
                                    rel="im-new-checkout" 
                                    data-text="Get the Workbook" 
-                                   data-css-style="background:#F97316; color:#ffffff; font-weight:600; padding-left:1.5rem; padding-right:1.5rem; padding-top:0.75rem; padding-bottom:0.75rem; border-radius:0.5rem;" 
+                                   data-css-style="background:#15803d; color:#ffffff; font-weight:600; padding-left:1.5rem; padding-right:1.5rem; padding-top:0.75rem; padding-bottom:0.75rem; border-radius:0.5rem;" 
                                    data-layout="vertical">
                                 </a>
-                            ` : `
-                                <!-- Generic Button for other modules -->
-                                <a href="https://seekersden.myinstamojo.com/" target="_blank" class="inline-block bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">Get the Workbook</a>
-                            `}
-                            <!-- *** MODIFICATION END *** -->
+                            </div>
                         </div>
                     </div>
                 </div>
             `;
             
-            // --- Training ---
-            // *** MODIFICATION: Combined Summary & Detail, fixed heading style ***
-            const trainingHtml = `
-                <div>
-                    <h3 class="text-2xl font-bold text-gray-800 flex items-center mb-6">
-                        <i class="fas fa-user-graduate text-2xl text-orange-500 mr-3"></i>
-                        1-on-4 Online Training (Optional)
-                    </h3>
-                    <div class="bg-gray-100 p-4 rounded-lg mb-6">
-                        <p class="text-gray-600">
-                            For the fastest and most guided learning path, you can book small-group (1-on-4) online sessions for in-depth explanations, code reviews, and expert guidance.
-                        </p>
-                    </div>
-                    
-                    <div class="flex flex-col md:flex-row gap-8 items-start">
-                        <div class="md:w-1/3 flex-shrink-0 text-center">
-                             <i class="fas fa-user-graduate text-8xl text-orange-500 mx-auto mt-4"></i>
-                        </div>
-                        <div class="md:w-2/3 space-y-4">
-                            <p class="text-lg text-gray-600">
-                                Accelerate your learning and master difficult topics. You can book private, personalized sessions for in-depth explanations, code reviews, and expert career guidance.
-                            </p>
-                            <p class="text-gray-600">
-                                This is the perfect way to get unstuck or dive deeper into a specific area of interest.
-                            </p>
-                            <a href="https://seekersden.myinstamojo.com/" target="_blank" class="inline-block bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">Book a Session</a>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            // --- Your Setup Summary ---
-            // *** MODIFICATION: Fixed heading style ***
-            const yourSetupHtml = `
-                <div>
-                    <h3 class="text-2xl font-bold text-gray-800 flex items-center mb-4">
-                        <i class="fas fa-laptop text-2xl text-orange-500 mr-3"></i>Your Computer
-                    </h3>
-                    <ul class="list-none space-y-3">
-                        <li class="flex items-start">
-                            <svg class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <span class="text-gray-600">${moduleData.tools.host}</span>
-                        </li>
-                    </ul>
-                </div>
-            `;
-
-            // --- Core Software Summary ---
-            // *** MODIFICATION: Fixed heading style ***
-            const coreSoftwareHtml = `
-                <div>
-                    <h3 class="text-2xl font-bold text-gray-800 flex items-center mb-4">
-                        <i class="fas fa-terminal text-2xl text-orange-500 mr-3"></i>Core Software
-                    </h3>
-                    <ul class="list-none space-y-3">
-                        ${moduleData.tools.software.map(item => `
-                            <li class="flex items-start">
-                                <svg class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <span class="text-gray-600"><strong class="font-semibold text-gray-800">${item.name}:</strong> ${item.description}</span>
-                            </li>
-                        `).join('')}
-                    </ul>
-                </div>
-            `;
-
-            // --- Recommended Gear Summary ---
-            // *** MODIFICATION: Fixed heading style ***
-            const recommendedGearHtml = `
-                <div>
-                    <h3 class="text-2xl font-bold text-gray-800 flex items-center mb-4">
-                        <i class="fas fa-tools text-2xl text-orange-500 mr-3"></i>Recommended Test Gear
-                    </h3>
-                    <p class="text-gray-600 mb-3">While not strictly required for all labs, we strongly recommend these tools for a professional debugging experience:</p>
-                    <ul class="list-none space-y-3">
-                        ${moduleData.tools.recommended.map(item => `
-                            <li class="flex items-start">
-                                <svg classs="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <span class="text-gray-600"><strong class="font-semibold text-gray-800">${item.name}:</strong> ${item.description}</span>
-                            </li>
-                        `).join('')}
-                    </ul>
-                </div>
-            `;
-
-            // *** MODIFICATION: New "Learn Online" tab content ***
-            const learnOnlineHtml = `
-                <div class="space-y-8">
-                    <p class="text-lg text-gray-600 mb-6">To complete this module online, you will need the following components for your learning setup:</p>
-                    
-                    <div class="space-y-10">
-                        <!-- 1. Hardware -->
-                        ${hardwareKitHtml}
-
-                        <hr class="border-gray-200">
-
-                        <!-- 2. Workbook -->
-                        ${moduleWorkbookHtml}
-
-                        <hr class="border-gray-200">
-
-                        <!-- 3. Training -->
-                        ${trainingHtml}
-                        
-                        <hr class="border-gray-200">
-
-                        <!-- 4. Your Setup -->
-                        <div class="space-y-6 bg-gray-50 p-6 rounded-lg">
-                            <h3 class="text-2xl font-bold text-gray-800 mb-6">Your Other Setup Requirements</h3>
-                            ${yourSetupHtml}
-                            ${coreSoftwareHtml}
-                            ${recommendedGearHtml}
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            // *** MODIFICATION: New "Learn Offline" tab content ***
-            const learnOfflineHtml = `
-                <div class="space-y-6">
-                    <h3 class="text-3xl font-bold text-gray-800">Interested in Offline, In-Person Training?</h3>
-                    <p class="text-lg text-gray-600">
-                        We are currently gauging interest for in-person, offline training cohorts here in **Mangaluru, Karnataka**. 
-                        If we get enough demand, we will launch our first batch. Please let us know which option would work best for you!
-                    </p>
-                    
-                    <form class="bg-gray-100 p-6 rounded-lg border border-gray-200 space-y-4">
-                        <p class="font-semibold text-lg text-gray-800">Select your preferred batch timing (Est. Pricing):</p>
-                        
-                        <div class="space-y-3">
-                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
-                                <input type="radio" name="offline_option" value="weekend_bootcamp" class="form-radio text-orange-500">
-                                <span classS="text-gray-700">
-                                    <strong class="font-semibold text-gray-800">Weekend Bootcamp:</strong> 2 full weekends (Sat/Sun), 9am-5pm. (Est. ₹15,000)
-                                </span>
-                            </label>
-                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
-                                <input type="radio" name="offline_option" value="weekday_evenings" class="form-radio text-orange-500">
-                                <span class="text-gray-700">
-                                    <strong class="font-semibold text-gray-800">Weekday Evenings:</strong> 4 weeks, Mon-Wed-Fri, 6pm-9pm. (Est. ₹18,000)
-                                </span>
-                            </label>
-                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
-                                <input type="radio" name="offline_option" value="full_time_week" class="form-radio text-orange-500">
-                                <span class="text-gray-700">
-                                    <strong class="font-semibold text-gray-800">Full-Time Week:</strong> 1 full week (Mon-Fri), 9am-5pm. (Est. ₹20,000)
-                                </span>
-                            </label>
-                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
-                                <input type="radio" name="offline_option" value="none" class="form-radio text-orange-500">
-                                <span class="text-gray-700">
-                                    <strong class="font-semibold text-gray-800">I'm interested, but none of these timings work for me.</strong>
-                                </span>
-                            </label>
-                        </div>
-
-                        <hr class="border-gray-300">
-
-                        <div>
-                            <label for="email_interest" class="block font-semibold text-gray-800 mb-2">Your Email:</label>
-                            <input type="email" id="email_interest" name="email" placeholder="Enter your email to be notified" class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
-                        </div>
-
-                        <button type="submit" class="w-full bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">
-                            Submit Interest
-                        </button>
-                        <p class="text-xs text-center text-gray-500">Note: This is not a booking. We will contact you if a batch is formed.</p>
-                    </form>
-                </div>
-            `;
-
             // *** MODIFICATION: Updated tab buttons and content divs ***
             const contentHTML = `
                 <div>
@@ -751,11 +691,13 @@
                             <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md ${currentSubTab === 'curriculum' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="curriculum">
                                 Curriculum
                             </button>
-                            <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md ${currentSubTab === 'learnOnline' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="learnOnline">
-                                Learn Online
+                            <!-- *** MODIFICATION: New "Workbook" tab *** -->
+                            <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md ${currentSubTab === 'workbook' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="workbook">
+                                Workbook
                             </button>
-                            <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md ${currentSubTab === 'learnOffline' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="learnOffline">
-                                Learn Offline
+                            <!-- *** MODIFICATION: New "Hardware" tab *** -->
+                            <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md ${currentSubTab === 'hardware' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="hardware">
+                                Hardware
                             </button>
                         </div>
                     </div>
@@ -767,21 +709,28 @@
                         <div class="sub-tab-content ${currentSubTab === 'curriculum' ? '' : 'hidden'}" data-content="curriculum">
                             ${levelsHtml}
                         </div>
-                        <div class="sub-tab-content ${currentSubTab === 'learnOnline' ? '' : 'hidden'}" data-content="learnOnline">
-                            ${learnOnlineHtml}
+                        <!-- *** MODIFICATION: New "Workbook" content div *** -->
+                        <div class="sub-tab-content ${currentSubTab === 'workbook' ? '' : 'hidden'}" data-content="workbook">
+                            ${moduleWorkbookHtml}
                         </div>
-                        <div class="sub-tab-content ${currentSubTab === 'learnOffline' ? '' : 'hidden'}" data-content="learnOffline">
-                            ${learnOfflineHtml}
+                        <!-- *** MODIFICATION: New "Hardware" content div *** -->
+                        <div class="sub-tab-content ${currentSubTab === 'hardware' ? '' : 'hidden'}" data-content="hardware">
+                            ${hardwareKitHtml}
                         </div>
                     </div>
                 </div>
             `;
             
+            // Render the content
             contentWrapper.innerHTML = contentHTML;
             addModuleSubTabListeners();
             
-            // --- *** MODIFICATION: Load Instamojo script AFTER content is rendered *** ---
-            if (moduleIndex === 0) {
+            // *** MODIFICATION: Check for "workbook" or "hardware" tab to load Instamojo buttons ***
+            if (currentSubTab === 'workbook' || currentSubTab === 'hardware') {
+                requestAnimationFrame(() => {
+                    loadInstamojoScript(true);
+                });
+            } else {
                 loadInstamojoScript();
             }
         }
@@ -795,25 +744,26 @@
                     const tabName = tab.dataset.tab;
                     currentSubTab = tabName; // Update global state
 
-                    // Deactivate all sub-tabs
                     subTabs.forEach(t => t.classList.remove('tab-active', 'text-gray-600', 'hover:bg-orange-50'));
-                    // Activate clicked tab
                     tab.classList.add('tab-active');
-                    // Add text-gray-600 to inactive tabs
                     subTabs.forEach(t => {
                         if (!t.classList.contains('tab-active')) {
                             t.classList.add('text-gray-600', 'hover:bg-orange-50');
                         }
                     });
 
-                    // Hide all content
                     subContents.forEach(c => c.classList.add('hidden'));
-                    // Show active content
-                    contentWrapper.querySelector(`[data-content="${tabName}"]`).classList.remove('hidden');
+                    const activeContent = contentWrapper.querySelector(`[data-content="${tabName}"]`);
+                    activeContent.classList.remove('hidden');
+                    
+                    // *** MODIFICATION: Trigger Instamojo script for new tabs ***
+                    if (tabName === 'workbook' || tabName === 'hardware') {
+                        requestAnimationFrame(() => {
+                            loadInstamojoScript(true);
+                        });
+                    }
                 });
             });
-
-            // *** MODIFICATION: Removed internal tab link listeners as they are no longer needed ***
         }
 
         function initializeCourseSection() {
@@ -831,7 +781,6 @@
                 tab.addEventListener('click', () => {
                     const moduleIndex = parseInt(tab.dataset.moduleIndex);
                     
-                    // Update active tab visual state
                     document.querySelectorAll('.module-tab').forEach(t => {
                         t.classList.remove('module-tab-active');
                         t.classList.add('bg-white', 'hover:bg-orange-50', 'text-gray-700');
@@ -839,11 +788,13 @@
                     tab.classList.add('module-tab-active');
                     tab.classList.remove('bg-white', 'hover:bg-orange-50', 'text-gray-700');
 
-                    // Render content for the new module, preserving the current sub-tab
+                    // *** MODIFICATION: "Sticky tab" fix: This line is removed: currentSubTab = 'idealFor'; ***
                     renderContent(moduleIndex);
+Services
                 });
             });
 
+            // currentSubTab = 'idealFor'; // This is now set globally
             renderContent(0);
         }
         
@@ -871,7 +822,6 @@
                     const arrow = question.querySelector('.faq-arrow');
                     const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
                     
-                    // Close all other answers
                     document.querySelectorAll('.faq-answer').forEach(ans => {
                         if (ans !== answer) {
                             ans.style.maxHeight = '0px';
@@ -879,13 +829,49 @@
                         }
                     });
 
-                    // Toggle the clicked answer
                     if (isOpen) {
                         answer.style.maxHeight = '0px';
                         arrow.classList.remove('rotate-180');
                     } else {
                         answer.style.maxHeight = answer.scrollHeight + 'px';
                         arrow.classList.add('rotate-180');
+                    }
+                });
+            });
+        }
+        
+        // *** MODIFICATION: New function to handle "Services" tabs ***
+        function initializeServiceTabs() {
+            const serviceTabs = document.querySelectorAll('.service-tab-button');
+            const serviceContents = document.querySelectorAll('.service-tab-content');
+            
+            serviceTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabName = tab.dataset.tab;
+
+                    // Update button active state
+                    serviceTabs.forEach(t => t.classList.remove('tab-active', 'text-gray-600', 'hover:bg-orange-50'));
+                    tab.classList.add('tab-active');
+                    serviceTabs.forEach(t => {
+                        if (!t.classList.contains('tab-active')) {
+                            t.classList.add('text-gray-600', 'hover:bg-orange-50');
+                        }
+                    });
+
+                    // Show/hide content
+                    serviceContents.forEach(c => {
+                        if (c.dataset.content === tabName) {
+                            c.classList.remove('hidden');
+                        } else {
+                            c.classList.add('hidden');
+                        }
+                    });
+
+                    // Re-discover Instamojo buttons if the online tab is clicked
+                    if (tabName === 'online-consult') {
+                         requestAnimationFrame(() => {
+                            loadInstamojoScript(true);
+                        });
                     }
                 });
             });
@@ -899,6 +885,9 @@
 
             initializeCourseSection();
             initializeFAQ();
+            initializeServiceTabs(); // <!-- *** MODIFICATION: Initialize new service tabs ***
+            
+            loadInstamojoScript();
 
             const sections = document.querySelectorAll('main section[id]');
             const desktopNavLinks = desktopNav.querySelectorAll('a');
@@ -948,6 +937,5 @@
         });
     </script>
 
-    <!-- *** MODIFICATION: The script will be added dynamically by the function above *** -->
-</body>
+    </body>
 </html>
