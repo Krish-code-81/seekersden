@@ -48,6 +48,49 @@
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
+        /* Custom styles for select dropdown arrow */
+        .select-wrapper {
+            position: relative;
+        }
+        .select-wrapper::after {
+            content: '\f078'; /* Font Awesome down arrow */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #6b7280; /* gray-500 */
+        }
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: none;
+            padding-right: 2.5rem; /* Make space for arrow */
+        }
+
+        /* *** MODIFICATION: Added Cal.id embed CSS *** */
+        .calid-embed-wrapper {
+            position: relative;
+            padding-bottom: 100%; /* Default aspect ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            min-height: 700px; /* Minimum height */
+            border: 1px solid #e5e7eb; /* gray-200 */
+            border-radius: 0.5rem; /* 8px */
+        }
+        .calid-embed-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -55,11 +98,8 @@
     <!-- Header -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-             <div class="w-24">
-                <!-- *** MODIFICATION: Added logo to header *** -->
-                <a href="#home">
-                    <img src="assets/seekersden-logo.png" alt="SeekersDen Logo" class="h-12 w-auto">
-                </a>
+             <!-- *** MODIFICATION: Logo removed from header *** -->
+             <div class="w-24"> <a href="#"></a>
             </div>
             <!-- *** NOTE: Nav order is already correct (Instructor -> FAQ) *** -->
             <div id="desktop-nav" class="hidden md:flex items-center space-x-6">
@@ -93,10 +133,11 @@
     <main>
         <!-- Hero Section -->
         <section id="home" class="bg-white">
-            <div class="container mx-auto px-6 py-12 md:py-16 text-center">
-                <!-- *** MODIFICATION: Removed redundant logo from hero section *** -->
-                <!-- <img src="assets/seekersden-logo.png" alt="SeekersDen Logo" class="h-32 md:h-40 w-auto mx-auto mb-8" data-aos> -->
-                <h1 data-aos class="text-4xl md:text-6xl font-bold text-gray-800 leading-tight pt-12"> <!-- Added padding-top for spacing -->
+            <!-- *** MODIFICATION: Added top padding *** -->
+            <div class="container mx-auto px-6 py-12 md:py-16 text-center pt-16 md:pt-20">
+                <!-- *** MODIFICATION: Logo added back to Hero *** -->
+                <img src="assets/seekersden-logo.png" alt="SeekersDen Logo" class="h-32 md:h-40 w-auto mx-auto mb-8" data-aos>
+                <h1 data-aos class="text-4xl md:text-6xl font-bold text-gray-800 leading-tight">
                     The Path to a Full Stack IoT Architect
                 </h1>
                 <p data-aos class="mt-4 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
@@ -148,10 +189,10 @@
                                 Online Consultancy
                             </button>
                             <button class="service-tab-button px-4 py-2 text-sm font-semibold rounded-t-md text-gray-600 hover:bg-orange-50" data-tab="online-full">
-                                Online Full Training
+                                Online Training
                             </button>
                             <button class="service-tab-button px-4 py-2 text-sm font-semibold rounded-t-md text-gray-600 hover:bg-orange-50" data-tab="onsite">
-                                Onsite Corporate Training
+                                Onsite Training
                             </button>
                             <button class="service-tab-button px-4 py-2 text-sm font-semibold rounded-t-md text-gray-600 hover:bg-orange-50" data-tab="offline-full">
                                 Offline Training
@@ -161,20 +202,32 @@
                     
                     <div class="mt-8">
                         <!-- 1. Online Consultancy Content -->
+                        <!-- *** MODIFICATION: Replaced button with Cal.id Embed *** -->
                         <div class="service-tab-content" data-content="online-consult">
                             <h3 class="text-3xl font-bold text-gray-800">Online Consultancy Session</h3>
                             <p class="text-lg text-gray-600 mt-4 mb-6">
                                 Book a 1-hour, small-group (max 4 students) online session with your instructor. This is the perfect way to get personalized guidance, ask in-depth questions, review your code, or get career advice when you're stuck.
                             </p>
-                            <a href="https://seekersden.myinstamojo.com/" 
-                               data-store-name="seekersden" 
-                               data-domain="https://seekersden.myinstamojo.com" 
-                               data-id="COMING-SOON-TRAINING" 
-                               rel="im-new-checkout" 
-                               data-text="Book a 1-Hour Session" 
-                               data-css-style="background:#15803d; color:#ffffff; font-weight:600; padding-left:1.5rem; padding-right:1.5rem; padding-top:0.75rem; padding-bottom:0.75rem; border-radius:0.5rem;" 
-                               data-layout="vertical">
-                            </a>
+
+                            <!-- 
+                              *** Cal.id EMBED ***
+                              INSTRUCTIONS:
+                              1. Go to your Cal.id "Event Types" page.
+                              2. Click on your "1-Hour Online Consultancy" event.
+                              3. Find the "Share" or "Embed" button.
+                              4. Copy the `<div>` code and paste it here, replacing the placeholder div.
+                                 (Make sure to keep the `style` I added)
+                              5. Copy the `<script>` tag and paste it right before the closing `</body>` tag.
+                            -->
+                            <div 
+                                data-cal-id="REPLACE-WITH-YOUR-CAL-ID-LINK" 
+                                style="width:100%;height:100%;overflow:scroll;min-height:700px;"
+                                class="calid-embed-wrapper"
+                            >
+                                <!-- This div will be replaced by Cal.id -->
+                                <p class="text-center p-8">Loading booking calendar...</p>
+                            </div>
+
                         </div>
 
                         <!-- 2. Online Full Training (NEW) -->
@@ -183,7 +236,8 @@
                             <p class="text-lg text-gray-600 mt-4 mb-6">
                                 Join a complete, instructor-led online course. This is not self-paced; you will join a live virtual classroom with a small group of students, following a structured schedule from start to finish. This is the most comprehensive way to learn the entire "Eagle's Tour" from home.
                             </p>
-                            <a href="#contact" class="inline-block bg-green-700 text-white font-semibold px-6 py-3 rounded-lg hover:bg-green-800 transition duration-300">
+                            <!-- *** MODIFICATION: Changed to orange button *** -->
+                            <a href="#contact" class="inline-block bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">
                                 Inquire About Online Training
                             </a>
                         </div>
@@ -194,7 +248,8 @@
                             <p class="text-lg text-gray-600 mt-4 mb-6">
                                 Accelerate your team's growth with a private, onsite training bootcamp delivered at your company's office. We can customize the curriculum from our four modules to fit your team's specific projects and skill gaps.
                             </p>
-                            <a href="#contact" class="inline-block bg-green-700 text-white font-semibold px-6 py-3 rounded-lg hover:bg-green-800 transition duration-300">
+                             <!-- *** MODIFICATION: Changed to orange button *** -->
+                            <a href="#contact" class="inline-block bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">
                                 Inquire About Onsite Training
                             </a>
                         </div>
@@ -262,8 +317,9 @@
                                     <label for="email_interest" class="block font-semibold text-gray-800 mb-2">Your Email:</label>
                                     <input type="email" id="email_interest" name="email" placeholder="Enter your email to be notified" class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
                                 </div>
-
-                                <button type="submit" class="w-full bg-green-700 text-white font-semibold px-6 py-3 rounded-lg hover:bg-green-800 transition duration-300">
+                                
+                                <!-- *** MODIFICATION: Changed to orange button *** -->
+                                <button type="submit" class="w-full bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">
                                     Submit Interest
                                 </button>
                                 <div id="form-message" class="hidden mt-4 p-4 rounded-lg text-center"></div>
@@ -317,38 +373,29 @@
         <!-- Contact Section -->
         <section id="contact" class="py-20 pt-24" data-aos>
             <div class="container mx-auto px-6"> <!-- Removed text-center -->
-                 <div class="text-center"> <!-- Added text-center here -->
+                 <div class="text-center mb-8"> <!-- Added text-center here and mb-8 -->
                     <h2 class="text-4xl font-bold text-gray-800">Have More Questions?</h2>
+                    <!-- *** MODIFICATION: Merged email into text *** -->
                     <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-                        Have a question? If it's not in the FAQ, we're here to help. Please don't hesitate to reach out for any generic doubts, difficulty placing an order, booking an Online Consultancy Session, or to inquire about our training services. We'll get back to you as soon as possible.
+                        Please use the form below or reach out to us at:
+                        <span class="inline-flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-lg border border-gray-200 text-base align-middle mx-1">
+                            <!-- *** MODIFICATION: Changed text color to orange *** -->
+                            <span id="email-text" class="font-semibold text-orange-600 select-all cursor-text">info@seekersden.in</span>
+                            <button id="copy-email-btn" class="p-1 text-gray-600 hover:text-orange-500 hover:bg-gray-200 rounded transition duration-200" title="Copy email address">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                </svg>
+                            </button>
+                        </span>
                     </p>
                 </div>
                 
-                <!-- *** MODIFICATION: Created a two-column layout for contact options *** -->
-                <div class="mt-12 max-w-4xl mx-auto">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
-                        
-                        <!-- Option 1: Copy Email -->
-                        <div class="flex flex-col items-center text-center">
-                            <h3 class="text-2xl font-semibold text-gray-800 mb-4">Copy Our Email</h3>
-                            <p class="text-gray-600 mb-6">If you prefer to use your own email client (Gmail, Outlook, etc.).</p>
-                            <div class="flex items-center gap-3 bg-gray-100 px-6 py-4 rounded-lg border border-gray-200">
-                                <span id="email-text" class="text-lg font-semibold text-gray-800 select-all cursor-text">info@seekersden.in</span>
-                                <button id="copy-email-btn" class="ml-2 p-2 text-gray-600 hover:text-orange-500 hover:bg-gray-200 rounded transition duration-200" title="Copy email address">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                                    </svg>
-                                </button>
-                            </div>
-                            <a href="mailto:info@seekersden.in?subject=General%20Inquiry" class="mt-4 inline-block bg-orange-500 text-white font-bold px-6 py-3 rounded-lg text-lg hover:bg-orange-600 transition duration-300">
-                                Open Email Client
-                            </a>
-                        </div>
-                        
-                        <!-- Option 2: Send Message Form -->
-                        <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
-                            <h3 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Send Us a Message</h3>
-                            <form id="contact-form" class="space-y-4">
+                <!-- *** MODIFICATION: New Contact Form Layout *** -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12 border border-gray-100 max-w-4xl mx-auto">
+                    <form id="contact-form" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Left Column -->
+                            <div class="space-y-6">
                                 <div>
                                     <label for="contact_name" class="block font-semibold text-gray-800 mb-2">Your Name:</label>
                                     <input type="text" id="contact_name" name="contact_name" placeholder="Enter your name" class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" required>
@@ -358,25 +405,46 @@
                                     <input type="email" id="contact_email" name="contact_email" placeholder="Enter your email" class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" required>
                                 </div>
                                 <div>
-                                    <label for="contact_subject" class="block font-semibold text-gray-800 mb-2">Subject:</label>
-                                    <input type="text" id="contact_subject" name="contact_subject" placeholder="What is this about?" class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" required>
+                                    <label for="contact_subject" class="block font-semibold text-gray-800 mb-2">Inquiry Type:</label>
+                                    <!-- *** MODIFICATION: Changed to select dropdown *** -->
+                                    <div class="select-wrapper">
+                                        <select id="contact_subject" name="contact_subject" class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white" required>
+                                            <option value="" disabled selected>Select inquiry type...</option>
+                                            <option value="General Inquiry">General Inquiry</option>
+                                            <option value="Course Information">Course Information</option>
+                                            <option value="Order Issue / Support">Order Issue / Support</option>
+                                            <option value="Online Consultancy Booking">Online Consultancy Booking</option>
+                                            <option value="Online Full Training Inquiry">Online Full Training Inquiry</option>
+                                            <option value="Onsite Corporate Training">Onsite Corporate Training</option>
+                                            <option value="Offline Training Inquiry">Offline Training Inquiry</option>
+                                            <option value="Technical Support">Technical Support</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label for="contact_message" class="block font-semibold text-gray-800 mb-2">Message:</label>
-                                    <textarea id="contact_message" name="contact_message" rows="5" placeholder="Your question or message..." class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" required></textarea>
-                                </div>
-                                <button type="submit" class="w-full bg-green-700 text-white font-semibold px-6 py-3 rounded-lg hover:bg-green-800 transition duration-300">
-                                    Send Message
-                                </button>
-                                <div id="contact-form-message" class="hidden mt-4 p-4 rounded-lg text-center"></div>
-                            </form>
+                            </div>
+                            <!-- Right Column -->
+                            <div class="flex flex-col">
+                                <label for="contact_message" class="block font-semibold text-gray-800 mb-2">Message:</label>
+                                <textarea id="contact_message" name="contact_message" placeholder="Your question or message..." class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 flex-grow" rows="8" required></textarea>
+                            </div>
                         </div>
-
-                    </div>
+                        
+                        <div class="text-right">
+                             <!-- *** MODIFICATION: Changed button to orange *** -->
+                            <button type="submit" id="contact-submit-btn" class="w-full md:w-auto bg-orange-500 text-white font-semibold px-8 py-3 rounded-lg hover:bg-orange-600 transition duration-300">
+                                Send Message
+                            </button>
+                        </div>
+                        <div id="contact-form-message" class="hidden mt-4 p-4 rounded-lg text-center"></div>
+                    </form>
                 </div>
 
-                <!-- Removed the old, empty div -->
-                <!-- <div class="mt-12 text-gray-500 text-sm"></div> -->
+                <!-- *** MODIFICATION: Added Address for Razorpay *** -->
+                <div class="mt-12 text-gray-500 text-sm text-center">
+                    <p class="font-semibold text-gray-600">Business Name: SeekersDen</p>
+                    <p>Address: Mangaluru, Karnataka, India</p>
+                </div>
             </div>
         </section>
     </main>
@@ -386,7 +454,7 @@
         <div class="container mx-auto px-6 py-8 text-center">
             <img src="assets/seekersden-logo.png" alt="SeekersDen Logo" class="h-12 w-auto mx-auto">
             <p class="mt-4 text-gray-400">© 2025 SeekersDen. All rights reserved.</p>
-            <p class="mt-1 text-gray-400">Mangaluru, Karnataka, India</p> <!-- Restored this line -->
+            <p class="mt-1 text-gray-400">Mangaluru, Karnataka, India</p>
 
             <div class="mt-4 pt-4 border-t border-gray-700">
                 <a href="terms.html" class="text-gray-400 hover:text-white px-3 py-2 text-sm">Terms</a>
@@ -394,9 +462,16 @@
                 <a href="refund.html" class="text-gray-400 hover:text-white px-3 py-2 text-sm">Refund Policy</a>
                 <span class="text-gray-500">|</span>
                 <a href="shipping.html" class="text-gray-400 hover:text-white px-3 py-2 text-sm">Shipping Policy</a>
+                <!-- *** MODIFICATION: Added Privacy Policy link *** -->
+                <span class="text-gray-500">|</span>
+                <a href="privacy.html" class="text-gray-400 hover:text-white px-3 py-2 text-sm">Privacy Policy</a>
             </div>
         </div>
     </footer>
+
+    <!-- *** MODIFICATION: ADD THIS SCRIPT TAG RIGHT BEFORE THE CLOSING </body> TAG *** -->
+    <!-- <script type="text/javascript" src="https://cal.id/embed.js" async></script> -->
+
 
     <script>
         // --- DATA ---
@@ -445,7 +520,7 @@
                 ],
                 whoFor: [
                     "<strong class='font-semibold text-gray-800'>Embedded Developers:</strong> Who find their bare-metal projects are becoming too complex and need to manage multiple tasks efficiently.",
-                    "<strong class'font-semibold text-gray-800'>Engineers:</strong> Who need to build responsive, multi-threaded applications and understand core RTOS concepts like tasks, queues, and mutexes.",
+                    "<strong class='font-semibold text-gray-800'>Engineers:</strong> Who need to build responsive, multi-threaded applications and understand core RTOS concepts like tasks, queues, and mutexes.",
                     "<strong class='font-semibold text-gray-800'>IoT Aspirants:</strong> Who want to learn how to connect their hardware projects to the internet and cloud services using protocols like MQTT.",
                     "<strong class='font-semibold text-gray-800'>Advanced Hobbyists:</strong> Looking to build more sophisticated projects that can handle multiple sensors and communication streams simultaneously."
                 ],
@@ -463,7 +538,7 @@
                     image: "assets/module2-hw.png",
                     product_slug: "module-2-kit",
                     instamojo_id: "6724708",
-                    diy: "B-L475E-IOT01A Discovery Kit"
+                    diy: "B-L4T5E-IOT01A Discovery Kit"
                 }
             },
             {
@@ -472,7 +547,7 @@
                 levels: [
                     { name: "Level 1: Digital Logic Fundamentals", duration: "4 Sessions (1-2 Weeks)", topics: ["Core principles of digital logic: logic gates, Boolean algebra, and number systems.", "Designing and analyzing combinational logic circuits like adders and multiplexers.", "Understanding sequential logic circuits including flip-flops, latches, and registers.", "Introduction to designing and implementing Finite State Machines (FSMs)."] },
                     { name: "Level 2: Verilog/VHDL Programming", duration: "4 Sessions (1-2 Weeks)", topics: ["Introduction to a Hardware Description Language (Verilog or VHDL).", "Writing both structural and behavioral code to describe complex digital hardware.", "Developing comprehensive testbenches to simulate and verify your designs.", "Learning best practices for writing clean, efficient, and synthesizable HDL code."] },
-                    { name: "Level 3: FPGA Implementation", duration: "4 Sessions (1-2 Weeks)", topics: ["Understanding the internal architecture of FPGAs and selecting a development board.", "Using a professional FPGA toolchain (e.g., Xilinx Vivado or Intel Quartus).", "Mastering the complete design flow: synthesis, place-and-route, and timing analysis.", "Programming your hardware design onto a physical FPGA board and testing it in real-time."] },
+                    { name: "Level 3: FPGA Implementation", duration: "4 Sessions (1-2 Weeks)", topics: ["Understanding the internal architecture of FPGAs and selecting a development board.", "Using a professional FPGA toolchain (e.g., Xilinx Vivado or Intel Quartus).", "Mastering the complete design flow:. synthesis, place-and-route, and timing analysis.", "Programming your hardware design onto a physical FPGA board and testing it in real-time."] },
                     { name: "Level 4: System-on-Chip (SoC) Design", duration: "4 Sessions (1-2 Weeks)", topics: ["Integrating pre-built Intellectual Property (IP) cores into your design.", "Interfacing your custom FPGA logic with an embedded soft-core or hard-core processor.", "Designing a custom AXI peripheral and connecting it to a system bus.", "Introduction to High-Level Synthesis (HLS) and advanced on-chip debugging techniques."] },
                 ],
                 whoFor: [
@@ -489,7 +564,7 @@
                 },
                  hardware: {
                     introText: "The heart of your Module 3 Hardware Kit is the <strong class='font-semibold text-gray-800'>Digilent Arty S7-25</strong>, a powerful yet affordable board featuring a Xilinx Spartan-7 FPGA. It's the perfect platform for learning the industry-standard AMD-Xilinx toolchain.",
-                    name: "Digilent Arty S7-25",
+                    name: "Arty S7-25",
                     whyTitle: "Why the Arty S7-25?",
                     whyText: "This board is the perfect platform for learning the <strong class='font-semibold text-gray-800'>industry-standard AMD-Xilinx toolchain</strong>. While microcontrollers execute software sequentially, FPGAs allow you to design hardware that processes data in a truly parallel fashion, offering massive performance gains.",
                     image: "assets/module3-hw.png",
@@ -515,7 +590,7 @@
                 ],
                 workbook: {
                     image: "assets/M4.png",
-                    description: "The Module 4 Workbook teaches you to master Embedded Linux. You'll learn to customize bootloaders, write device drivers, understand the Yotco Project, and build a complete custom Linux distribution from scratch for a powerful MPU. Includes all source code.",
+                    description: "The Module 4 Workbook teaches you to master Embedded Linux. You'll learn to customize bootloaders, write device drivers, understand the Yotco Project, and build a- complete custom Linux distribution from scratch for a powerful MPU. Includes all source code.",
                     product_slug: "module-4-workbook",
                     instamojo_id: "6724707"
                 },
@@ -542,13 +617,8 @@
         // --- GLOBAL STATE ---
         let currentSubTab = 'idealFor'; // Default to 'idealFor'
 
-        // --- DOM ELEMENTS ---
-        const moduleTabsContainer = document.getElementById('module-tabs');
-        const contentWrapper = document.getElementById('course-content-wrapper');
-        const faqContainer = document.getElementById('faq-container');
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const desktopNav = document.getElementById('desktop-nav');
+        // --- *** FIX: Define variables in the outer scope *** ---
+        let moduleTabsContainer, contentWrapper, faqContainer, mobileMenuButton, mobileMenu, desktopNav;
         
         // --- Instamojo Script Logic ---
         function discoverInstamojoButtons(retryCount = 0) {
@@ -678,7 +748,7 @@
 
                     <div class="bg-gray-100 p-4 rounded-lg mb-6">
                         <p class="text-gray-600">
-                            We recommend starting here. The workbook is a low-cost, immediately available digital download. It provides the complete "Eagle's Tour" of the subject and contains the full curriculum, all lab instructions, the complete hardware parts list for the DIY path, and complete source code for all labs.
+                            We recommend starting here. The workbook is a low-cost, immediately available digital download. It provides the complete "Eagle's Tour" of the subject and contains the complete curriculum, all lab instructions, the complete hardware parts list for the DIY path, and complete source code for all labs.
                         </p>
                     </div>
                     
@@ -734,7 +804,7 @@
                         <div class="sub-tab-content ${currentSubTab === 'idealFor' ? '' : 'hidden'}" data-content="idealFor">
                             ${whoForHtml}
                         </div>
-                        <div class="sub-tab-content ${currentSubTab === 'curriculum' ? '' : 'hidden'}" data-content="curriculum">
+                        <div classs="sub-tab-content ${currentSubTab === 'curriculum' ? '' : 'hidden'}" data-content="curriculum">
                             ${levelsHtml}
                         </div>
                         <div class="sub-tab-content ${currentSubTab === 'workbook' ? '' : 'hidden'}" data-content="workbook">
@@ -887,17 +957,30 @@ Services
                         }
                     });
 
+                    // *** MODIFICATION: Removed Instamojo script loader from this tab ***
+                    /*
                     if (tabName === 'online-consult') {
                          requestAnimationFrame(() => {
                             loadInstamojoScript(true);
                         });
                     }
+                    */
                 });
             });
         }
 
         // --- EVENT LISTENERS & INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- *** FIX: Assign variables AFTER DOM is loaded *** ---
+            moduleTabsContainer = document.getElementById('module-tabs');
+            contentWrapper = document.getElementById('course-content-wrapper');
+            faqContainer = document.getElementById('faq-container');
+            mobileMenuButton = document.getElementById('mobile-menu-button');
+            mobileMenu = document.getElementById('mobile-menu');
+            desktopNav = document.getElementById('desktop-nav');
+
+
             mobileMenuButton.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
             });
@@ -909,27 +992,12 @@ Services
             loadInstamojoScript();
             
             // --- Initialize EmailJS ---
-            // SETUP INSTRUCTIONS:
-            // 1. Create a free account at https://www.emailjs.com/
-            // 2. Create an Email Service (Gmail, Outlook, etc.) and connect it
-            // 3. Create an Email Template with these variables:
-            //    - {{to_email}} (recipient: info@seekersden.in)
-            //    - {{from_email}} (user's email)
-            //    - {{subject}} (Interest in Full In-Person Training)
-            //    - {{location}} (Bengaluru or Mangaluru)
-            //    - {{timing}} (Weekdays Daytime, etc.)
-            //    - {{user_email}} (user's email)
-            //    - {{message}} (full message body)
-            // 4. Get your Public Key from Account > API Keys
-            // 5. Get your Service ID from Email Services
-            // 6. Get your Template ID from Email Templates
-            // 7. Replace the placeholders below with your actual values
             emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
             
             // --- Handle Offline Interest Form Submission ---
             const offlineForm = document.getElementById('offline-interest-form');
             const formMessage = document.getElementById('form-message');
-            const submitButton = offlineForm?.querySelector('button[type="submit"]');
+            const offlineSubmitButton = offlineForm?.querySelector('button[type="submit"]');
             
             if (offlineForm) {
                 offlineForm.addEventListener('submit', async (e) => {
@@ -944,7 +1012,7 @@ Services
                     if (!location) {
                         errorMessage = 'Please select your preferred location.';
                     } else if (!timing) {
-                        errorMessage = 'Please select yourpreferred timing.';
+                        errorMessage = 'Please select your preferred timing.';
                     } else if (!email) {
                         errorMessage = 'Please enter your email address.';
                     } else if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
@@ -961,9 +1029,9 @@ Services
                     const locationDisplay = location === 'bengaluru' ? 'Bengaluru' : location === 'mangaluru' ? 'Mangaluru' : location;
                     const timingDisplay = timing.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
                     
-                    if (submitButton) {
-                        submitButton.disabled = true;
-                        submitButton.textContent = 'Sending...';
+                    if (offlineSubmitButton) {
+                        offlineSubmitButton.disabled = true;
+                        offlineSubmitButton.textContent = 'Sending...';
                     }
                     
                     const templateParams = {
@@ -977,8 +1045,9 @@ Services
                     };
                     
                     try {
-                        // Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' with your actual values
-                        await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams);
+                        // Replace 'YOUR_SERVICE_ID' and 'YOUR_OFFLINE_TEMPLATE_ID' with your actual values
+                        // *** NOTE: Use a SEPARATE template for this form ***
+                        await emailjs.send('YOUR_SERVICE_ID', 'YOUR_OFFLINE_TEMPLATE_ID', templateParams);
                         
                         formMessage.textContent = 'Thank you! Your interest has been submitted successfully. We will contact you when a batch is formed.';
                         formMessage.className = 'mt-4 p-4 rounded-lg text-center bg-green-100 text-green-700 border border-green-300';
@@ -987,9 +1056,9 @@ Services
                         setTimeout(() => {
                             offlineForm.reset();
                             formMessage.classList.add('hidden');
-                            if (submitButton) {
-                                submitButton.disabled = false;
-                                submitButton.textContent = 'Submit Interest';
+                            if (offlineSubmitButton) {
+                                offlineSubmitButton.disabled = false;
+                                offlineSubmitButton.textContent = 'Submit Interest';
                             }
                         }, 5000);
                     } catch (error) {
@@ -998,37 +1067,35 @@ Services
                         formMessage.className = 'mt-4 p-4 rounded-lg text-center bg-red-100 text-red-700 border border-red-300';
                         formMessage.classList.remove('hidden');
                         
-                        if (submitButton) {
-                            submitButton.disabled = false;
-                            submitButton.textContent = 'Submit Interest';
+                        if (offlineSubmitButton) {
+                            offlineSubmitButton.disabled = false;
+                            offlineSubmitButton.textContent = 'Submit Interest';
                         }
                     }
                 });
             }
 
-            // --- *** NEW: Handle Contact Form Submission *** ---
+             // --- *** MODIFICATION: Handle General Contact Form Submission *** ---
             const contactForm = document.getElementById('contact-form');
             const contactFormMessage = document.getElementById('contact-form-message');
-            const contactSubmitButton = contactForm?.querySelector('button[type="submit"]');
+            const contactSubmitButton = document.getElementById('contact-submit-btn');
 
             if (contactForm) {
                 contactForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
 
-                    const name = contactForm.querySelector('input[name="contact_name"]')?.value.trim() || '';
-                    const email = contactForm.querySelector('input[name="contact_email"]')?.value.trim() || '';
-                    const subject = contactForm.querySelector('input[name="contact_subject"]')?.value.trim() || '';
-                    const message = contactForm.querySelector('textarea[name="contact_message"]')?.value.trim() || '';
+                    const name = contactForm.querySelector('#contact_name').value.trim();
+                    const email = contactForm.querySelector('#contact_email').value.trim();
+                    const subject = contactForm.querySelector('#contact_subject').value;
+                    const message = contactForm.querySelector('#contact_message').value.trim();
 
                     let errorMessage = '';
                     if (!name) {
                         errorMessage = 'Please enter your name.';
-                    } else if (!email) {
-                        errorMessage = 'Please enter your email address.';
-                    } else if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                    } else if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
                         errorMessage = 'Please enter a valid email address.';
                     } else if (!subject) {
-                        errorMessage = 'Please enter a subject.';
+                        errorMessage = 'Please select an inquiry type.';
                     } else if (!message) {
                         errorMessage = 'Please enter your message.';
                     }
@@ -1047,22 +1114,24 @@ Services
 
                     const templateParams = {
                         to_email: 'info@seekersden.in',
-                        from_email: email,
                         from_name: name,
-                        subject: `Contact Form: ${subject}`,
+                        from_email: email,
+                        subject: `Contact Form: ${subject}`, // Prepend "Contact Form:"
+                        user_name: name,
                         user_email: email,
-                        message: `New message from ${name} (${email}):\n\n${message}`
+                        inquiry_type: subject, // Send the selected subject
+                        message: message
                     };
-
+                    
                     try {
-                        // NOTE: You will need a NEW template in EmailJS for this form
                         // Replace 'YOUR_SERVICE_ID' and 'YOUR_CONTACT_TEMPLATE_ID' with your actual values
+                        // *** NOTE: Use a NEW, SEPARATE template for this form ***
                         await emailjs.send('YOUR_SERVICE_ID', 'YOUR_CONTACT_TEMPLATE_ID', templateParams);
-                        
+
                         contactFormMessage.textContent = 'Thank you! Your message has been sent successfully. We will get back to you soon.';
                         contactFormMessage.className = 'mt-4 p-4 rounded-lg text-center bg-green-100 text-green-700 border border-green-300';
                         contactFormMessage.classList.remove('hidden');
-                        
+
                         setTimeout(() => {
                             contactForm.reset();
                             contactFormMessage.classList.add('hidden');
@@ -1076,7 +1145,7 @@ Services
                         contactFormMessage.textContent = 'Sorry, there was an error sending your message. Please try again or email us directly at info@seekersden.in.';
                         contactFormMessage.className = 'mt-4 p-4 rounded-lg text-center bg-red-100 text-red-700 border border-red-300';
                         contactFormMessage.classList.remove('hidden');
-                        
+
                         if (contactSubmitButton) {
                             contactSubmitButton.disabled = false;
                             contactSubmitButton.textContent = 'Send Message';
@@ -1095,7 +1164,7 @@ Services
                         await navigator.clipboard.writeText(email);
                         const originalHTML = copyEmailBtn.innerHTML;
                         copyEmailBtn.innerHTML = `
-                            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                             </svg>
                         `;
@@ -1113,8 +1182,9 @@ Services
                         textArea.select();
                         try {
                             document.execCommand('copy');
+                            const originalHTML = copyEmailBtn.innerHTML; // Need to define again for fallback
                             copyEmailBtn.innerHTML = `
-                                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                 </svg>
                             `;
@@ -1129,10 +1199,6 @@ Services
                 });
             }
 
-            // --- *** FIX: Removed redundant declaration *** ---
-            // --- Copy Email Functionality ---
-            // const copyEmailBtn = document.getElementById('copy-email-btn'); 
-            
             // --- Scrollspy for Nav Highlighting ---
             const sections = document.querySelectorAll('main section[id]');
             const desktopNavLinks = desktopNav.querySelectorAll('a');
@@ -1153,7 +1219,7 @@ Services
                                 link.classList.remove('nav-active');
                                 if (link.getAttribute('href') === `#${id}`) {
                                     link.classList.add('nav-active');
-                                }
+ }
                             });
                         };
                         updateNav(desktopNavLinks);
