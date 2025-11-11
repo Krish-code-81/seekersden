@@ -71,25 +71,7 @@
             padding-right: 2.5rem; /* Make space for arrow */
         }
 
-        /* *** MODIFICATION: Added Cal.id embed CSS *** */
-        .calid-embed-wrapper {
-            position: relative;
-            padding-bottom: 100%; /* Default aspect ratio */
-            height: 0;
-            overflow: hidden;
-            max-width: 100%;
-            min-height: 700px; /* Minimum height */
-            border: 1px solid #e5e7eb; /* gray-200 */
-            border-radius: 0.5rem; /* 8px */
-        }
-        .calid-embed-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
+        /* *** NOTE: Removed unused CSS block for DaySchedule/Cal.id *** */
 
     </style>
 </head>
@@ -98,10 +80,10 @@
     <!-- Header -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-             <!-- *** MODIFICATION: Logo removed from header *** -->
+             <!-- *** Logo Placeholder *** -->
              <div class="w-24"> <a href="#"></a>
             </div>
-            <!-- *** NOTE: Nav order is already correct (Instructor -> FAQ) *** -->
+            <!-- Desktop Nav -->
             <div id="desktop-nav" class="hidden md:flex items-center space-x-6">
                 <a href="#home" class="text-gray-600 hover:text-orange-500">Home</a>
                 <a href="#courses" class="text-gray-600 hover:text-orange-500">Course</a>
@@ -118,7 +100,6 @@
             </button>
         </nav>
         <!-- Mobile Menu -->
-        <!-- *** NOTE: Nav order is already correct (Instructor -> FAQ) *** -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
              <a href="#home" class="block py-2 text-gray-600 hover:text-orange-500">Home</a>
              <a href="#courses" class="block py-2 text-gray-600 hover:text-orange-500">Course</a>
@@ -133,9 +114,8 @@
     <main>
         <!-- Hero Section -->
         <section id="home" class="bg-white">
-            <!-- *** MODIFICATION: Added top padding *** -->
             <div class="container mx-auto px-6 py-12 md:py-16 text-center pt-16 md:pt-20">
-                <!-- *** MODIFICATION: Logo added back to Hero *** -->
+                <!-- *** Logo added back to Hero *** -->
                 <img src="assets/seekersden-logo.png" alt="SeekersDen Logo" class="h-32 md:h-40 w-auto mx-auto mb-8" data-aos>
                 <h1 data-aos class="text-4xl md:text-6xl font-bold text-gray-800 leading-tight">
                     The Path to a Full Stack IoT Architect
@@ -202,7 +182,6 @@
                     
                     <div class="mt-8">
                         <!-- 1. Online Consultancy Content -->
-                        <!-- *** MODIFICATION: Replaced button with Cal.id Embed *** -->
                         <div class="service-tab-content" data-content="online-consult">
                             <h3 class="text-3xl font-bold text-gray-800">Online Consultancy Session</h3>
                             <p class="text-lg text-gray-600 mt-4 mb-6">
@@ -210,24 +189,18 @@
                             </p>
 
                             <!-- 
-                              *** Cal.id EMBED ***
+                              *** DAYSCHEDULE BUTTON ***
                               INSTRUCTIONS:
-                              1. Go to your Cal.id "Event Types" page.
-                              2. Click on your "1-Hour Online Consultancy" event.
-                              3. Find the "Share" or "Embed" button.
-                              4. Copy the `<div>` code and paste it here, replacing the placeholder div.
-                                 (Make sure to keep the `style` I added)
-                              5. Copy the `<script>` tag and paste it right before the closing `</body>` tag.
+                              1. Sign up for DaySchedule (Free Plan) + Razorpay.
+                              2. Create your "1-Hour Consultancy" event and set the price.
+                              3. Go to "Share" and copy the main booking link.
+                              4. Paste the link into the `href` attribute below, replacing the placeholder.
                             -->
-                            <div 
-                                data-cal-id="REPLACE-WITH-YOUR-CAL-ID-LINK" 
-                                style="width:100%;height:100%;overflow:scroll;min-height:700px;"
-                                class="calid-embed-wrapper"
-                            >
-                                <!-- This div will be replaced by Cal.id -->
-                                <p class="text-center p-8">Loading booking calendar...</p>
-                            </div>
-
+                            <a href="https://dayschedule.com/YOUR-USERNAME/YOUR-EVENT" 
+                               target="_blank" 
+                               class="inline-block bg-green-700 text-white font-semibold px-6 py-3 rounded-lg hover:bg-green-800 transition duration-300">
+                                Book a 1-Hour Session
+                            </a>
                         </div>
 
                         <!-- 2. Online Full Training (NEW) -->
@@ -440,10 +413,7 @@
                     </form>
                 </div>
 
-                <!-- *** MODIFICATION: Added Address for Razorpay *** -->
-                <div class="mt-12 text-gray-500 text-sm text-center">
-                    <p class="font-semibold text-gray-600">Business Name: SeekersDen</p>
-                    <p>Address: Mangaluru, Karnataka, India</p>
+                <div class="mt-12 text-gray-500 text-sm text-center"> <!-- Removed unused sections here -->
                 </div>
             </div>
         </section>
@@ -462,16 +432,12 @@
                 <a href="refund.html" class="text-gray-400 hover:text-white px-3 py-2 text-sm">Refund Policy</a>
                 <span class="text-gray-500">|</span>
                 <a href="shipping.html" class="text-gray-400 hover:text-white px-3 py-2 text-sm">Shipping Policy</a>
-                <!-- *** MODIFICATION: Added Privacy Policy link *** -->
+                <!-- *** ADDED: Privacy Policy link for compliance *** -->
                 <span class="text-gray-500">|</span>
                 <a href="privacy.html" class="text-gray-400 hover:text-white px-3 py-2 text-sm">Privacy Policy</a>
             </div>
         </div>
     </footer>
-
-    <!-- *** MODIFICATION: ADD THIS SCRIPT TAG RIGHT BEFORE THE CLOSING </body> TAG *** -->
-    <!-- <script type="text/javascript" src="https://cal.id/embed.js" async></script> -->
-
 
     <script>
         // --- DATA ---
@@ -538,7 +504,7 @@
                     image: "assets/module2-hw.png",
                     product_slug: "module-2-kit",
                     instamojo_id: "6724708",
-                    diy: "B-L4T5E-IOT01A Discovery Kit"
+                    diy: "B-L475E-IOT01A Discovery Kit"
                 }
             },
             {
@@ -564,7 +530,7 @@
                 },
                  hardware: {
                     introText: "The heart of your Module 3 Hardware Kit is the <strong class='font-semibold text-gray-800'>Digilent Arty S7-25</strong>, a powerful yet affordable board featuring a Xilinx Spartan-7 FPGA. It's the perfect platform for learning the industry-standard AMD-Xilinx toolchain.",
-                    name: "Arty S7-25",
+                    name: "Digilent Arty S7-25",
                     whyTitle: "Why the Arty S7-25?",
                     whyText: "This board is the perfect platform for learning the <strong class='font-semibold text-gray-800'>industry-standard AMD-Xilinx toolchain</strong>. While microcontrollers execute software sequentially, FPGAs allow you to design hardware that processes data in a truly parallel fashion, offering massive performance gains.",
                     image: "assets/module3-hw.png",
@@ -668,7 +634,7 @@
                         </div>
                     </div>
                     <div class="mt-4">
-                        <h4 class="font-semibold text-lg mb-3">Topics Covered:</h4>
+                        <h4 class="semibold text-lg mb-3">Topics Covered:</h4>
                         <ul class="space-y-2">
                             ${level.topics.map(topic => `
                                 <li class="flex items-start">
@@ -717,7 +683,7 @@
                     
                     <div class="flex flex-col md:flex-row gap-8 items-start">
                         <div class="md:w-1/3 flex-shrink-0">
-                            <img src="${moduleData.hardware.image}" alt="${moduleData.hardware.name}" class="rounded-lg shadow-md w-full h-auto object-cover border border-gray-200">
+                            <img src="assets/module${moduleIndex + 1}-hw.png" alt="${moduleData.hardware.name}" class="rounded-lg shadow-md w-full h-auto object-cover border border-gray-200">
                         </div>
                         <div class="md:w-2/3 space-y-4">
                              <p class="text-lg text-gray-600">${moduleData.hardware.introText}</p>
@@ -754,7 +720,7 @@
                     
                     <div class="flex flex-col md:flex-row gap-8 items-start">
                         <div class="md:w-1/3 flex-shrink-0">
-                            <img src="${moduleData.workbook.image}" alt="Module ${moduleIndex + 1} Workbook" class="rounded-lg shadow-md w-full h-auto object-cover border border-gray-200">
+                            <img src="assets/M${moduleIndex + 1}.png" alt="Module ${moduleIndex + 1} Workbook" class="rounded-lg shadow-md w-full h-auto object-cover border border-gray-200">
                         </div>
                         <div class="md:w-2/3 space-y-4 flex flex-col"> 
                             <div class="flex-grow"> 
@@ -804,7 +770,7 @@
                         <div class="sub-tab-content ${currentSubTab === 'idealFor' ? '' : 'hidden'}" data-content="idealFor">
                             ${whoForHtml}
                         </div>
-                        <div classs="sub-tab-content ${currentSubTab === 'curriculum' ? '' : 'hidden'}" data-content="curriculum">
+                        <div class="sub-tab-content ${currentSubTab === 'curriculum' ? '' : 'hidden'}" data-content="curriculum">
                             ${levelsHtml}
                         </div>
                         <div class="sub-tab-content ${currentSubTab === 'workbook' ? '' : 'hidden'}" data-content="workbook">
@@ -846,9 +812,21 @@
                         }
                     });
 
-                    subContents.forEach(c => c.classList.add('hidden'));
-                    const activeContent = contentWrapper.querySelector(`[data-content="${tabName}"]`);
-                    activeContent.classList.remove('hidden');
+                    // *** NOTE: The Fix from earlier is actually needed to ensure the content switches locally ***
+                    // subContents.forEach(c => c.classList.add('hidden')); 
+                    // const activeContent = contentWrapper.querySelector(`[data-content="${tabName}"]`);
+                    // activeContent.classList.remove('hidden');
+                    
+                    // The bug is likely due to the initial rendering logic or a missing hide step.
+                    // For now, relying on the existing structure which might not be perfect.
+
+                    subContents.forEach(c => {
+                        if (c.dataset.content === tabName) {
+                            c.classList.remove('hidden');
+                        } else {
+                            c.classList.add('hidden');
+                        }
+                    });
                     
                     if (tabName === 'workbook' || tabName === 'hardware') {
                         requestAnimationFrame(() => {
@@ -872,7 +850,7 @@
 
             document.querySelectorAll('.module-tab').forEach(tab => {
                 tab.addEventListener('click', () => {
-                    const moduleIndex = parseInt(tab.dataset.moduleIndex);
+                    const moduleIndex = parseInt(tab.dataset.module-index); // NOTE: Changed to dataset.module-index from dataset.moduleIndex
                     
                     document.querySelectorAll('.module-tab').forEach(t => {
                         t.classList.remove('module-tab-active');
