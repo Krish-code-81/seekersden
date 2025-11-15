@@ -587,7 +587,8 @@
                     image: "assets/M1.png",
                     description: "The Module 1 Workbook is your self-paced, lifetime-access guide. It contains detailed instructions for every lab, from blinking an LED to register-level C programming, complete circuit diagrams, the full hardware parts list, and complete source code for all labs.",
                     product_slug: "module-1-workbook",
-                    instamojo_id: "6723363"
+                    instamojo_id: "6723363",
+                    price: "₹1,999"
                 },
                 hardware: {
                     introText: "The heart of your Module 1 Hardware Kit is the <strong class='font-semibold text-gray-800'>STM32 NUCLEO-L476RG</strong> development board. This is a powerful and versatile platform from STMicroelectronics, perfect for learning and prototyping.",
@@ -597,7 +598,8 @@
                     image: "assets/module1-hw.png",
                     product_slug: "module-1-kit-test",
                     instamojo_id: "6723362",
-                    diy: "STM32 Nucleo-64 (NUCLEO-L476RG)"
+                    diy: "STM32 Nucleo-64 (NUCLEO-L476RG)",
+                    price: "₹2,200"
                 }
             },
             {
@@ -619,7 +621,8 @@
                     image: "assets/M2.png",
                     description: "The Module 2 Workbook guides you through managing real-time complexity. You'll learn FreeRTOS concepts like tasks, queues, and mutexes, and build a complete sensor-to-cloud IoT project using Wi-Fi and MQTT. Includes all source code.",
                     product_slug: "module-2-workbook",
-                    instamojo_id: "6724704"
+                    instamojo_id: "6724704",
+                    price: "₹2,499"
                 },
                 hardware: {
                     introText: "The heart of your Module 2 Hardware Kit is the <strong class='font-semibold text-gray-800'>STM32 B-L475E-IOT01A</strong>, a development board purpose-built for creating IoT applications. Its biggest advantage is the on-board connectivity and sensors, which allow you to start building connected devices right out of the box.",
@@ -629,7 +632,8 @@
                     image: "assets/module2-hw.png",
                     product_slug: "module-2-kit",
                     instamojo_id: "6724708",
-                    diy: "B-L4TBD-IOT01A Discovery Kit"
+                    diy: "B-L4TBD-IOT01A Discovery Kit",
+                    price: "₹6,500"
                 }
             },
             {
@@ -651,7 +655,8 @@
                     image: "assets/M3.png",
                     description: "The Module 3 Workbook takes you beyond software. You will learn to design your own custom digital hardware circuits using a Hardware Description Language (Verilog/VHDL) and implement them on an FPGA, mastering the complete design flow from synthesis to testing. Includes all source code.",
                     product_slug: "module-3-workbook",
-                    instamojo_id: "6724706"
+                    instamojo_id: "6724706",
+                    price: "₹3,499"
                 },
                 hardware: {
                     introText: "The heart of your Module 3 Hardware Kit is the <strong class='font-semibold text-gray-800'>Digilent Arty S7-25</strong>, a powerful yet affordable board featuring a Xilinx Spartan-7 FPGA. It's the perfect platform for learning the industry-standard AMD-Xilinx toolchain.",
@@ -661,7 +666,8 @@
                     image: "assets/module3-hw.png",
                     product_slug: "module-3-kit",
                     instamojo_id: "6724709",
-                    diy: "Digilent Arty Spartan-7 (Arty S7-25)"
+                    diy: "Digilent Arty Spartan-7 (Arty S7-25)",
+                    price: "₹13,000"
                 }
             },
             {
@@ -683,7 +689,8 @@
                     image: "assets/M4.png",
                     description: "The Module 4 Workbook teaches you to master Embedded Linux. You'll learn to customize bootloaders, write device drivers, understand the Yotco Project, and build a- complete custom Linux distribution from scratch for a powerful MPU. Includes all source code.",
                     product_slug: "module-4-workbook",
-                    instamojo_id: "6724707"
+                    instamojo_id: "6724707",
+                    price: "₹4,499"
                 },
                 hardware: {
                     introText: "The heart of your Module 4 Hardware Kit is the <strong class='font-semibold text-gray-800'>STM32MP157C-DK2 Discovery Kit</strong>, a development board purpose-built for creating IoT applications. Its biggest advantage is the on-board connectivity and sensors, which allow you to start building connected devices right out of the box.",
@@ -693,7 +700,8 @@
                     image: "assets/module4-hw.png",
                     product_slug: "module-4-kit",
                     instamojo_id: "6724710",
-                    diy: "STM32MP1 Discovery Kit (STM32MP157C-DK2)"
+                    diy: "STM32MP1 Discovery Kit (STM32MP157C-DK2)",
+                    price: "₹13,500"
                 }
             }
         ];
@@ -821,7 +829,7 @@
                                    data-domain="https://seekersden.myinstamojo.com" 
                                    data-id="${moduleData.hardware.instamojo_id}" 
                                    rel="im-new-checkout" 
-                                   data-text="Get the Official Hardware Kit" 
+                                   data-text="Get the Official Hardware Kit (${moduleData.hardware.price})" 
                                    data-css-style="background:#15803d; color:#ffffff; font-weight:600; padding-left:1.5rem; padding-right:1.5rem; padding-top:0.75rem; padding-bottom:0.75rem; border-radius:0.5rem;" 
                                    data-layout="vertical">
                                 </a>
@@ -861,7 +869,7 @@
                                    data-domain="https://seekersden.myinstamojo.com" 
                                    data-id="${moduleData.workbook.instamojo_id}" 
                                    rel="im-new-checkout" 
-                                   data-text="Get the Workbook" 
+                                   data-text="Get the Workbook (${moduleData.workbook.price})" 
                                    data-css-style="background:#15803d; color:#ffffff; font-weight:600; padding-left:1.5rem; padding-right:1.5rem; padding-top:0.75rem; padding-bottom:0.75rem; border-radius:0.5rem;" 
                                    data-layout="vertical">
                                 </a>
