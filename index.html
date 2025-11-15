@@ -579,7 +579,7 @@
                     "<strong class='font-semibold text-gray-800'>Junior Engineers (1-3 years):</strong> Who want to build a strong, foundational understanding of microcontroller hardware and bare-metal C programming.",
                     "<strong class='font-semibold text-gray-800'>Computer Science Students:</strong> Seeking to bridge the gap between software theory and real-world hardware application.",
                     "<strong class='font-semibold text-gray-800'>Hobbyists and Makers:</strong> Who want to move beyond basic Arduino sketches to professional, register-level C programming techniques.",
-                    "<strong class='font-semibold text-gray-800'>Professionals Transitioning:</strong> From other fields (like web or enterprise software) who need a ground-up introduction to embedded systems."
+                    "<strong class'font-semibold text-gray-800'>Professionals Transitioning:</strong> From other fields (like web or enterprise software) who need a ground-up introduction to embedded systems."
                 ],
                 workbook: {
                     image: "assets/M1.png",
@@ -882,11 +882,13 @@
                             <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md ${currentSubTab === 'curriculum' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="curriculum">
                                 Curriculum
                             </button>
+                            <!-- *** CHANGE MADE HERE *** -->
                             <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md ${currentSubTab === 'workbook' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="workbook">
-                                Workbook
+                                Buy Workbook
                             </button>
+                            <!-- *** CHANGE MADE HERE *** -->
                             <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md ${currentSubTab === 'hardware' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="hardware">
-                                Hardware
+                                Buy Hardware
                             </button>
                         </div>
                     </div>
@@ -1267,44 +1269,33 @@
             const copyEmailBtn = document.getElementById('copy-email-btn');
             const emailText = document.getElementById('email-text');
             if (copyEmailBtn && emailText) {
-                copyEmailBtn.addEventListener('click', async () => {
+                copyEmailBtn.addEventListener('click', () => {
                     const email = emailText.textContent.trim();
+                    
+                    // Fallback for navigator.clipboard (which may not work in all browser contexts)
+                    const textArea = document.createElement('textarea');
+                    textArea.value = email;
+                    textArea.style.position = 'fixed';
+                    textArea.style.opacity = '0';
+                    document.body.appendChild(textArea);
+                    textArea.select();
                     try {
-                        await navigator.clipboard.writeText(email);
-                        const originalHTML = copyEmailBtn.innerHTML;
+                        document.execCommand('copy');
+                        const originalHTML = copyEmailBtn.innerHTML; // Need to define again for fallback
                         copyEmailBtn.innerHTML = `
                             <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                             </svg>
                         `;
-                        copyEmailBtn.classList.add('text-green-500');
+                        copyEmailBtn.classList.add('text-green-500'); // Add class for visual feedback
                         setTimeout(() => {
                             copyEmailBtn.innerHTML = originalHTML;
-                            copyEmailBtn.classList.remove('text-green-500');
+                            copyEmailBtn.classList.remove('text-green-500'); // Remove class
                         }, 2000);
-                    } catch (err) {
-                        const textArea = document.createElement('textarea');
-                        textArea.value = email;
-                        textArea.style.position = 'fixed';
-                        textArea.style.opacity = '0';
-                        document.body.appendChild(textArea);
-                        textArea.select();
-                        try {
-                            document.execCommand('copy');
-                            const originalHTML = copyEmailBtn.innerHTML; // Need to define again for fallback
-                            copyEmailBtn.innerHTML = `
-                                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                            `;
-                            setTimeout(() => {
-                                copyEmailBtn.innerHTML = originalHTML;
-                            }, 2000);
-                        } catch (fallbackErr) {
-                            console.error('Failed to copy email:', fallbackErr);
-                        }
-                        document.body.removeChild(textArea);
+                    } catch (fallbackErr) {
+                        console.error('Failed to copy email:', fallbackErr);
                     }
+                    document.body.removeChild(textArea);
                 });
             }
 
