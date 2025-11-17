@@ -52,28 +52,11 @@
             color: white;
         }
 
-        .faq-answer, .accordion-content {
+        .faq-answer {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-in-out;
         }
-        
-        .accordion-button.is-open .accordion-arrow {
-            transform: rotate(180deg);
-        }
-        .accordion-arrow {
-            transition: transform 0.3s ease;
-        }
-
-        /* *** NEW: Accordion active state color *** */
-        .accordion-button.is-open {
-            background-color: #F97316 !important; /* dark orange */
-            color: #ffffff !important; /* white */
-        }
-        .accordion-button.is-open .accordion-arrow {
-            color: #ffffff !important; /* white arrow */
-        }
-
 
         .nav-active {
             color: #F97316 !important;
@@ -237,28 +220,18 @@
                         hardware to complete the hands-on labs.</p>
                 </div>
 
-                <!-- *** NEW: Responsive Layout Container *** -->
-                <div class="bg-white rounded-2xl shadow-lg p-4 sm:p-8 max-w-7xl mx-auto">
-                    
-                    <!-- 1. Desktop Tab Layout (Hidden on Mobile) -->
-                    <div class="hidden lg:flex lg:space-x-8">
-                        <!-- Module Selection -->
-                        <div class="lg:w-1/4 mb-8 lg:mb-0">
-                            <ul id="module-tabs" class="flex flex-wrap lg:flex-col gap-2">
-                                <!-- Module tabs will be inserted here by JS -->
-                            </ul>
-                        </div>
-                        <!-- Course Content -->
-                        <div id="course-content-wrapper" class="lg:w-3/4">
-                            <!-- Content will be inserted here by JS -->
-                        </div>
+                <div class="bg-white rounded-2xl shadow-lg lg:flex lg:space-x-8 p-8 max-w-7xl mx-auto">
+                    <!-- Module Selection -->
+                    <div class="lg:w-1/4 mb-8 lg:mb-0">
+                        <ul id="module-tabs" class="flex flex-wrap lg:flex-col gap-2">
+                            <!-- Module tabs will be inserted here by JS -->
+                        </ul>
                     </div>
 
-                    <!-- 2. Mobile Accordion Layout (Hidden on Desktop) -->
-                    <div id="mobile-course-accordion" class="block lg:hidden space-y-4">
-                        <!-- Mobile accordion will be inserted here by JS -->
+                    <!-- Course Content -->
+                    <div id="course-content-wrapper" class="lg:w-3/4">
+                        <!-- Content will be inserted here by JS -->
                     </div>
-
                 </div>
             </div>
         </section>
@@ -273,289 +246,277 @@
                     </p>
                 </div>
 
-                <div class="bg-white rounded-2xl shadow-lg p-4 sm:p-8 border border-gray-100 max-w-7xl mx-auto">
-                    
-                    <!-- 1. Desktop Tab Layout (Hidden on Mobile) -->
-                    <div class="hidden lg:block">
-                        <!-- Service Tabs -->
-                        <div class="border-b border-gray-200">
-                            <div class="flex flex-wrap -mb-px gap-x-4">
-                                <button class="service-tab-button px-4 py-2 text-sm font-semibold rounded-t-md tab-active"
-                                    data-tab="online-consult">
-                                    Online Consultancy
-                                </button>
-                                <button
-                                    class="service-tab-button px-4 py-2 text-sm font-semibold rounded-t-md text-gray-600 hover:bg-orange-50"
-                                    data-tab="online-full">
-                                    Online Training
-                                </button>
-                                <button
-                                    class="service-tab-button px-4 py-2 text-sm font-semibold rounded-t-md text-gray-600 hover:bg-orange-50"
-                                    data-tab="onsite">
-                                    Onsite Training
-                                </button>
-                                <button
-                                    class="service-tab-button px-4 py-2 text-sm font-semibold rounded-t-md text-gray-600 hover:bg-orange-50"
-                                    data-tab="offline-full">
-                                    Offline Training
-                                </button>
+                <div class="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 max-w-7xl mx-auto">
+                    <!-- Service Tabs -->
+                    <div class="border-b border-gray-200">
+                        <div class="flex flex-wrap -mb-px gap-x-4">
+                            <button class="service-tab-button px-4 py-2 text-sm font-semibold rounded-t-md tab-active"
+                                data-tab="online-consult">
+                                Online Consultancy
+                            </button>
+                            <button
+                                class="service-tab-button px-4 py-2 text-sm font-semibold rounded-t-md text-gray-600 hover:bg-orange-50"
+                                data-tab="online-full">
+                                Online Training
+                            </button>
+                            <button
+                                class="service-tab-button px-4 py-2 text-sm font-semibold rounded-t-md text-gray-600 hover:bg-orange-50"
+                                data-tab="onsite">
+                                Onsite Training
+                            </button>
+                            <button
+                                class="service-tab-button px-4 py-2 text-sm font-semibold rounded-t-md text-gray-600 hover:bg-orange-50"
+                                data-tab="offline-full">
+                                Offline Training
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <!-- 1. Online Consultancy Content -->
+                        <div class="service-tab-content" data-content="online-consult">
+                            <h3 class="text-3xl font-bold text-gray-800">Online Consultancy Session</h3>
+                            <p class="text-lg text-gray-600 mt-4 mb-6">
+                                Book a 1-hour online session with your instructor. This is typically a one-on-one session, and is the perfect way to get personalized guidance, ask in-depth questions about specific module topics or get generic career advice when you're stuck.
+                            </p>
+                            <p class="text-base text-gray-600 mb-6">
+                                <strong class="font-semibold text-gray-800">Optional Cost Sharing:</strong> If you want to share the cost, you can optionally invite up to 3 additional participants after booking (maximum 4 participants total, including you). Simply share the meeting link with them to split the cost among the group, making it more affordable for everyone.
+                            </p>
+
+                            <!-- Cal.com Inline Embed -->
+                            <div class="mt-6 mb-4">
+                                <div style="width:100%;height:100%;overflow:scroll;min-height:600px;" id="my-cal-inline"></div>
+
+                                <script type="text/javascript">
+                                    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://cal.id/embed-link/embed.js", "init");
+
+                                    Cal("init", "default", {origin:"https://cal.id"});
+
+                                    Cal.ns["default"]("inline", {
+                                        elementOrSelector:"#my-cal-inline",
+                                        config: {"layout":"month_view"},
+                                        calLink: "seekersden/1-hour-online-consultancy",
+                                    });
+
+                                    Cal.ns["default"]("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#007ee5"},"dark":{"cal-brand":"#fafafa"}},"hideEventTypeDetails":false,"layout":"month_view"});
+                                </script>
+
+                                <!-- Fallback link in case embed doesn't load -->
+                                <p class="text-center mt-4 text-sm text-gray-500">
+                                    Having trouble viewing? 
+                                    <a href="https://cal.id/seekersden/1-hour-online-consultancy" 
+                                       target="_blank" 
+                                       class="text-green-700 hover:text-green-800 underline">
+                                        Book directly here (₹1,500)
+                                    </a>
+                                </p>
                             </div>
                         </div>
 
-                        <div class="mt-8">
-                            <!-- 1. Online Consultancy Content -->
-                            <div class="service-tab-content" data-content="online-consult">
-                                <h3 class="text-3xl font-bold text-gray-800">Online Consultancy Session</h3>
-                                <p class="text-lg text-gray-600 mt-4 mb-6">
-                                    Book a 1-hour online session with your instructor. This is typically a one-on-one session, and is the perfect way to get personalized guidance, ask in-depth questions about specific module topics or get generic career advice when you're stuck.
-                                </p>
-                                <p class="text-base text-gray-600 mb-6">
-                                    <strong class="font-semibold text-gray-800">Optional Cost Sharing:</strong> If you want to share the cost, you can optionally invite up to 3 additional participants after booking (maximum 4 participants total, including you). Simply share the meeting link with them to split the cost among the group, making it more affordable for everyone.
-                                </p>
+                        <!-- 2. Online Full Training (NEW) -->
+                        <div class="service-tab-content hidden" data-content="online-full">
+                            <h3 class="text-3xl font-bold text-gray-800">Online Full Training (Live)</h3>
+                            <p class="text-lg text-gray-600 mt-4 mb-6">
+                                Join a complete, instructor-led online course. This is not self-paced; you will join a
+                                live virtual classroom with a small group of participants, following a structured schedule
+                                from start to finish. This is the most comprehensive way to learn the entire "Eagle's
+                                Tour" from home.
+                            </p>
+                            <!-- *** MODIFICATION: Replaced simple price box with detailed schedule & pricing *** -->
+                            <div class="space-y-6 my-6">
+                                <!-- Schedule Box -->
+                                <div class="bg-gray-100 border border-gray-200 rounded-lg p-6">
+                                    <h4 class="text-xl font-bold text-gray-800 mb-3">Weekly Schedule & Timeline</h4>
+                                    <ul class="list-disc list-outside ml-5 space-y-2 text-gray-700">
+                                        <li>
+                                            <strong class="font-semibold text-gray-900">Main Sessions:</strong> Mon - Thurs (9:00 PM - 11:00 PM IST)
+                                        </li>
+                                        <li>
+                                            <strong class="font-semibold text-gray-900">Review Session:</strong> Friday (9:00 PM - 11:00 PM IST)
+                                            <ul class="list-circle list-outside ml-6 mt-1 text-sm">
+                                                <li>Brush-up of the completed level</li>
+                                                <li>Introduction to the next level</li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <strong class="font-semibold text-gray-900">Timeline:</strong> 1 Level per week, 1 Module (4 levels) per month.
+                                        </li>
+                                        <!-- *** NEW: Annual Schedule Added *** -->
+                                        <li>
+                                            <strong class="font-semibold text-gray-900">Annual Batch Schedule:</strong>
+                                            <ul class="list-circle list-outside ml-6 mt-1 text-sm">
+                                                <li><strong>Batch 1:</strong> Jan (M1), Feb (M2), Mar (M3), Apr (M4)</li>
+                                                <li><strong>Batch 2:</strong> May (M1), Jun (M2), Jul (M3), Aug (M4)</li>
+                                                <li><strong>Batch 3:</strong> Sep (M1), Oct (M2), Nov (M3), Dec (M4)</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            
+                                <!-- Pricing Box -->
+                                <div class="bg-orange-50 border border-orange-200 rounded-lg p-6">
+                                    <h4 class="text-xl font-bold text-gray-800 text-center mb-2">Pricing & Flexible Payment Options</h4>
+                                    <p class="text-gray-700 text-center mb-6">We offer flexible payment options to fit your needs. Choose what works best for you.</p>
+                            
+                                    <!-- *** MODIFICATION: Changed grid to 4 columns for new option *** -->
+                                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+                                        
+                                        <!-- Option 1: Per Session -->
+                                        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between">
+                                            <div>
+                                                <p class="font-semibold text-gray-800">Per Session</p>
+                                                <p class="text-3xl font-bold text-orange-600">₹2,500</p>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-2">Pay as you go</p>
+                                        </div>
+                                        
+                                        <!-- Option 2: Per Level (Highlight) -->
+                                        <div class="bg-white p-4 rounded-lg border-2 border-orange-500 shadow-lg relative flex flex-col justify-between">
+                                            <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full">RECOMMENDED</span>
+                                            <div class="pt-3">
+                                                <p class="font-semibold text-orange-600">Per Level</p>
+                                                <p class="text-3xl font-bold text-orange-600">₹10,000</p>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-2">(Covers 1 week)</p>
+                                        </div>
+                            
+                                        <!-- Option 3: Per Module -->
+                                        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between">
+                                            <div>
+                                                <p class="font-semibold text-gray-800">Per Module</p>
+                                                <p class="text-3xl font-bold text-orange-600">₹40,000</p>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-2">(Lumpsum / 1 month)</p>
+                                        </div>
 
-                                <!-- Cal.com Inline Embed -->
-                                <div class="mt-6 mb-4">
-                                    <!-- *** BUG FIX 1: Unique ID for desktop *** -->
-                                    <div style="width:100%;height:100%;overflow:scroll;min-height:600px;" id="my-cal-inline-desktop"></div>
-
-                                    <script type="text/javascript">
-                                        (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://cal.id/embed-link/embed.js", "init");
-
-                                        Cal("init", "default", {origin:"https://cal.id"});
-
-                                        // *** BUG FIX 1: Initialize desktop embed ***
-                                        Cal.ns["default"]("inline", {
-                                            elementOrSelector:"#my-cal-inline-desktop",
-                                            config: {"layout":"month_view"},
-                                            calLink: "seekersden/1-hour-online-consultancy",
-                                        });
-
-                                        Cal.ns["default"]("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#007ee5"},"dark":{"cal-brand":"#fafafa"}},"hideEventTypeDetails":false,"layout":"month_view"});
-                                    </script>
-
-                                    <!-- Fallback link in case embed doesn't load -->
-                                    <p class="text-center mt-4 text-sm text-gray-500">
-                                        Having trouble viewing? 
-                                        <a href="https://cal.id/seekersden/1-hour-online-consultancy" 
-                                        target="_blank" 
-                                        class="text-green-700 hover:text-green-800 underline">
-                                            Book directly here (₹1,500)
-                                        </a>
-                                    </p>
+                                        <!-- *** NEW: Option 4: Full Program *** -->
+                                        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between">
+                                            <div>
+                                                <p class="font-semibold text-gray-800">Full Program</p>
+                                                <p class="text-3xl font-bold text-orange-600">₹1,60,000</p>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-2">(All 4 Modules)</p>
+                                        </div>
+                            
+                                    </div>
                                 </div>
                             </div>
+                            <!-- *** END: Detailed Schedule & Pricing *** -->
+                            <!-- *** MODIFICATION: Button made full-width *** -->
+                            <a href="#contact"
+                                class="block w-full text-center bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">
+                                Contact to Join Next Batch
+                            </a>
+                        </div>
 
-                            <!-- 2. Online Full Training (NEW) -->
-                            <div class="service-tab-content hidden" data-content="online-full">
-                                <h3 class="text-3xl font-bold text-gray-800">Online Full Training (Live)</h3>
-                                <p class="text-lg text-gray-600 mt-4 mb-6">
-                                    Join a complete, instructor-led online course. This is not self-paced; you will join a
-                                    live virtual classroom with a small group of participants, following a structured schedule
-                                    from start to finish. This is the most comprehensive way to learn the entire "Eagle's
-                                    Tour" from home.
-                                </p>
-                                <!-- *** MODIFICATION: Replaced simple price box with detailed schedule & pricing *** -->
-                                <div class="space-y-6 my-6">
-                                    <!-- Schedule Box -->
-                                    <div class="bg-gray-100 border border-gray-200 rounded-lg p-6">
-                                        <h4 class="text-xl font-bold text-gray-800 mb-3">Weekly Schedule & Timeline</h4>
-                                        <ul class="list-disc list-outside ml-5 space-y-2 text-gray-700">
-                                            <li>
-                                                <strong class="font-semibold text-gray-900">Main Sessions:</strong> Mon - Thurs (9:00 PM - 11:00 PM IST)
-                                            </li>
-                                            <li>
-                                                <strong class="font-semibold text-gray-900">Review Session:</strong> Friday (9:00 PM - 11:00 PM IST)
-                                                <ul class="list-circle list-outside ml-6 mt-1 text-sm">
-                                                    <li>Brush-up of the completed level</li>
-                                                    <li>Introduction to the next level</li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <strong class="font-semibold text-gray-900">Timeline:</strong> 1 Level per week, 1 Module (4 levels) per month.
-                                            </li>
-                                            <!-- *** NEW: Annual Schedule Added *** -->
-                                            <li>
-                                                <strong class="font-semibold text-gray-900">Annual Batch Schedule:</strong>
-                                                <ul class="list-circle list-outside ml-6 mt-1 text-sm">
-                                                    <li><strong>Batch 1:</strong> Jan (M1), Feb (M2), Mar (M3), Apr (M4)</li>
-                                                    <li><strong>Batch 2:</strong> May (M1), Jun (M2), Jul (M3), Aug (M4)</li>
-                                                    <li><strong>Batch 3:</strong> Sep (M1), Oct (M2), Nov (M3), Dec (M4)</li>
-                                                </ul>
-                                            </li>
-                                        </ul>
+                        <!-- 3. Onsite Training (NEW) -->
+                        <div class="service-tab-content hidden" data-content="onsite">
+                            <h3 class="text-3xl font-bold text-gray-800">Onsite Corporate Training</h3>
+                            <p class="text-lg text-gray-600 mt-4 mb-6">
+                                Accelerate your team's growth with a private, onsite training bootcamp delivered at your
+                                company's office. We can customize the curriculum from our four modules to fit your
+                                team's specific projects and skill gaps.
+                            </p>
+                            <a href="#contact"
+                                class="inline-block bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">
+                                Inquire About Onsite Training
+                            </a>
+                        </div>
+
+                        <!-- 4. Offline Training Content (Renamed & Updated Form) -->
+                        <div class="service-tab-content hidden" data-content="offline-full">
+                            <!-- *** CHANGE 4a: SEO Optimized H3 *** -->
+                            <h3 class="text-3xl font-bold text-gray-800">Full In-Person Embedded Systems Training in Bengaluru & Mangaluru</h3>
+                            <!-- *** CHANGE 4b: SEO Optimized Paragraph *** -->
+                            <p class="text-lg text-gray-600 mt-4 mb-6">
+                                We are gauging interest for our full <strong>embedded systems training in Bengaluru</strong> and <strong>in-person IoT course in Mangaluru</strong>. These multi-week, intensive
+                                programs are designed to take you from fundamentals to architect-level in a
+                                professional, hands-on classroom environment.
+                            </p>
+
+                            <form id="offline-interest-form"
+                                class="bg-gray-100 p-6 rounded-lg border border-gray-200 space-y-4">
+                                <p class="font-semibold text-lg text-gray-800">Register your interest:</p>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <!-- Location Column -->
+                                    <div class="space-y-3">
+                                        <p class="font-semibold text-gray-800">Preferred Location:</p>
+                                        <label
+                                            class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
+                                            <input type="radio" name="offline_location" value="bengaluru"
+                                                class="form-radio text-orange-500">
+                                            <span class="text-gray-700">
+                                                <strong class="font-semibold text-gray-800">Bengaluru</strong>
+                                            </span>
+                                        </label>
+                                        <label
+                                            class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
+                                            <input type="radio" name="offline_location" value="mangaluru"
+                                                class="form-radio text-orange-500">
+                                            <span class="text-gray-700">
+                                                <strong class="font-semibold text-gray-800">Mangaluru</strong>
+                                            </span>
+                                        </label>
                                     </div>
-                                
-                                    <!-- Pricing Box -->
-                                    <div class="bg-orange-50 border border-orange-200 rounded-lg p-6">
-                                        <h4 class="text-xl font-bold text-gray-800 text-center mb-2">Pricing & Flexible Payment Options</h4>
-                                        <p class="text-gray-700 text-center mb-6">We offer flexible payment options to fit your needs. Choose what works best for you.</p>
-                                
-                                        <!-- *** MODIFICATION: Changed grid to 4 columns for new option *** -->
-                                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
-                                            
-                                            <!-- Option 1: Per Session -->
-                                            <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between">
-                                                <div>
-                                                    <p class="font-semibold text-gray-800">Per Session</p>
-                                                    <p class="text-3xl font-bold text-orange-600">₹2,500</p>
-                                                </div>
-                                                <p class="text-sm text-gray-600 mt-2">Pay as you go</p>
-                                            </div>
-                                            
-                                            <!-- Option 2: Per Level (Highlight) -->
-                                            <div class="bg-white p-4 rounded-lg border-2 border-orange-500 shadow-lg relative flex flex-col justify-between">
-                                                <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full">RECOMMENDED</span>
-                                                <div class="pt-3">
-                                                    <p class="font-semibold text-orange-600">Per Level</p>
-                                                    <p class="text-3xl font-bold text-orange-600">₹10,000</p>
-                                                </div>
-                                                <p class="text-sm text-gray-600 mt-2">(Covers 1 week)</p>
-                                            </div>
-                                
-                                            <!-- Option 3: Per Module -->
-                                            <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between">
-                                                <div>
-                                                    <p class="font-semibold text-gray-800">Per Module</p>
-                                                    <p class="text-3xl font-bold text-orange-600">₹40,000</p>
-                                                </div>
-                                                <p class="text-sm text-gray-600 mt-2">(Lumpsum / 1 month)</p>
-                                            </div>
-
-                                            <!-- *** NEW: Option 4: Full Program *** -->
-                                            <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between">
-                                                <div>
-                                                    <p class="font-semibold text-gray-800">Full Program</p>
-                                                    <p class="text-3xl font-bold text-orange-600">₹1,60,000</p>
-                                                </div>
-                                                <p class="text-sm text-gray-600 mt-2">(All 4 Modules)</p>
-                                            </div>
-                                
-                                        </div>
+                                    <!-- Timing Column -->
+                                    <div class="space-y-3">
+                                        <p class="font-semibold text-gray-800">Preferred Timing:</p>
+                                        <label
+                                            class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
+                                            <input type="radio" name="offline_timing" value="weekdays-day"
+                                                class="form-radio text-orange-500">
+                                            <span class="text-gray-700">
+                                                <strong class="font-semibold text-gray-800">Weekdays Daytime</strong>
+                                            </span>
+                                        </label>
+                                        <label
+                                            class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
+                                            <input type="radio" name="offline_timing" value="weekdays-eve"
+                                                class="form-radio text-orange-500">
+                                            <span class="text-gray-700">
+                                                <strong class="font-semibold text-gray-800">Weekdays Evening</strong>
+                                            </span>
+                                        </label>
+                                        <label
+                                            class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
+                                            <input type="radio" name="offline_timing" value="weekends-day"
+                                                class="form-radio text-orange-500">
+                                            <span class="text-gray-700">
+                                                <strong class="font-semibold text-gray-800">Weekends Daytime</strong>
+                                            </span>
+                                        </label>
+                                        <label
+                                            class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
+                                            <input type="radio" name="offline_timing" value="weekends-eve"
+                                                class="form-radio text-orange-500">
+                                            <span class="text-gray-700">
+                                                <strong class="font-semibold text-gray-800">Weekends Evening</strong>
+                                            </span>
+                                        </label>
                                     </div>
                                 </div>
-                                <!-- *** END: Detailed Schedule & Pricing *** -->
-                                <!-- *** MODIFICATION: Button made full-width *** -->
-                                <a href="#contact"
-                                    class="block w-full text-center bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">
-                                    Contact to Join Next Batch
-                                </a>
-                            </div>
 
-                            <!-- 3. Onsite Training (NEW) -->
-                            <div class="service-tab-content hidden" data-content="onsite">
-                                <h3 class="text-3xl font-bold text-gray-800">Onsite Corporate Training</h3>
-                                <p class="text-lg text-gray-600 mt-4 mb-6">
-                                    Accelerate your team's growth with a private, onsite training bootcamp delivered at your
-                                    company's office. We can customize the curriculum from our four modules to fit your
-                                    team's specific projects and skill gaps.
-                                </p>
-                                <a href="#contact"
-                                    class="inline-block bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">
-                                    Inquire About Onsite Training
-                                </a>
-                            </div>
+                                <hr class="border-gray-300">
 
-                            <!-- 4. Offline Training Content (Renamed & Updated Form) -->
-                            <div class="service-tab-content hidden" data-content="offline-full">
-                                <!-- *** CHANGE 4a: SEO Optimized H3 *** -->
-                                <h3 class="text-3xl font-bold text-gray-800">Full In-Person Embedded Systems Training in Bengaluru & Mangaluru</h3>
-                                <!-- *** CHANGE 4b: SEO Optimized Paragraph *** -->
-                                <p class="text-lg text-gray-600 mt-4 mb-6">
-                                    We are gauging interest for our full <strong>embedded systems training in Bengaluru</strong> and <strong>in-person IoT course in Mangaluru</strong>. These multi-week, intensive
-                                    programs are designed to take you from fundamentals to architect-level in a
-                                    professional, hands-on classroom environment.
-                                </p>
+                                <div>
+                                    <label for="email_interest" class="block font-semibold text-gray-800 mb-2">Your
+                                        Email:</label>
+                                    <input type="email" id="email_interest" name="email"
+                                        placeholder="Enter your email to be notified"
+                                        class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
+                                </div>
 
-                                <form id="offline-interest-form-desktop"
-                                    class="bg-gray-100 p-6 rounded-lg border border-gray-200 space-y-4">
-                                    <p class="font-semibold text-lg text-gray-800">Register your interest:</p>
-
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        <!-- Location Column -->
-                                        <div class="space-y-3">
-                                            <p class="font-semibold text-gray-800">Preferred Location:</p>
-                                            <label
-                                                class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
-                                                <input type="radio" name="offline_location_desktop" value="bengaluru"
-                                                    class="form-radio text-orange-500">
-                                                <span class="text-gray-700">
-                                                    <strong class="font-semibold text-gray-800">Bengaluru</strong>
-                                                </span>
-                                            </label>
-                                            <label
-                                                class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
-                                                <input type="radio" name="offline_location_desktop" value="mangaluru"
-                                                    class="form-radio text-orange-500">
-                                                <span class="text-gray-700">
-                                                    <strong class="font-semibold text-gray-800">Mangaluru</strong>
-                                                </span>
-                                            </label>
-                                        </div>
-                                        <!-- Timing Column -->
-                                        <div class="space-y-3">
-                                            <p class="font-semibold text-gray-800">Preferred Timing:</p>
-                                            <label
-                                                class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
-                                                <input type="radio" name="offline_timing_desktop" value="weekdays-day"
-                                                    class="form-radio text-orange-500">
-                                                <span class="text-gray-700">
-                                                    <strong class="font-semibold text-gray-800">Weekdays Daytime</strong>
-                                                </span>
-                                            </label>
-                                            <label
-                                                class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
-                                                <input type="radio" name="offline_timing_desktop" value="weekdays-eve"
-                                                    class="form-radio text-orange-500">
-                                                <span class="text-gray-700">
-                                                    <strong class="font-semibold text-gray-800">Weekdays Evening</strong>
-                                                </span>
-                                            </label>
-                                            <label
-                                                class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
-                                                <input type="radio" name="offline_timing_desktop" value="weekends-day"
-                                                    class="form-radio text-orange-500">
-                                                <span class="text-gray-700">
-                                                    <strong class="font-semibold text-gray-800">Weekends Daytime</strong>
-                                                </span>
-                                            </label>
-                                            <label
-                                                class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
-                                                <input type="radio" name="offline_timing_desktop" value="weekends-eve"
-                                                    class="form-radio text-orange-500">
-                                                <span class="text-gray-700">
-                                                    <strong class="font-semibold text-gray-800">Weekends Evening</strong>
-                                                </span>
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <hr class="border-gray-300">
-
-                                    <div>
-                                        <label for="email_interest_desktop" class="block font-semibold text-gray-800 mb-2">Your
-                                            Email:</label>
-                                        <input type="email" id="email_interest_desktop" name="email"
-                                            placeholder="Enter your email to be notified"
-                                            class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
-                                    </div>
-
-                                    <button type="submit"
-                                        class="w-full bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">
-                                        Submit Interest
-                                    </button>
-                                    <div id="form-message-desktop" class="hidden mt-4 p-4 rounded-lg text-center"></div>
-                                    <p class="text-xs text-center text-gray-500">Note: This is not a booking. We will
-                                        contact you if a batch is formed.</p>
-                                </form>
-                            </div>
+                                <button type="submit"
+                                    class="w-full bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">
+                                    Submit Interest
+                                </button>
+                                <div id="form-message" class="hidden mt-4 p-4 rounded-lg text-center"></div>
+                                <p class="text-xs text-center text-gray-500">Note: This is not a booking. We will
+                                    contact you if a batch is formed.</p>
+                            </form>
                         </div>
                     </div>
-                    
-                    <!-- 2. Mobile Accordion Layout (Hidden on Desktop) -->
-                    <div id="mobile-service-accordion" class="block lg:hidden space-y-4">
-                        <!-- Mobile service accordion will be inserted here by JS -->
-                    </div>
-
                 </div>
             </div>
         </section>
@@ -598,8 +559,7 @@
                     <h2 class="text-4xl font-bold text-gray-800">Frequently Asked Questions</h2>
                     <p class="mt-2 text-lg text-gray-600">Have a question? We've got answers.</p>
                 </div>
-                <!-- *** MODIFICATION: Removed p-8 for smaller screens *** -->
-                <div class="bg-white rounded-2xl shadow-lg p-4 sm:p-8 max-w-7xl mx-auto">
+                <div class="bg-white rounded-2xl shadow-lg p-8 max-w-7xl mx-auto">
                     <div class="space-y-4" id="faq-container">
                         <!-- FAQ items will be inserted here by JS -->
                     </div>
@@ -632,8 +592,7 @@
                     </p>
                 </div>
 
-                <!-- *** MODIFICATION: Removed p-8 md:p-12 for smaller screens *** -->
-                <div class="bg-white rounded-2xl shadow-lg p-6 sm:p-8 md:p-12 border border-gray-100 max-w-7xl mx-auto">
+                <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12 border border-gray-100 max-w-7xl mx-auto">
                     <form id="contact-form" class="space-y-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Left Column -->
@@ -740,7 +699,7 @@
                     "<strong class='font-semibold text-gray-800'>Junior Engineers (1-3 years):</strong> Who want to build a strong, foundational understanding of microcontroller hardware and bare-metal C programming.",
                     "<strong class='font-semibold text-gray-800'>Computer Science Students:</strong> Seeking to bridge the gap between software theory and real-world hardware application.",
                     "<strong class='font-semibold text-gray-800'>Hobbyists and Makers:</strong> Who want to move beyond basic Arduino sketches to professional, register-level C programming techniques.",
-                    "<strong class='font-semibold text-gray-800'>Professionals Transitioning:</strong> From other fields (like web or enterprise software) who need a ground-up introduction to embedded systems."
+                    "<strong class'font-semibold text-gray-800'>Professionals Transitioning:</strong> From other fields (like web or enterprise software) who need a ground-up introduction to embedded systems."
                 ],
                 workbook: {
                     image: "assets/M1.png",
@@ -867,7 +826,7 @@
 
         const faqData = [
             { question: "What is the 'Eagle's Tour' philosophy?", answer: "Our goal is to give you a high-level map of the entire embedded systems landscape, from hardware to cloud. We teach you the fundamentals of each key domain so you understand how they fit together. This creates adaptable, T-shaped engineers who can tackle any challenge, rather than just knowing a single niche." },
-            { question: "Is this program self-paced, or are there live classes?", answer: "The program is flexible. You can learn entirely at your own pace using the Workbooks and Kits. If you need live instruction, you can book 1-on-1 Online Consultancy sessions or join one of our structured Online Full Training batches." },
+            { question: "Is this program self-paced, or are there live classes?", answer: "This is a fully self-paced program. The digital workbooks are your primary guide, allowing you to learn on your own schedule. The online consultancy sessions are optional and can be booked whenever you need extra help or guidance." },
             { question: "Do I need any prior experience?", answer: "No, the program is designed to take you from the ground up, starting with Module 1. While basic programming knowledge in C is helpful, it is not mandatory. We'll guide you through every step." },
             { question: "How do the Online Consultancy Sessions work?", answer: "You can book sessions in hourly blocks. These are typically one-on-one live video calls with the instructor where you can ask in-depth questions about specific module topics, get help with difficult concepts, or discuss career paths. If you want to share the cost, you can optionally invite up to 3 additional participants (maximum 4 participants total, including you) by sharing the meeting link after booking." }
         ];
@@ -875,8 +834,8 @@
         // --- GLOBAL STATE ---
         let currentSubTab = 'idealFor'; // Default to 'idealFor'
 
-        // --- *** Define variables in the outer scope *** ---
-        let moduleTabsContainer, contentWrapper, mobileCourseAccordion, faqContainer, mobileMenuButton, mobileMenu, desktopNav, mobileServiceAccordion;
+        // --- *** FIX: Define variables in the outer scope *** ---
+        let moduleTabsContainer, contentWrapper, faqContainer, mobileMenuButton, mobileMenu, desktopNav;
 
         // --- Instamojo Script Logic ---
         function discoverInstamojoButtons(retryCount = 0) {
@@ -897,8 +856,7 @@
                 if (window.Instamojo) {
                     delete window.Instamojo;
                 }
-            } else if (existingScript && !forceReload) {
-                discoverInstamojoButtons(); // Just re-discover if script exists
+            } else if (existingScript) {
                 return;
             }
 
@@ -913,95 +871,58 @@
         // --- End Instamojo Script Logic ---
 
 
-        // --- ACCORDION HELPER ---
-        function initializeAccordions(containerSelector, oneAtATime = true) {
-            const accordionButtons = document.querySelectorAll(`${containerSelector} .accordion-button`);
+        // --- FUNCTIONS ---
 
-            accordionButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    // *** BUG FIX 2: Correctly target the content element ***
-                    const content = button.parentElement.nextElementSibling;
-                    const isOpen = button.classList.contains('is-open');
+        function renderContent(moduleIndex) {
+            const moduleData = courseData[moduleIndex];
 
-                    if (oneAtATime) {
-                        // Close all other accordions in this container
-                        accordionButtons.forEach(btn => {
-                            if (btn !== button) {
-                                btn.classList.remove('is-open');
-                                // *** BUG FIX 2: Correctly target the content element ***
-                                btn.parentElement.nextElementSibling.style.maxHeight = '0px';
-                            }
-                        });
-                    }
-
-                    // Toggle the clicked accordion
-                    if (isOpen) {
-                        button.classList.remove('is-open');
-                        content.style.maxHeight = '0px';
-                    } else {
-                        button.classList.add('is-open');
-                        content.style.maxHeight = content.scrollHeight + 'px';
-                        
-                        // *** FEATURE 4: Scroll to new content ***
-                        // Use a short delay to allow the layout to start expanding
-                        setTimeout(() => {
-                            button.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }, 300); // 300ms matches the CSS transition
-                    }
-                });
-            });
-        }
-        
-        // --- HTML GENERATORS ---
-
-        function generateLevelsHtml(moduleData) {
-            return moduleData.levels.map((level, i) => `
+            const levelsHtml = moduleData.levels.map((level, i) => `
                 <div class="level-card mb-6 pb-6 ${i < moduleData.levels.length - 1 ? 'border-b border-gray-200' : ''}">
                     <div class="flex justify-between items-start">
                         <div>
-                            <h3 class="text-xl sm:text-2xl font-bold text-gray-800">${level.name}</h3>
+                            <h3 class="text-2xl font-bold text-gray-800">${level.name}</h3>
                             <p class="text-sm text-gray-500 mt-1">${level.duration}</p>
                         </div>
                     </div>
                     <div class="mt-4">
-                        <h4 class="semibold text-base sm:text-lg mb-3">Topics Covered:</h4>
+                        <h4 class="semibold text-lg mb-3">Topics Covered:</h4>
                         <ul class="space-y-2">
                             ${level.topics.map(topic => `
                                 <li class="flex items-start">
                                     <svg class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                    <span class="text-sm sm:text-base">${topic}</span>
+                                    <span>${topic}</span>
                                 </li>
                             `).join('')}
                         </ul>
                     </div>
                 </div>
             `).join('');
-        }
 
-        function generateWhoForHtml(moduleData) {
-            return `<ul class="list-none space-y-3">
-                ${moduleData.whoFor.map(item => `
+            const whoForHtml = `<ul class="list-none space-y-3">
+                ${moduleData.whoFor.map(item => {
+                const formattedItem = item;
+                return `
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <span class="text-gray-600 text-sm sm:text-base">${item}</span>
+                            <span class="text-gray-600">${formattedItem}</span>
                         </li>
-                    `).join('')}
+                    `
+            }).join('')}
             </ul>`;
-        }
 
-        function generateHardwareKitHtml(moduleData, moduleIndex) {
-            return `
+
+            const hardwareKitHtml = `
                 <div>
-                    <h3 class="text-xl sm:text-2xl font-bold text-gray-800 flex items-center mb-6">
-                        <i class="fas fa-microchip text-xl sm:text-2xl text-orange-500 mr-3"></i>
+                    <h3 class="text-2xl font-bold text-gray-800 flex items-center mb-6">
+                        <i class="fas fa-microchip text-2xl text-orange-500 mr-3"></i>
                         Module ${moduleIndex + 1} Hardware
                     </h3>
 
                     <div class="bg-gray-100 p-4 rounded-lg mb-6">
-                        <p class="text-gray-600 mb-2 text-sm sm:text-base">
+                        <p class="text-gray-600 mb-2">
                             Once you have the workbook, you can perform the labs. You have two options for hardware:
                         </p>
-                        <ul class="list-disc list-outside text-gray-600 space-y-2 ml-5 text-sm sm:text-base">
+                        <ul class="list-disc list-outside text-gray-600 space-y-2 ml-5">
                             <li>
                                 <strong class="font-semibold text-gray-800">Purchase Official Kit:</strong> We offer the official, pre-tested kit which includes every component you need.
                             </li>
@@ -1016,9 +937,10 @@
                             <img src="assets/module${moduleIndex + 1}-hw.png" alt="${moduleData.hardware.name}" class="rounded-lg shadow-md w-full h-auto object-cover border border-gray-200">
                         </div>
                         <div class="md:w-2/3 space-y-4">
-                             <p class="text-base sm:text-lg text-gray-600">${moduleData.hardware.introText}</p>
-                             <h4 class="font-semibold text-lg sm:text-xl text-orange-500">${moduleData.hardware.whyTitle}</h4>
-                             <p class="text-gray-600 text-sm sm:text-base">${moduleData.hardware.whyText}</p>
+                             <p class="text-lg text-gray-600">${moduleData.hardware.introText}</p>
+                             <h4 class="font-semibold text-xl text-orange-500">${moduleData.hardware.whyTitle}</h4>
+                             <p class="text-gray-600">${moduleData.hardware.whyText}</p>
+                             <!-- *** REMOVED PRICE DISPLAY FOR CENTRAL CONTROL *** -->
                             <div class="pt-4 flex justify-center md:justify-start">
                                 <a href="https://seekersden.myinstamojo.com/product/${moduleData.hardware.product_slug}/" 
                                    data-store-name="seekersden" 
@@ -1034,18 +956,16 @@
                     </div>
                 </div>
             `;
-        }
 
-        function generateModuleWorkbookHtml(moduleData, moduleIndex) {
-            return `
+            const moduleWorkbookHtml = `
                 <div>
-                    <h3 class="text-xl sm:text-2xl font-bold text-gray-800 flex items-center mb-6">
-                         <i class="fas fa-book-open text-xl sm:text-2xl text-orange-500 mr-3"></i>
+                    <h3 class="text-2xl font-bold text-gray-800 flex items-center mb-6">
+                         <i class="fas fa-book-open text-2xl text-orange-500 mr-3"></i>
                         Module ${moduleIndex + 1} Workbook
                     </h3>
 
                     <div class="bg-gray-100 p-4 rounded-lg mb-6">
-                        <p class="text-gray-600 text-sm sm:text-base">
+                        <p class="text-gray-600">
                             We recommend starting here. The workbook is a low-cost, immediately available digital download. It provides the complete "Eagle's Tour" of the subject and contains the complete curriculum, all lab instructions, the complete hardware parts list for the DIY path, and complete source code for all labs.
                         </p>
                     </div>
@@ -1056,10 +976,11 @@
                         </div>
                         <div class="md:w-2/3 space-y-4 flex flex-col"> 
                             <div class="flex-grow"> 
-                                <p class="text-base sm:text-lg text-gray-600">
+                                <p class="text-lg text-gray-600">
                                     ${moduleData.workbook.description}
                                 </p>
                             </div>
+                             <!-- *** REMOVED PRICE DISPLAY FOR CENTRAL CONTROL *** -->
                             <div class="pt-4 flex justify-center md:justify-start">
                                 <a href="https://seekersden.myinstamojo.com/product/${moduleData.workbook.product_slug}/" 
                                    data-store-name="seekersden" 
@@ -1075,13 +996,7 @@
                     </div>
                 </div>
             `;
-        }
 
-
-        // --- RENDER FUNCTIONS ---
-
-        function renderDesktopCourseContent(moduleIndex) {
-            const moduleData = courseData[moduleIndex];
             const contentHTML = `
                 <div>
                     <h2 class="text-3xl font-bold text-gray-800">${moduleData.module}</h2>
@@ -1095,9 +1010,11 @@
                             <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md ${currentSubTab === 'curriculum' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="curriculum">
                                 Curriculum
                             </button>
+                            <!-- *** CHANGE MADE HERE *** -->
                             <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md ${currentSubTab === 'workbook' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="workbook">
                                 Buy Workbook
                             </button>
+                            <!-- *** CHANGE MADE HERE *** -->
                             <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md ${currentSubTab === 'hardware' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="hardware">
                                 Buy Hardware
                             </button>
@@ -1106,16 +1023,16 @@
                     
                     <div class="mt-6">
                         <div class="sub-tab-content ${currentSubTab === 'idealFor' ? '' : 'hidden'}" data-content="idealFor">
-                            ${generateWhoForHtml(moduleData)}
+                            ${whoForHtml}
                         </div>
                         <div class="sub-tab-content ${currentSubTab === 'curriculum' ? '' : 'hidden'}" data-content="curriculum">
-                            ${generateLevelsHtml(moduleData)}
+                            ${levelsHtml}
                         </div>
                         <div class="sub-tab-content ${currentSubTab === 'workbook' ? '' : 'hidden'}" data-content="workbook">
-                            ${generateModuleWorkbookHtml(moduleData, moduleIndex)}
+                            ${moduleWorkbookHtml}
                         </div>
                         <div class="sub-tab-content ${currentSubTab === 'hardware' ? '' : 'hidden'}" data-content="hardware">
-                            ${generateHardwareKitHtml(moduleData, moduleIndex)}
+                            ${hardwareKitHtml}
                         </div>
                     </div>
                 </div>
@@ -1128,6 +1045,8 @@
                 requestAnimationFrame(() => {
                     loadInstamojoScript(true);
                 });
+            } else {
+                loadInstamojoScript();
             }
         }
 
@@ -1148,9 +1067,10 @@
                         }
                     });
 
+                    // *** FIX: Corrected the content display logic ***
                     subContents.forEach(c => c.classList.add('hidden'));
                     const activeContent = contentWrapper.querySelector(`[data-content="${tabName}"]`);
-                    if (activeContent) {
+                    if (activeContent) { // Safety check
                         activeContent.classList.remove('hidden');
                     }
 
@@ -1164,7 +1084,6 @@
         }
 
         function initializeCourseSection() {
-            // 1. Render Desktop Tabs
             moduleTabsContainer.innerHTML = courseData.map((data, index) => `
                 <li>
                     <button 
@@ -1186,78 +1105,23 @@
                     tab.classList.add('module-tab-active');
                     tab.classList.remove('bg-white', 'hover:bg-orange-50', 'text-gray-700');
 
-                    renderDesktopCourseContent(moduleIndex);
+                    renderContent(moduleIndex);
                 });
             });
 
-            renderDesktopCourseContent(0);
-
-            // 2. Render Mobile Accordion
-            mobileCourseAccordion.innerHTML = courseData.map((data, index) => {
-                const whoForHtml = generateWhoForHtml(data);
-                const levelsHtml = generateLevelsHtml(data);
-                const workbookHtml = generateModuleWorkbookHtml(data, index);
-                const hardwareHtml = generateHardwareKitHtml(data, index);
-
-                return `
-                    <div class="border border-gray-200 rounded-lg overflow-hidden">
-                        <!-- *** BUG FIX 2: Added parentElement for button *** -->
-                        <h2>
-                            <button class="accordion-button w-full text-left p-4 font-semibold text-gray-800 bg-white hover:bg-orange-50 transition duration-300 flex justify-between items-center" data-module-index="${index}">
-                                <span>${data.module}</span>
-                                <svg class="w-6 h-6 shrink-0 accordion-arrow text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </button>
-                        </h2>
-                        <div class="accordion-content bg-white">
-                            <div class="p-4 space-y-8">
-                                <!-- Stacked Content -->
-                                <section>
-                                    <h3 class="text-xl font-bold text-orange-600 mb-4 pb-2 border-b border-orange-200">Ideal For</h3>
-                                    ${whoForHtml}
-                                </section>
-                                <section>
-                                    <h3 class="text-xl font-bold text-orange-600 mb-4 pb-2 border-b border-orange-200">Curriculum</h3>
-                                    ${levelsHtml}
-                                </section>
-                                <section>
-                                    <h3 class="text-xl font-bold text-orange-600 mb-4 pb-2 border-b border-orange-200">Buy Workbook</h3>
-                                    ${workbookHtml}
-                                </section>
-                                <section>
-                                    <h3 class="text-xl font-bold text-orange-600 mb-4 pb-2 border-b border-orange-200">Buy Hardware</h3>
-                                    ${hardwareHtml}
-                                </section>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            
-            // Re-discover buttons for mobile accordions
-             mobileCourseAccordion.querySelectorAll('.accordion-button').forEach(button => {
-                button.addEventListener('click', () => {
-                    // When an accordion opens, it might have new Instamojo buttons
-                    const isOpen = button.classList.contains('is-open');
-                    if (!isOpen) { // Check if it's ABOUT to be open
-                        requestAnimationFrame(() => {
-                            loadInstamojoScript(true);
-                        });
-                    }
-                });
-            });
+            renderContent(0);
         }
 
         function initializeFAQ() {
             faqContainer.innerHTML = faqData.map((item) => `
-                <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+                <div class="bg-white border border-gray-200 rounded-lg">
                     <h2>
-                        <!-- *** BUG FIX: Corrected type"button" to type="button" *** -->
-                        <button type="button" class="accordion-button flex items-center justify-between w-full p-6 font-semibold text-left text-gray-800">
+                        <button type"button" class="faq-question flex items-center justify-between w-full p-6 font-semibold text-left text-gray-800">
                             <span>${item.question}</span>
-                            <svg class="w-6 h-6 shrink-0 accordion-arrow text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <svg class="w-6 h-6 shrink-0 faq-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
                     </h2>
-                    <div class="accordion-content">
+                    <div class="faq-answer">
                         <div class="p-6 pt-0">
                             <p class="text-gray-600">${item.answer}</p>
                         </div>
@@ -1265,11 +1129,32 @@
                 </div>
             `).join('');
 
-            initializeAccordions('#faq-container', false); // Allow multiple FAQs to be open
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.parentElement.nextElementSibling;
+                    const arrow = question.querySelector('.faq-arrow');
+                    const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
+
+                    document.querySelectorAll('.faq-answer').forEach(ans => {
+                        if (ans !== answer) {
+                            ans.style.maxHeight = '0px';
+                            ans.previousElementSibling.querySelector('.faq-arrow').classList.remove('rotate-180');
+                        }
+                    });
+
+                    if (isOpen) {
+                        answer.style.maxHeight = '0px';
+                        arrow.classList.remove('rotate-180');
+                    } else {
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                        arrow.classList.add('rotate-180');
+                    }
+                });
+            });
         }
 
         function initializeServiceTabs() {
-            // --- This function is for DESKTOP tabs only ---
             const serviceTabs = document.querySelectorAll('.service-tab-button');
             const serviceContents = document.querySelectorAll('.service-tab-content');
 
@@ -1294,192 +1179,134 @@
                             c.classList.add('hidden');
                         }
                     });
-                });
-            });
 
-            // --- NEW: Build Mobile Service Accordion ---
-            const mobileAccordionContainer = document.getElementById('mobile-service-accordion');
-            const desktopTabButtons = document.querySelectorAll('.service-tab-button');
-            
-            let accordionHtml = '';
-            desktopTabButtons.forEach((button, index) => {
-                const tabName = button.dataset.tab;
-                const title = button.textContent.trim();
-                const contentHtml = document.querySelector(`.service-tab-content[data-content="${tabName}"]`).innerHTML;
-
-                // Create mobile-specific IDs for the form
-                let mobileContentHtml = contentHtml.replace(/id="offline-interest-form-desktop"/g, 'id="offline-interest-form-mobile"');
-                mobileContentHtml = mobileContentHtml.replace(/id="email_interest_desktop"/g, 'id="email_interest_mobile"');
-                mobileContentHtml = mobileContentHtml.replace(/for="email_interest_desktop"/g, 'for="email_interest_mobile"');
-                mobileContentHtml = mobileContentHtml.replace(/name="offline_location_desktop"/g, 'name="offline_location_mobile"');
-                mobileContentHtml = mobileContentHtml.replace(/name="offline_timing_desktop"/g, 'name="offline_timing_mobile"');
-                mobileContentHtml = mobileContentHtml.replace(/id="form-message-desktop"/g, 'id="form-message-mobile"');
-                // *** BUG FIX 1: Unique ID for mobile cal embed ***
-                mobileContentHtml = mobileContentHtml.replace(/id="my-cal-inline-desktop"/g, 'id="my-cal-inline-mobile"');
-
-
-                accordionHtml += `
-                    <div class="border border-gray-200 rounded-lg overflow-hidden">
-                        <!-- *** BUG FIX 2: Added parentElement for button *** -->
-                        <h2>
-                            <button class="accordion-button w-full text-left p-4 font-semibold text-gray-800 bg-white hover:bg-orange-50 transition duration-300 flex justify-between items-center">
-                                <span>${title}</span>
-                                <svg class="w-6 h-6 shrink-0 accordion-arrow text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </button>
-                        </h2>
-                        <div class="accordion-content bg-white">
-                            <div class="p-4">
-                                ${mobileContentHtml}
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-
-            mobileAccordionContainer.innerHTML = accordionHtml;
-
-            // *** BUG FIX 1: Activate the Cal.com embed for the *mobile* accordion ***
-            const mobileCalEmbed = mobileAccordionContainer.querySelector('#my-cal-inline-mobile');
-            if (mobileCalEmbed) {
-                Cal("inline", {
-                    elementOrSelector: mobileCalEmbed, // Use the new unique ID
-                    config: {"layout":"month_view"},
-                    calLink: "seekersden/1-hour-online-consultancy",
-                });
-            }
-        }
-        
-        // --- FORM SUBMISSION HANDLER (Reusable) ---
-        function handleInterestForm(form, formMessageElement) {
-            const submitButton = form.querySelector('button[type="submit"]');
-
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-
-                // *** FIX: Use name^= to find inputs in both desktop/mobile forms ***
-                const location = form.querySelector('input[name^="offline_location"]:checked')?.value;
-                const timing = form.querySelector('input[name^="offline_timing"]:checked')?.value;
-                const email = form.querySelector('input[name^="email"]')?.value.trim() || '';
-
-                let errorMessage = '';
-
-                if (!location) {
-                    errorMessage = 'Please select your preferred location.';
-                } else if (!timing) {
-                    errorMessage = 'Please select your preferred timing.';
-                } else if (!email) {
-                    errorMessage = 'Please enter your email address.';
-                } else if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-                    errorMessage = 'Please enter a valid email address.';
-                }
-
-                if (errorMessage) {
-                    formMessageElement.textContent = errorMessage;
-                    formMessageElement.className = 'mt-4 p-4 rounded-lg text-center bg-red-100 text-red-700 border border-red-300';
-                    formMessageElement.classList.remove('hidden');
-                    return;
-                }
-
-                const locationDisplay = location === 'bengaluru' ? 'Bengaluru' : location === 'mangaluru' ? 'Mangaluru' : location;
-                const timingDisplay = timing.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-
-                if (submitButton) {
-                    submitButton.disabled = true;
-                    submitButton.textContent = 'Sending...';
-                }
-
-                const templateParams = {
-                    to_email: 'info@seekersden.in',
-                    from_email: email,
-                    subject: 'Interest in Full In-Person Training',
-                    location: locationDisplay,
-                    timing: timingDisplay,
-                    user_email: email,
-                    message: `Hello,\n\nI am interested in your Full In-Person Training program.\n\nPreferred Location: ${locationDisplay}\nPreferred Timing: ${timingDisplay}\n\nMy Email: ${email}\n\nPlease contact me when a batch is formed.\n\nThank you!`
-                };
-
-                try {
-                    await emailjs.send('service_7hppzcd', 'template_z14vx9a', templateParams);
-
-                    formMessageElement.textContent = 'Thank you! Your interest has been submitted successfully. We will contact you when a batch is formed.';
-                    formMessageElement.className = 'mt-4 p-4 rounded-lg text-center bg-green-100 text-green-700 border border-green-300';
-                    formMessageElement.classList.remove('hidden');
-
-                    setTimeout(() => {
-                        form.reset();
-                        formMessageElement.classList.add('hidden');
-                        if (submitButton) {
-                            submitButton.disabled = false;
-                            submitButton.textContent = 'Submit Interest';
-                        }
-                    }, 5000);
-                } catch (error) {
-                    console.error('Email sending failed:', error);
-                    let detailedError = "a configuration error.";
-                    if (error.status === 400 || error.status === 422) detailedError = `a bad request (check Template or Service ID). Status: ${error.status}`;
-                    else if (error.status === 401) detailedError = `an authentication error. Check Public Key or Service connection. Status: ${error.status}`;
-
-                    formMessageElement.textContent = `Sorry, there was ${detailedError} Please try again or email us directly at info@seekersden.in.`;
-                    formMessageElement.className = 'mt-4 p-4 rounded-lg text-center bg-red-100 text-red-700 border border-red-300';
-                    formMessageElement.classList.remove('hidden');
-
-                    if (submitButton) {
-                        submitButton.disabled = false;
-                        submitButton.textContent = 'Submit Interest';
+                    // *** MODIFICATION: Removed Instamojo script loader from this tab ***
+                    /*
+                    if (tabName === 'online-consult') {
+                         requestAnimationFrame(() => {
+                            loadInstamojoScript(true);
+                        });
                     }
-                }
+                    */
+                });
             });
         }
-
 
         // --- EVENT LISTENERS & INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', () => {
 
-            // --- Assign variables AFTER DOM is loaded ---
+            // --- *** FIX: Assign variables AFTER DOM is loaded *** ---
             moduleTabsContainer = document.getElementById('module-tabs');
             contentWrapper = document.getElementById('course-content-wrapper');
-            mobileCourseAccordion = document.getElementById('mobile-course-accordion');
-            mobileServiceAccordion = document.getElementById('mobile-service-accordion');
             faqContainer = document.getElementById('faq-container');
             mobileMenuButton = document.getElementById('mobile-menu-button');
             mobileMenu = document.getElementById('mobile-menu');
             desktopNav = document.getElementById('desktop-nav');
 
 
-            // *** Ensure EmailJS Initialization is FIRST for reliability ***
+            // *** FIX 1: Ensure EmailJS Initialization is FIRST for reliability ***
             emailjs.init("DfU1FTDN2YE_8hY-r");
 
             mobileMenuButton.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
             });
 
-            // --- Initialize all sections ---
             initializeCourseSection();
-            initializeFAQ(); // This now calls initializeAccordions internally
-            initializeServiceTabs(); // This now builds the mobile service accordion
-            
-            // --- Activate accordions for sections that were just built ---
-            initializeAccordions('#mobile-course-accordion', true);
-            initializeAccordions('#mobile-service-accordion', true);
+            initializeFAQ();
+            initializeServiceTabs();
 
-            loadInstamojoScript(); // Load Instamojo for desktop tabs initially
+            loadInstamojoScript();
 
-            // --- Handle Offline Interest Form Submission (Both Forms) ---
-            const offlineFormDesktop = document.getElementById('offline-interest-form-desktop');
-            const formMessageDesktop = document.getElementById('form-message-desktop');
-            if (offlineFormDesktop) {
-                handleInterestForm(offlineFormDesktop, formMessageDesktop);
+            // --- Handle Offline Interest Form Submission ---
+            const offlineForm = document.getElementById('offline-interest-form');
+            const formMessage = document.getElementById('form-message');
+            const offlineSubmitButton = offlineForm?.querySelector('button[type="submit"]');
+
+            if (offlineForm) {
+                offlineForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    const location = offlineForm.querySelector('input[name="offline_location"]:checked')?.value;
+                    const timing = offlineForm.querySelector('input[name="offline_timing"]:checked')?.value;
+                    const email = offlineForm.querySelector('input[name="email"]')?.value.trim() || '';
+
+                    let errorMessage = '';
+
+                    if (!location) {
+                        errorMessage = 'Please select your preferred location.';
+                    } else if (!timing) {
+                        errorMessage = 'Please select your preferred timing.';
+                    } else if (!email) {
+                        errorMessage = 'Please enter your email address.';
+                    } else if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                        errorMessage = 'Please enter a valid email address.';
+                    }
+
+                    if (errorMessage) {
+                        formMessage.textContent = errorMessage;
+                        formMessage.className = 'mt-4 p-4 rounded-lg text-center bg-red-100 text-red-700 border border-red-300';
+                        formMessage.classList.remove('hidden');
+                        return;
+                    }
+
+                    const locationDisplay = location === 'bengaluru' ? 'Bengaluru' : location === 'mangaluru' ? 'Mangaluru' : location;
+                    const timingDisplay = timing.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+
+                    if (offlineSubmitButton) {
+                        offlineSubmitButton.disabled = true;
+                        offlineSubmitButton.textContent = 'Sending...';
+                    }
+
+                    const templateParams = {
+                        to_email: 'info@seekersden.in',
+                        from_email: email,
+                        subject: 'Interest in Full In-Person Training',
+                        location: locationDisplay,
+                        timing: timingDisplay,
+                        user_email: email,
+                        message: `Hello,\n\nI am interested in your Full In-Person Training program.\n\nPreferred Location: ${locationDisplay}\nPreferred Timing: ${timingDisplay}\n\nMy Email: ${email}\n\nPlease contact me when a batch is formed.\n\nThank you!`
+                    };
+
+                    try {
+                        // INSERING SERVICE_ID and OFFLINE TEMPLATE ID
+                        await emailjs.send('service_7hppzcd', 'template_z14vx9a', templateParams);
+
+                        formMessage.textContent = 'Thank you! Your interest has been submitted successfully. We will contact you when a batch is formed.';
+                        formMessage.className = 'mt-4 p-4 rounded-lg text-center bg-green-100 text-green-700 border border-green-300';
+                        formMessage.classList.remove('hidden');
+
+                        setTimeout(() => {
+                            offlineForm.reset();
+                            formMessage.classList.add('hidden');
+                            if (offlineSubmitButton) {
+                                offlineSubmitButton.disabled = false;
+                                offlineSubmitButton.textContent = 'Submit Interest';
+                            }
+                        }, 5000);
+                    } catch (error) {
+                        console.error('Email sending failed:', error);
+
+                        // *** ENHANCED ERROR REPORTING ***
+                        let detailedError = "a configuration error.";
+                        if (error.status === 400 || error.status === 422) {
+                            detailedError = `a bad request (check Template or Service ID). Status: ${error.status}`;
+                        } else if (error.status === 401) {
+                            detailedError = `an authentication error. Check Public Key or Service connection. Status: ${error.status}`;
+                        }
+
+                        formMessage.textContent = `Sorry, there was ${detailedError} Please try again or email us directly at info@seekersden.in.`;
+                        formMessage.className = 'mt-4 p-4 rounded-lg text-center bg-red-100 text-red-700 border border-red-300';
+                        formMessage.classList.remove('hidden');
+
+                        if (offlineSubmitButton) {
+                            offlineSubmitButton.disabled = false;
+                            offlineSubmitButton.textContent = 'Submit Interest';
+                        }
+                    }
+                });
             }
-            
-            const offlineFormMobile = document.getElementById('offline-interest-form-mobile');
-            const formMessageMobile = document.getElementById('form-message-mobile');
-            if (offlineFormMobile) {
-                // *** FIX: Pass correct name attributes for mobile form ***
-                handleInterestForm(offlineFormMobile, formMessageMobile);
-            }
 
-
-            // --- Handle General Contact Form Submission ---
+            // --- *** MODIFICATION: Handle General Contact Form Submission *** ---
             const contactForm = document.getElementById('contact-form');
             const contactFormMessage = document.getElementById('contact-form-message');
             const contactSubmitButton = document.getElementById('contact-submit-btn');
@@ -1494,10 +1321,15 @@
                     const message = contactForm.querySelector('#contact_message').value.trim();
 
                     let errorMessage = '';
-                    if (!name) errorMessage = 'Please enter your name.';
-                    else if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) errorMessage = 'Please enter a valid email address.';
-                    else if (!subject) errorMessage = 'Please select an inquiry type.';
-                    else if (!message) errorMessage = 'Please enter your message.';
+                    if (!name) {
+                        errorMessage = 'Please enter your name.';
+                    } else if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                        errorMessage = 'Please enter a valid email address.';
+                    } else if (!subject) {
+                        errorMessage = 'Please select an inquiry type.';
+                    } else if (!message) {
+                        errorMessage = 'Please enter your message.';
+                    }
 
                     if (errorMessage) {
                         contactFormMessage.textContent = errorMessage;
@@ -1523,6 +1355,7 @@
                     };
 
                     try {
+                        // INSERING SERVICE_ID and CONTACT TEMPLATE ID
                         await emailjs.send('service_7hppzcd', 'template_90ynns9', templateParams);
 
                         contactFormMessage.textContent = 'Thank you! Your message has been sent successfully. We will get back to you soon.';
@@ -1539,9 +1372,14 @@
                         }, 5000);
                     } catch (error) {
                         console.error('Email sending failed:', error);
+
+                        // *** ENHANCED ERROR REPORTING ***
                         let detailedError = "a configuration error.";
-                        if (error.status === 400 || error.status === 422) detailedError = `a bad request (check Template or Service ID). Status: ${error.status}`;
-                        else if (error.status === 401) detailedError = `an authentication error. Check Public Key or Service connection. Status: ${error.status}`;
+                        if (error.status === 400 || error.status === 422) {
+                            detailedError = `a bad request (check Template or Service ID). Status: ${error.status}`;
+                        } else if (error.status === 401) {
+                            detailedError = `an authentication error. Check Public Key or Service connection. Status: ${error.status}`;
+                        }
 
                         contactFormMessage.textContent = `Sorry, there was ${detailedError} Please try again or email us directly at info@seekersden.in.`;
                         contactFormMessage.className = 'mt-4 p-4 rounded-lg text-center bg-red-100 text-red-700 border border-red-300';
@@ -1562,6 +1400,7 @@
                 copyEmailBtn.addEventListener('click', () => {
                     const email = emailText.textContent.trim();
                     
+                    // Fallback for navigator.clipboard (which may not work in all browser contexts)
                     const textArea = document.createElement('textarea');
                     textArea.value = email;
                     textArea.style.position = 'fixed';
@@ -1570,16 +1409,16 @@
                     textArea.select();
                     try {
                         document.execCommand('copy');
-                        const originalHTML = copyEmailBtn.innerHTML; 
+                        const originalHTML = copyEmailBtn.innerHTML; // Need to define again for fallback
                         copyEmailBtn.innerHTML = `
                             <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                             </svg>
                         `;
-                        copyEmailBtn.classList.add('text-green-500'); 
+                        copyEmailBtn.classList.add('text-green-500'); // Add class for visual feedback
                         setTimeout(() => {
                             copyEmailBtn.innerHTML = originalHTML;
-                            copyEmailBtn.classList.remove('text-green-500'); 
+                            copyEmailBtn.classList.remove('text-green-500'); // Remove class
                         }, 2000);
                     } catch (fallbackErr) {
                         console.error('Failed to copy email:', fallbackErr);
@@ -1599,6 +1438,7 @@
                 threshold: 0
             };
 
+            // *** FIX: Removed the stray '.' before the arrow function ***
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -1632,6 +1472,7 @@
                 });
             }, { threshold: 0.1 });
 
+            // *** FIX: Removed the stray "DqLPO" text ***
             aosElements.forEach(el => {
                 aosObserver.observe(el);
             });
