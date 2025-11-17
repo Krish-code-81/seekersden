@@ -65,6 +65,15 @@
             transition: transform 0.3s ease;
         }
 
+        /* *** NEW: Accordion active state color *** */
+        .accordion-button.is-open {
+            background-color: #F97316 !important; /* dark orange */
+            color: #ffffff !important; /* white */
+        }
+        .accordion-button.is-open .accordion-arrow {
+            color: #ffffff !important; /* white arrow */
+        }
+
 
         .nav-active {
             color: #F97316 !important;
@@ -306,15 +315,17 @@
 
                                 <!-- Cal.com Inline Embed -->
                                 <div class="mt-6 mb-4">
-                                    <div style="width:100%;height:100%;overflow:scroll;min-height:600px;" id="my-cal-inline"></div>
+                                    <!-- *** BUG FIX 1: Unique ID for desktop *** -->
+                                    <div style="width:100%;height:100%;overflow:scroll;min-height:600px;" id="my-cal-inline-desktop"></div>
 
                                     <script type="text/javascript">
                                         (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://cal.id/embed-link/embed.js", "init");
 
                                         Cal("init", "default", {origin:"https://cal.id"});
 
+                                        // *** BUG FIX 1: Initialize desktop embed ***
                                         Cal.ns["default"]("inline", {
-                                            elementOrSelector:"#my-cal-inline",
+                                            elementOrSelector:"#my-cal-inline-desktop",
                                             config: {"layout":"month_view"},
                                             calLink: "seekersden/1-hour-online-consultancy",
                                         });
@@ -523,7 +534,7 @@
                                     <div>
                                         <label for="email_interest_desktop" class="block font-semibold text-gray-800 mb-2">Your
                                             Email:</label>
-                                        <input type="email" id="email_interest_desktop" name="email_desktop"
+                                        <input type="email" id="email_interest_desktop" name="email"
                                             placeholder="Enter your email to be notified"
                                             class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
                                     </div>
@@ -729,7 +740,7 @@
                     "<strong class='font-semibold text-gray-800'>Junior Engineers (1-3 years):</strong> Who want to build a strong, foundational understanding of microcontroller hardware and bare-metal C programming.",
                     "<strong class='font-semibold text-gray-800'>Computer Science Students:</strong> Seeking to bridge the gap between software theory and real-world hardware application.",
                     "<strong class='font-semibold text-gray-800'>Hobbyists and Makers:</strong> Who want to move beyond basic Arduino sketches to professional, register-level C programming techniques.",
-                    "<strong class'font-semibold text-gray-800'>Professionals Transitioning:</strong> From other fields (like web or enterprise software) who need a ground-up introduction to embedded systems."
+                    "<strong class='font-semibold text-gray-800'>Professionals Transitioning:</strong> From other fields (like web or enterprise software) who need a ground-up introduction to embedded systems."
                 ],
                 workbook: {
                     image: "assets/M1.png",
@@ -908,7 +919,8 @@
 
             accordionButtons.forEach(button => {
                 button.addEventListener('click', () => {
-                    const content = button.nextElementSibling;
+                    // *** BUG FIX 2: Correctly target the content element ***
+                    const content = button.parentElement.nextElementSibling;
                     const isOpen = button.classList.contains('is-open');
 
                     if (oneAtATime) {
@@ -916,7 +928,8 @@
                         accordionButtons.forEach(btn => {
                             if (btn !== button) {
                                 btn.classList.remove('is-open');
-                                btn.nextElementSibling.style.maxHeight = '0px';
+                                // *** BUG FIX 2: Correctly target the content element ***
+                                btn.parentElement.nextElementSibling.style.maxHeight = '0px';
                             }
                         });
                     }
@@ -928,6 +941,12 @@
                     } else {
                         button.classList.add('is-open');
                         content.style.maxHeight = content.scrollHeight + 'px';
+                        
+                        // *** FEATURE 4: Scroll to new content ***
+                        // Use a short delay to allow the layout to start expanding
+                        setTimeout(() => {
+                            button.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 300); // 300ms matches the CSS transition
                     }
                 });
             });
@@ -1182,10 +1201,13 @@
 
                 return `
                     <div class="border border-gray-200 rounded-lg overflow-hidden">
-                        <button class="accordion-button w-full text-left p-4 font-semibold text-gray-800 bg-white hover:bg-orange-50 transition duration-300 flex justify-between items-center" data-module-index="${index}">
-                            <span>${data.module}</span>
-                            <svg class="w-6 h-6 shrink-0 accordion-arrow text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
+                        <!-- *** BUG FIX 2: Added parentElement for button *** -->
+                        <h2>
+                            <button class="accordion-button w-full text-left p-4 font-semibold text-gray-800 bg-white hover:bg-orange-50 transition duration-300 flex justify-between items-center" data-module-index="${index}">
+                                <span>${data.module}</span>
+                                <svg class="w-6 h-6 shrink-0 accordion-arrow text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                        </h2>
                         <div class="accordion-content bg-white">
                             <div class="p-4 space-y-8">
                                 <!-- Stacked Content -->
@@ -1215,7 +1237,8 @@
              mobileCourseAccordion.querySelectorAll('.accordion-button').forEach(button => {
                 button.addEventListener('click', () => {
                     // When an accordion opens, it might have new Instamojo buttons
-                    if (button.classList.contains('is-open')) {
+                    const isOpen = button.classList.contains('is-open');
+                    if (!isOpen) { // Check if it's ABOUT to be open
                         requestAnimationFrame(() => {
                             loadInstamojoScript(true);
                         });
@@ -1228,6 +1251,7 @@
             faqContainer.innerHTML = faqData.map((item) => `
                 <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
                     <h2>
+                        <!-- *** BUG FIX: Corrected type"button" to type="button" *** -->
                         <button type="button" class="accordion-button flex items-center justify-between w-full p-6 font-semibold text-left text-gray-800">
                             <span>${item.question}</span>
                             <svg class="w-6 h-6 shrink-0 accordion-arrow text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -1290,14 +1314,19 @@
                 mobileContentHtml = mobileContentHtml.replace(/name="offline_location_desktop"/g, 'name="offline_location_mobile"');
                 mobileContentHtml = mobileContentHtml.replace(/name="offline_timing_desktop"/g, 'name="offline_timing_mobile"');
                 mobileContentHtml = mobileContentHtml.replace(/id="form-message-desktop"/g, 'id="form-message-mobile"');
+                // *** BUG FIX 1: Unique ID for mobile cal embed ***
+                mobileContentHtml = mobileContentHtml.replace(/id="my-cal-inline-desktop"/g, 'id="my-cal-inline-mobile"');
 
 
                 accordionHtml += `
                     <div class="border border-gray-200 rounded-lg overflow-hidden">
-                        <button class="accordion-button w-full text-left p-4 font-semibold text-gray-800 bg-white hover:bg-orange-50 transition duration-300 flex justify-between items-center">
-                            <span>${title}</span>
-                            <svg class="w-6 h-6 shrink-0 accordion-arrow text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
+                        <!-- *** BUG FIX 2: Added parentElement for button *** -->
+                        <h2>
+                            <button class="accordion-button w-full text-left p-4 font-semibold text-gray-800 bg-white hover:bg-orange-50 transition duration-300 flex justify-between items-center">
+                                <span>${title}</span>
+                                <svg class="w-6 h-6 shrink-0 accordion-arrow text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                        </h2>
                         <div class="accordion-content bg-white">
                             <div class="p-4">
                                 ${mobileContentHtml}
@@ -1309,11 +1338,11 @@
 
             mobileAccordionContainer.innerHTML = accordionHtml;
 
-            // Activate the Cal.com embed for the mobile accordion
-            const mobileCalEmbed = mobileAccordionContainer.querySelector('#my-cal-inline');
+            // *** BUG FIX 1: Activate the Cal.com embed for the *mobile* accordion ***
+            const mobileCalEmbed = mobileAccordionContainer.querySelector('#my-cal-inline-mobile');
             if (mobileCalEmbed) {
                 Cal("inline", {
-                    elementOrSelector: mobileCalEmbed,
+                    elementOrSelector: mobileCalEmbed, // Use the new unique ID
                     config: {"layout":"month_view"},
                     calLink: "seekersden/1-hour-online-consultancy",
                 });
@@ -1327,6 +1356,7 @@
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
+                // *** FIX: Use name^= to find inputs in both desktop/mobile forms ***
                 const location = form.querySelector('input[name^="offline_location"]:checked')?.value;
                 const timing = form.querySelector('input[name^="offline_timing"]:checked')?.value;
                 const email = form.querySelector('input[name^="email"]')?.value.trim() || '';
@@ -1444,6 +1474,7 @@
             const offlineFormMobile = document.getElementById('offline-interest-form-mobile');
             const formMessageMobile = document.getElementById('form-message-mobile');
             if (offlineFormMobile) {
+                // *** FIX: Pass correct name attributes for mobile form ***
                 handleInterestForm(offlineFormMobile, formMessageMobile);
             }
 
