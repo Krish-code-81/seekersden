@@ -187,9 +187,10 @@
         <section id="courses" class="py-20 pt-24" data-aos>
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
-                    <h2 class="text-4xl font-bold text-gray-800">Your Learning Trajectory (Self-Paced)</h2>
-                    <p class="mt-2 text-lg text-gray-600">Our 4-module journey. Start with the workbook, then get the
-                        hardware to build the projects.</p>
+                    <!-- *** CHANGE 1: Removed "(Self-Paced)" *** -->
+                    <h2 class="text-4xl font-bold text-gray-800">Your Learning Trajectory</h2>
+                    <p class="mt-2 text-lg text-gray-600">Our 4-module journey, each with 4 levels. Start with the workbook, then get the
+                        hardware to complete the hands-on labs.</p>
                 </div>
 
                 <div class="bg-white rounded-2xl shadow-lg lg:flex lg:space-x-8 p-8 max-w-7xl mx-auto">
@@ -249,19 +250,40 @@
                         <div class="service-tab-content" data-content="online-consult">
                             <h3 class="text-3xl font-bold text-gray-800">Online Consultancy Session</h3>
                             <p class="text-lg text-gray-600 mt-4 mb-6">
-                                Book a 1-hour, small-group (max 4 students) online session with your instructor. This is
-                                the perfect way to get personalized guidance, ask in-depth questions, review your code,
-                                or get career advice when you're stuck.
+                                Book a 1-hour online session with your instructor. This is typically a one-on-one session, and is the perfect way to get personalized guidance, ask in-depth questions about specific module topics or get generic career advice when you're stuck.
+                            </p>
+                            <p class="text-base text-gray-600 mb-6">
+                                <strong class="font-semibold text-gray-800">Optional Cost Sharing:</strong> If you want to share the cost, you can optionally invite up to 3 additional participants after booking (maximum 4 participants total, including you). Simply share the meeting link with them to split the cost among the group, making it more affordable for everyone.
                             </p>
 
-                            <!-- 
-                              *** CAL.ID BUTTON (UPDATED) ***
-                              This button now links to your Cal.id booking page.
-                            -->
-                            <a href="https://cal.id/seekersden/1-hour-online-consultancy" target="_blank"
-                                class="inline-block bg-green-700 text-white font-semibold px-6 py-3 rounded-lg hover:bg-green-800 transition duration-300">
-                                Book a 1-Hour Session
-                            </a>
+                            <!-- Cal.com Inline Embed -->
+                            <div class="mt-6 mb-4">
+                                <div style="width:100%;height:100%;overflow:scroll;min-height:600px;" id="my-cal-inline"></div>
+
+                                <script type="text/javascript">
+                                    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://cal.id/embed-link/embed.js", "init");
+
+                                    Cal("init", "default", {origin:"https://cal.id"});
+
+                                    Cal.ns["default"]("inline", {
+                                        elementOrSelector:"#my-cal-inline",
+                                        config: {"layout":"month_view"},
+                                        calLink: "seekersden/1-hour-online-consultancy",
+                                    });
+
+                                    Cal.ns["default"]("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#007ee5"},"dark":{"cal-brand":"#fafafa"}},"hideEventTypeDetails":false,"layout":"month_view"});
+                                </script>
+
+                                <!-- Fallback link in case embed doesn't load -->
+                                <p class="text-center mt-4 text-sm text-gray-500">
+                                    Having trouble viewing? 
+                                    <a href="https://cal.id/seekersden/1-hour-online-consultancy" 
+                                       target="_blank" 
+                                       class="text-green-700 hover:text-green-800 underline">
+                                        Book directly here (₹1,500)
+                                    </a>
+                                </p>
+                            </div>
                         </div>
 
                         <!-- 2. Online Full Training (NEW) -->
@@ -269,14 +291,14 @@
                             <h3 class="text-3xl font-bold text-gray-800">Online Full Training (Live)</h3>
                             <p class="text-lg text-gray-600 mt-4 mb-6">
                                 Join a complete, instructor-led online course. This is not self-paced; you will join a
-                                live virtual classroom with a small group of students, following a structured schedule
+                                live virtual classroom with a small group of participants, following a structured schedule
                                 from start to finish. This is the most comprehensive way to learn the entire "Eagle's
                                 Tour" from home.
                             </p>
-                            <!-- *** MODIFICATION: Changed to automated booking button *** -->
-                            <a href="https://cal.id/seekersden/online-full-training-live" target="_blank"
-                                class="inline-block bg-green-700 text-white font-semibold px-6 py-3 rounded-lg hover:bg-green-800 transition duration-300">
-                                Register Now (Full Course)
+                            <!-- *** CHANGE 2: Button behaves similar to onsite training button *** -->
+                            <a href="#contact"
+                                class="inline-block bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">
+                                Inquire About Online Training
                             </a>
                         </div>
 
@@ -288,7 +310,7 @@
                                 company's office. We can customize the curriculum from our four modules to fit your
                                 team's specific projects and skill gaps.
                             </p>
-                            <!-- *** MODIFICATION: Changed to orange button *** -->
+                            <!-- *** This is the reference button style *** -->
                             <a href="#contact"
                                 class="inline-block bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">
                                 Inquire About Onsite Training
@@ -710,7 +732,7 @@
             { question: "What is the 'Eagle's Tour' philosophy?", answer: "Our goal is to give you a high-level map of the entire embedded systems landscape, from hardware to cloud. We teach you the fundamentals of each key domain so you understand how they fit together. This creates adaptable, T-shaped engineers who can tackle any challenge, rather than just knowing a single niche." },
             { question: "Is this program self-paced, or are there live classes?", answer: "This is a fully self-paced program. The digital workbooks are your primary guide, allowing you to learn on your own schedule. The online consultancy sessions are optional and can be booked whenever you need extra help or guidance." },
             { question: "Do I need any prior experience?", answer: "No, the program is designed to take you from the ground up, starting with Module 1. While basic programming knowledge in C is helpful, it is not mandatory. We'll guide you through every step." },
-            { question: "How do the Online Consultancy Sessions work?", answer: "You can book sessions in hourly blocks. These are small-group (max 4 students), live video calls with the instructor where you can ask in-depth questions, get help with difficult topics, review your code, or discuss career paths." }
+            { question: "How do the Online Consultancy Sessions work?", answer: "You can book sessions in hourly blocks. These are typically one-on-one live video calls with the instructor where you can ask in-depth questions about specific module topics, get help with difficult concepts, or discuss career paths. If you want to share the cost, you can optionally invite up to 3 additional participants (maximum 4 participants total, including you) by sharing the meeting link after booking." }
         ];
 
         // --- GLOBAL STATE ---
@@ -1320,6 +1342,7 @@
                 threshold: 0
             };
 
+            // *** FIX: Removed the stray '.' before the arrow function ***
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
