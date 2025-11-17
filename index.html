@@ -196,7 +196,7 @@
                     <div class="flex-grow">
                         <h3 class="text-2xl md:text-3xl font-bold">🎉 Founder's Beta Program is LIVE! 🎉</h3>
                         <p class="text-lg md:text-xl mt-1">
-                            We're perfecting our course materials! For a limited time, all Workbooks, Kits, and Training are available at a heavy beta discount in exchange for your valuable feedback.
+                            We're perfecting our course materials! For a limited time, all Kits and Training are available at a heavy beta discount in exchange for your valuable feedback.
                         </p>
                     </div>
                     <!-- Button -->
@@ -216,8 +216,7 @@
                 <div class="text-center mb-12">
                     <!-- *** CHANGE 3a: SEO Optimized H2 *** -->
                     <h2 class="text-4xl font-bold text-gray-800">Your Embedded Systems Learning Trajectory</h2>
-                    <p class="mt-2 text-lg text-gray-600">Our 4-module journey, each with 4 levels. Start with the workbook, then get the
-                        hardware to complete the hands-on labs.</p>
+                    <p class="mt-2 text-lg text-gray-600">Our 4-module journey, each with 4 levels. This is where you start - purchase the self-paced materials to learn on your own.</p>
                 </div>
 
                 <div class="bg-white rounded-2xl shadow-lg lg:flex lg:space-x-8 p-8 max-w-7xl mx-auto">
@@ -322,6 +321,18 @@
                                 from start to finish. This is the most comprehensive way to learn the entire "Eagle's
                                 Tour" from home.
                             </p>
+                            
+                            <!-- *** MODIFICATION: Added Prerequisite Box *** -->
+                            <div class="my-6 p-4 bg-yellow-50 border border-yellow-300 rounded-lg">
+                                <h4 class="text-xl font-bold text-yellow-800 flex items-center">
+                                    <svg class="w-6 h-6 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.332-.216 3.031-1.742 3.031H4.42c-1.526 0-2.493-1.699-1.743-3.031l5.58-9.92zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+                                    Prerequisite
+                                </h4>
+                                <p class="text-yellow-700 mt-2">
+                                    All participants are required to first purchase the <strong>"Self-Paced Kit"</strong> (from the "Courses" section) for the relevant module. This ensures you have all the required materials to follow along with the live, instructor-led sessions.
+                                </p>
+                            </div>
+                            
                             <!-- *** MODIFICATION: Replaced simple price box with detailed schedule & pricing *** -->
                             <div class="space-y-6 my-6">
                                 <!-- Schedule Box -->
@@ -355,8 +366,8 @@
                             
                                 <!-- Pricing Box -->
                                 <div class="bg-orange-50 border border-orange-200 rounded-lg p-6">
-                                    <h4 class="text-xl font-bold text-gray-800 text-center mb-2">Pricing & Flexible Payment Options</h4>
-                                    <p class="text-gray-700 text-center mb-6">We offer flexible payment options to fit your needs. Choose what works best for you.</p>
+                                    <h4 class="text-xl font-bold text-gray-800 text-center mb-2">Live Training Tuition Fee</h4>
+                                    <p class="text-gray-700 text-center mb-6">This is the tuition fee for live guidance from the instructor. Materials must be purchased separately from the "Courses" section.</p>
                             
                                     <!-- *** MODIFICATION: Changed grid to 4 columns for new option *** -->
                                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
@@ -826,7 +837,7 @@
 
         const faqData = [
             { question: "What is the 'Eagle's Tour' philosophy?", answer: "Our goal is to give you a high-level map of the entire embedded systems landscape, from hardware to cloud. We teach you the fundamentals of each key domain so you understand how they fit together. This creates adaptable, T-shaped engineers who can tackle any challenge, rather than just knowing a single niche." },
-            { question: "Is this program self-paced, or are there live classes?", answer: "This is a fully self-paced program. The digital workbooks are your primary guide, allowing you to learn on your own schedule. The online consultancy sessions are optional and can be booked whenever you need extra help or guidance." },
+            { question: "Is this program self-paced, or are there live classes?", answer: "The program offers both options. <strong>Self-Paced:</strong> Buy the Self-Paced Kit (Physical Workbook + Hardware) from the 'Courses' section and learn on your own schedule. <strong>Live Training:</strong> Buy the Self-Paced Kit first, then pay the separate Tuition Fee to join the live online batch for expert guidance from the instructor." },
             { question: "Do I need any prior experience?", answer: "No, the program is designed to take you from the ground up, starting with Module 1. While basic programming knowledge in C is helpful, it is not mandatory. We'll guide you through every step." },
             { question: "How do the Online Consultancy Sessions work?", answer: "You can book sessions in hourly blocks. These are typically one-on-one live video calls with the instructor where you can ask in-depth questions about specific module topics, get help with difficult concepts, or discuss career paths. If you want to share the cost, you can optionally invite up to 3 additional participants (maximum 4 participants total, including you) by sharing the meeting link after booking." }
         ];
@@ -911,87 +922,80 @@
             </ul>`;
 
 
-            const hardwareKitHtml = `
+            // Calculate bundled price for Self-Paced Kit
+            const wbPrice = parseInt(moduleData.workbook.price.replace('₹', '').replace(',', ''));
+            const hwPrice = parseInt(moduleData.hardware.price.replace('₹', '').replace(',', ''));
+            const bundlePrice = (wbPrice + hwPrice).toLocaleString('en-IN');
+
+            const selfPacedKitHtml = `
                 <div>
                     <h3 class="text-2xl font-bold text-gray-800 flex items-center mb-6">
-                        <i class="fas fa-microchip text-2xl text-orange-500 mr-3"></i>
-                        Module ${moduleIndex + 1} Hardware
+                        <i class="fas fa-box-open text-2xl text-orange-500 mr-3"></i>
+                        Buy Self-Paced Kit (Physical Workbook + Hardware)
                     </h3>
 
                     <div class="bg-gray-100 p-4 rounded-lg mb-6">
                         <p class="text-gray-600 mb-2">
-                            Once you have the workbook, you can perform the labs. You have two options for hardware:
+                            This is a single, bundled product that includes the professionally printed, physical workbook and the physical hardware kit. This is the complete self-paced learning package.
                         </p>
                         <ul class="list-disc list-outside text-gray-600 space-y-2 ml-5">
                             <li>
-                                <strong class="font-semibold text-gray-800">Purchase Official Kit:</strong> We offer the official, pre-tested kit which includes every component you need.
+                                <strong class="font-semibold text-gray-800">Includes the Complete Physical Workbook:</strong> Your guide to hands-on training. This premium, printed book contains all our expert theory and step-by-step lab instructions, structured into 4 distinct levels (16 total guided sessions, approx. 2 hours each).
                             </li>
                             <li>
-                                <strong class="font-semibold text-gray-800">DIY Sourcing:</strong> The workbook contains a complete parts list. You can source the main board (e.g., <strong class="font-semibold text-gray-800">${moduleData.hardware.diy}</strong>) and all other components yourself.
+                                <strong class="font-semibold text-gray-800">Includes All Hardware:</strong> The complete, pre-tested kit with every component you need for the module.
                             </li>
                         </ul>
                     </div>
                     
-                    <div class="flex flex-col md:flex-row gap-8 items-start">
-                        <div class="md:w-1/3 flex-shrink-0">
-                            <img src="assets/module${moduleIndex + 1}-hw.png" alt="${moduleData.hardware.name}" class="rounded-lg shadow-md w-full h-auto object-cover border border-gray-200">
+                    <div class="bg-white rounded-lg shadow-lg border border-gray-200 p-4 mb-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <img src="assets/M${moduleIndex + 1}.png" alt="Module ${moduleIndex + 1} Workbook" class="rounded-lg w-full h-auto object-cover">
+                            <img src="assets/module${moduleIndex + 1}-hw.png" alt="${moduleData.hardware.name}" class="rounded-lg w-full h-auto object-cover">
                         </div>
-                        <div class="md:w-2/3 space-y-4">
-                             <p class="text-lg text-gray-600">${moduleData.hardware.introText}</p>
-                             <h4 class="font-semibold text-xl text-orange-500">${moduleData.hardware.whyTitle}</h4>
-                             <p class="text-gray-600">${moduleData.hardware.whyText}</p>
-                             <!-- *** REMOVED PRICE DISPLAY FOR CENTRAL CONTROL *** -->
-                            <div class="pt-4 flex justify-center md:justify-start">
-                                <a href="https://seekersden.myinstamojo.com/product/${moduleData.hardware.product_slug}/" 
-                                   data-store-name="seekersden" 
-                                   data-domain="https://seekersden.myinstamojo.com" 
-                                   data-id="${moduleData.hardware.instamojo_id}" 
-                                   rel="im-new-checkout" 
-                                   data-text="Get the Official Hardware Kit (${moduleData.hardware.price})" 
-                                   data-css-style="background:#15803d; color:#ffffff; font-weight:600; padding-left:1.5rem; padding-right:1.5rem; padding-top:0.75rem; padding-bottom:0.75rem; border-radius:0.5rem;" 
-                                   data-layout="vertical">
-                                </a>
-                            </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <p class="text-lg text-gray-600">${moduleData.hardware.introText}</p>
+                        <h4 class="font-semibold text-xl text-orange-500">${moduleData.hardware.whyTitle}</h4>
+                        <p class="text-gray-600">${moduleData.hardware.whyText}</p>
+                        <div class="pt-4 flex justify-center">
+                            <a href="https://seekersden.myinstamojo.com/product/${moduleData.hardware.product_slug}/" 
+                               data-store-name="seekersden" 
+                               data-domain="https://seekersden.myinstamojo.com" 
+                               data-id="${moduleData.hardware.instamojo_id}" 
+                               rel="im-new-checkout" 
+                               data-text="Get the Self-Paced Kit (₹${bundlePrice})" 
+                               data-css-style="background:#15803d; color:#ffffff; font-weight:600; padding-left:1.5rem; padding-right:1.5rem; padding-top:0.75rem; padding-bottom:0.75rem; border-radius:0.5rem;" 
+                               data-layout="vertical">
+                            </a>
                         </div>
                     </div>
                 </div>
             `;
 
-            const moduleWorkbookHtml = `
+            const codeFilesHtml = `
                 <div>
                     <h3 class="text-2xl font-bold text-gray-800 flex items-center mb-6">
-                         <i class="fas fa-book-open text-2xl text-orange-500 mr-3"></i>
-                        Module ${moduleIndex + 1} Workbook
+                        <i class="fas fa-file-code text-2xl text-orange-500 mr-3"></i>
+                        Digital Asset Pack (Code Files)
                     </h3>
-
-                    <div class="bg-gray-100 p-4 rounded-lg mb-6">
-                        <p class="text-gray-600">
-                            We recommend starting here. The workbook is a low-cost, immediately available digital download. It provides the complete "Eagle's Tour" of the subject and contains the complete curriculum, all lab instructions, the complete hardware parts list for the DIY path, and complete source code for all labs.
-                        </p>
-                    </div>
-                    
                     <div class="flex flex-col md:flex-row gap-8 items-start">
-                        <div class="md:w-1/3 flex-shrink-0">
-                            <img src="assets/M${moduleIndex + 1}.png" alt="Module ${moduleIndex + 1} Workbook" class="rounded-lg shadow-md w-full h-auto object-cover border border-gray-200">
+                        <div class="md:w-2/3 space-y-4">
+                            <p class="text-gray-600">
+                                All the code snippets, scripts, and configuration files from the Module ${moduleIndex + 1} workbook are available here for your convenience in a free "Digital Asset Pack".
+                            </p>
+                            <p class="text-gray-600">
+                                This allows you to copy-paste complex code directly into your editor, avoiding typos and frustration. You can focus on learning the *concepts* (from your physical workbook) instead of debugging mistyped code.
+                            </p>
                         </div>
-                        <div class="md:w-2/3 space-y-4 flex flex-col"> 
-                            <div class="flex-grow"> 
-                                <p class="text-lg text-gray-600">
-                                    ${moduleData.workbook.description}
-                                </p>
-                            </div>
-                             <!-- *** REMOVED PRICE DISPLAY FOR CENTRAL CONTROL *** -->
-                            <div class="pt-4 flex justify-center md:justify-start">
-                                <a href="https://seekersden.myinstamojo.com/product/${moduleData.workbook.product_slug}/" 
-                                   data-store-name="seekersden" 
-                                   data-domain="https://seekersden.myinstamojo.com" 
-                                   data-id="${moduleData.workbook.instamojo_id}" 
-                                   rel="im-new-checkout" 
-                                   data-text="Get the Workbook (${moduleData.workbook.price})" 
-                                   data-css-style="background:#15803d; color:#ffffff; font-weight:600; padding-left:1.5rem; padding-right:1.5rem; padding-top:0.75rem; padding-bottom:0.75rem; border-radius:0.5rem;" 
-                                   data-layout="vertical">
-                                </a>
-                            </div>
+                        <div class="md:w-1/3 text-center">
+                            <a href="downloads/module-${moduleIndex + 1}-code-files.zip" target="_blank"
+                                class="inline-block bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">
+                                <i class="fas fa-download mr-2"></i>
+                                Download Code Files
+                            </a>
+                            <p class="text-sm text-gray-500 mt-2">(Module ${moduleIndex + 1} .zip)</p>
                         </div>
                     </div>
                 </div>
@@ -1010,13 +1014,11 @@
                             <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md ${currentSubTab === 'curriculum' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="curriculum">
                                 Curriculum
                             </button>
-                            <!-- *** CHANGE MADE HERE *** -->
-                            <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md ${currentSubTab === 'workbook' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="workbook">
-                                Buy Workbook
+                            <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md ${currentSubTab === 'kit' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="kit">
+                                Buy Self-Paced Kit
                             </button>
-                            <!-- *** CHANGE MADE HERE *** -->
-                            <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md ${currentSubTab === 'hardware' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="hardware">
-                                Buy Hardware
+                            <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md ${currentSubTab === 'code' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="code">
+                                Code Files
                             </button>
                         </div>
                     </div>
@@ -1028,11 +1030,11 @@
                         <div class="sub-tab-content ${currentSubTab === 'curriculum' ? '' : 'hidden'}" data-content="curriculum">
                             ${levelsHtml}
                         </div>
-                        <div class="sub-tab-content ${currentSubTab === 'workbook' ? '' : 'hidden'}" data-content="workbook">
-                            ${moduleWorkbookHtml}
+                        <div class="sub-tab-content ${currentSubTab === 'kit' ? '' : 'hidden'}" data-content="kit">
+                            ${selfPacedKitHtml}
                         </div>
-                        <div class="sub-tab-content ${currentSubTab === 'hardware' ? '' : 'hidden'}" data-content="hardware">
-                            ${hardwareKitHtml}
+                        <div class="sub-tab-content ${currentSubTab === 'code' ? '' : 'hidden'}" data-content="code">
+                            ${codeFilesHtml}
                         </div>
                     </div>
                 </div>
@@ -1041,7 +1043,7 @@
             contentWrapper.innerHTML = contentHTML;
             addModuleSubTabListeners();
 
-            if (currentSubTab === 'workbook' || currentSubTab === 'hardware') {
+            if (currentSubTab === 'kit') {
                 requestAnimationFrame(() => {
                     loadInstamojoScript(true);
                 });
@@ -1074,7 +1076,7 @@
                         activeContent.classList.remove('hidden');
                     }
 
-                    if (tabName === 'workbook' || tabName === 'hardware') {
+                    if (tabName === 'kit') {
                         requestAnimationFrame(() => {
                             loadInstamojoScript(true);
                         });
@@ -1097,6 +1099,8 @@
             document.querySelectorAll('.module-tab').forEach(tab => {
                 tab.addEventListener('click', () => {
                     const moduleIndex = parseInt(tab.dataset.moduleIndex);
+                    // Reset to 'Ideal For' tab when switching modules
+                    currentSubTab = 'idealFor';
 
                     document.querySelectorAll('.module-tab').forEach(t => {
                         t.classList.remove('module-tab-active');
