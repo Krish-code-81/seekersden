@@ -4,18 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- *** CHANGE 1: SEO Optimized Title *** -->
     <title>Online Embedded Systems Training Course - SeekersDen</title>
     
     <!-- SEO Meta Tags -->
     <meta name="description" content="Learn Embedded Systems with hands-on training. 4 comprehensive modules covering fundamentals to advanced projects. Get workbooks, hardware kits, and expert guidance.">
-    <!-- *** CHANGE 5: Updated Keywords *** -->
     <meta name="keywords" content="embedded systems training, embedded systems course, online embedded systems course, learn embedded systems, IoT training, embedded C programming course, RTOS course, FPGA design course, embedded Linux course, embedded systems training in Bangalore, embedded systems training in Mangalore">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.seekersden.in/">
-    <!-- *** OG Title updated to match new Title *** -->
     <meta property="og:title" content="Online Embedded Systems Training Course - SeekersDen">
     <meta property="og:description" content="Learn Embedded Systems with hands-on training. 4 comprehensive modules covering fundamentals to advanced projects. Get workbooks, hardware kits, and expert guidance.">
     <meta property="og:image" content="https://www.seekersden.in/assets/seekersden-logo.png">
@@ -24,7 +21,6 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://www.seekersden.in/">
-    <!-- *** Twitter Title updated to match new Title *** -->
     <meta name="twitter:title" content="Online Embedded Systems Training Course - SeekersDen">
     <meta name="twitter:description" content="Learn Embedded Systems with hands-on training. 4 comprehensive modules covering fundamentals to advanced projects. Get workbooks, hardware kits, and expert guidance.">
     <meta name="twitter:image" content="https://www.seekersden.in/assets/seekersden-logo.png">
@@ -35,20 +31,17 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            /* Prevent horizontal scroll on mobile */
             overflow-x: hidden;
+            /* Improve swipe feel */
+            touch-action: pan-y; 
         }
 
-        /* Style for the active sub-tab (What you will learn / Who is it for) */
         .tab-active {
             border-color: #F97316;
-            /* Orange-500 */
             color: #F97316;
             background-color: #FFF7ED;
-            /* Orange-50 */
         }
 
-        /* Style for the active main module tab (Module 1, Module 2, etc.) */
         .module-tab-active {
             background-color: #F97316;
             color: white;
@@ -85,14 +78,12 @@
             box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
 
-        /* Custom styles for select dropdown arrow */
         .select-wrapper {
             position: relative;
         }
 
         .select-wrapper::after {
             content: '\f078';
-            /* Font Awesome down arrow */
             font-family: 'Font Awesome 6 Free';
             font-weight: 900;
             position: absolute;
@@ -101,7 +92,6 @@
             transform: translateY(-50%);
             pointer-events: none;
             color: #6b7280;
-            /* gray-500 */
         }
 
         select {
@@ -110,14 +100,11 @@
             appearance: none;
             background-image: none;
             padding-right: 2.5rem;
-            /* Make space for arrow */
         }
 
-        /* --- MOBILE APP LAYOUT STYLES --- */
-        
-        /* Bottom Navigation Bar */
         #mobile-bottom-nav {
             box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }
 
         .bottom-nav-item {
@@ -125,21 +112,19 @@
         }
 
         .bottom-nav-item.active {
-            color: #F97316; /* Orange-500 */
+            color: #F97316;
         }
         
-        /* Updated Styles for the Module Bar based on your image */
         .mobile-module-btn {
             transition: all 0.2s ease;
         }
         
         .mobile-module-btn.mobile-sub-nav-active i,
         .mobile-module-btn.mobile-sub-nav-active span {
-            color: #F97316 !important; /* Orange-500 */
+            color: #F97316 !important;
             font-weight: 700;
         }
 
-        /* Secondary Service Tabs Style (Now matching Module Tabs) */
         .mobile-service-btn {
             transition: all 0.2s ease;
         }
@@ -150,25 +135,18 @@
             font-weight: 700;
         }
         
-        /* Inner Content Tabs Style (For Mobile) */
         .mobile-inner-tab-btn {
              transition: all 0.2s ease;
              border-radius: 0.5rem;
         }
         
-        /* Active State: White Background + "Open Bottom" effect */
         .mobile-inner-tab-btn.active {
             background-color: white;
-            /* Create the card tab shape */
             border-top-left-radius: 0.75rem;
             border-top-right-radius: 0.75rem;
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
-            
-            /* Top Shadow only to mimic card pop-out */
             box-shadow: 0 -2px 4px rgba(0,0,0,0.05), 2px 0 4px rgba(0,0,0,0.02), -2px 0 4px rgba(0,0,0,0.02);
-            
-            /* THE TRICK: Overlap the container's bottom padding */
             margin-bottom: -8px; 
             padding-bottom: 16px; 
             z-index: 10;
@@ -177,37 +155,51 @@
 
         .mobile-inner-tab-btn.active i,
         .mobile-inner-tab-btn.active span {
-            color: #F97316 !important; /* Orange 500 */
+            color: #F97316 !important;
             font-weight: 700;
             position: relative;
             top: 0px;
         }
         
-        /* Inactive State: Gray Text */
         .mobile-inner-tab-btn:not(.active) i,
         .mobile-inner-tab-btn:not(.active) span {
-            color: #9CA3AF; /* Gray 400 */
+            color: #9CA3AF;
+        }
+
+        /* Smart Navbar Transitions */
+        #mobile-top-bar {
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        /* The class added by JS to hide the bar */
+        .nav-hidden {
+            transform: translateY(-100%);
+        }
+
+        /* Custom Bounce Animation for Icon */
+        @keyframes gentle-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+        .animate-gentle-bounce {
+            animation: gentle-bounce 2s infinite;
         }
 
 
-        /* View Groups Logic */
-        /* By default on mobile, hide everything. We will selectively show them. */
         @media (max-width: 768px) {
             .mobile-view-group {
                 display: none;
-                padding-bottom: 130px; /* Increased Space for double bottom bar */
+                padding-bottom: 130px;
             }
             .mobile-view-group.active-view {
                 display: block;
                 animation: fadeIn 0.3s ease-out;
             }
-            /* Hide original header on mobile */
             header {
                 display: none;
             }
         }
         
-        /* On Desktop, always show everything and ignore the mobile view logic */
         @media (min-width: 769px) {
             .mobile-view-group {
                 display: block !important;
@@ -225,14 +217,12 @@
 
 <body class="bg-gray-50 text-gray-800">
 
-    <!-- Header (Hidden on Mobile via CSS media query) -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <!-- *** Logo Placeholder *** -->
+    <!-- Desktop Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50 hidden md:block">
+        <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="w-24"> <a href="#"><img src="assets/seekersden-logo.png" alt="Logo" class="h-10 w-auto"></a>
             </div>
-            <!-- Desktop Nav -->
-            <div id="desktop-nav" class="hidden md:flex items-center space-x-6">
+            <div id="desktop-nav" class="flex items-center space-x-6">
                 <a href="#home" class="text-gray-600 hover:text-orange-500">Home</a>
                 <a href="#courses" class="text-gray-600 hover:text-orange-500">Course</a>
                 <a href="#services" class="text-gray-600 hover:text-orange-500">Services</a>
@@ -242,37 +232,38 @@
             </div>
             <div class="w-auto">
                 <a href="downloads/seekersden-complete-syllabus.pdf" target="_blank"
-                    class="hidden md:block bg-orange-500 text-white font-semibold px-5 py-2 rounded-lg hover:bg-orange-600 transition duration-300">Download
+                    class="bg-orange-500 text-white font-semibold px-5 py-2 rounded-lg hover:bg-orange-600 transition duration-300">Download
                     Syllabus</a>
             </div>
-            <!-- Mobile Menu Button Removed as we are using Bottom Nav -->
         </nav>
     </header>
     
-    <!-- Mobile Top Bar (Simple Logo) -->
-    <div class="md:hidden bg-white shadow-sm p-4 flex justify-center items-center sticky top-0 z-40">
-        <img src="assets/seekersden-logo.png" alt="SeekersDen" class="h-8 w-auto">
+    <!-- MOBILE SMART NAVBAR (Hidden on Scroll) -->
+    <div id="mobile-top-bar" class="md:hidden bg-white/90 backdrop-blur-md shadow-sm px-4 py-3 flex justify-between items-center sticky top-0 z-40 w-full top-0 left-0">
+        <img src="assets/seekersden-logo.png" alt="SeekersDen" class="h-9 w-auto transition-all duration-300"> 
+        
+        <!-- Pill Button with Micro-Interaction -->
+        <a href="downloads/seekersden-complete-syllabus.pdf" target="_blank"
+           class="bg-orange-50 text-orange-600 border border-orange-200 text-xs font-bold px-4 py-2 rounded-full shadow-sm flex items-center gap-2 hover:bg-orange-100 hover:border-orange-300 active:scale-95 transform transition-all duration-200 group">
+           <i class="fas fa-download animate-gentle-bounce group-hover:animate-none"></i> Syllabus
+        </a>
     </div>
 
-    <main>
+    <main id="main-content-area">
         
         <!-- VIEW 1: HOME WRAPPER -->
         <div id="view-home" class="mobile-view-group active-view">
-            <!-- Hero Section -->
             <section id="home" class="bg-white">
-                <div class="container mx-auto px-6 py-12 md:py-16 text-center pt-8 md:pt-20"> <!-- Adjusted top padding for mobile -->
-                    <!-- *** Logo added back to Hero *** -->
+                <div class="max-w-7xl mx-auto px-6 py-12 md:py-16 text-center pt-8 md:pt-20">
                     <img src="assets/seekersden-logo.png" alt="SeekersDen Logo" class="h-32 md:h-40 w-auto mx-auto mb-8"
                         data-aos>
                     
-                    <!-- *** MODIFICATION: Split H1 into Title and Subtitle *** -->
                     <h1 data-aos class="text-3xl md:text-6xl font-bold text-gray-800 leading-tight">
                         Online Embedded Systems Training
                     </h1>
                     <p data-aos class="mt-2 text-xl md:text-4xl font-semibold text-orange-600 max-w-3xl mx-auto">
                         The Path to a Full Stack IoT Architect
                     </p>
-                    <!-- *** MODIFICATION: Increased margin-top from mt-4 to mt-6 for spacing *** -->
                     <p data-aos class="mt-6 text-base md:text-xl text-gray-600 max-w-3xl mx-auto">
                         We're not just a course; we are a career trajectory. Our "Eagle's Tour" of the embedded world gives
                         you the hands-on experience of the complete landscape, from bare metal to the cloud.
@@ -287,26 +278,20 @@
 
         <!-- VIEW 2: COURSES WRAPPER -->
         <div id="view-course" class="mobile-view-group">
-            <!-- Courses Section -->
             <section id="courses" class="py-4 md:py-20 md:pt-24" data-aos>
-                <div class="container mx-auto px-6">
+                <div class="max-w-7xl mx-auto px-6">
                     <div class="text-center mb-6 md:mb-12">
-                        <!-- *** CHANGE 3a: SEO Optimized H2 *** -->
                         <h2 class="text-2xl md:text-4xl font-bold text-gray-800">Your Embedded Systems Learning Trajectory</h2>
                         <p class="mt-2 text-sm md:text-lg text-gray-600">Our 4-module journey, each with 4 levels. This is where you start - purchase the self-paced materials to learn on your own.</p>
                     </div>
 
                     <div class="bg-white md:rounded-2xl md:shadow-lg lg:flex lg:space-x-8 md:p-8 max-w-7xl mx-auto">
-                        <!-- Module Selection (Hidden on Mobile as we use bottom floating bar) -->
+                        <!-- Hidden Desktop Nav (Used for logic) -->
                         <div class="hidden md:block lg:w-1/4 mb-8 lg:mb-0">
                             <ul id="module-tabs" class="flex flex-wrap lg:flex-col gap-2">
-                                <!-- Module tabs will be inserted here by JS -->
                             </ul>
                         </div>
-
-                        <!-- Course Content -->
                         <div id="course-content-wrapper" class="lg:w-3/4">
-                            <!-- Content will be inserted here by JS -->
                         </div>
                     </div>
                 </div>
@@ -315,18 +300,15 @@
 
         <!-- VIEW 3: SERVICES WRAPPER -->
         <div id="view-services" class="mobile-view-group">
-            <!-- Services Section -->
             <section id="services" class="py-4 md:py-20 md:pt-24 bg-white" data-aos>
-                <div class="container mx-auto px-6">
+                <div class="max-w-7xl mx-auto px-6">
                     <div class="text-center mb-6 md:mb-12">
-                        <!-- *** CHANGE 3b: SEO Optimized H2 *** -->
                         <h2 class="text-2xl md:text-4xl font-bold text-gray-800">Personalized Embedded Systems Guidance & Training</h2>
                         <p class="mt-2 text-sm md:text-lg text-gray-600">Get expert help, online or in-person, whenever you need it.
                         </p>
                     </div>
 
                     <div class="bg-white md:rounded-2xl md:shadow-lg md:p-8 border border-gray-100 max-w-7xl mx-auto">
-                        <!-- Service Tabs (Hidden on Mobile, replaced by floating bar) -->
                         <div class="hidden md:block border-b border-gray-200">
                             <div class="flex flex-wrap -mb-px gap-x-4">
                                 <button class="service-tab-button px-4 py-2 text-sm font-semibold rounded-t-md tab-active"
@@ -361,11 +343,8 @@
                                 <p class="text-sm md:text-base text-gray-600 mb-6">
                                     <strong class="font-semibold text-gray-800">Optional Cost Sharing:</strong> If you want to share the cost, you can optionally invite up to 3 additional participants after booking (maximum 4 participants total, including you). Simply share the meeting link with them to split the cost among the group, making it more affordable for everyone.
                                 </p>
-
-                                <!-- Cal.com Inline Embed -->
                                 <div class="mt-6 mb-4">
                                     <div style="width:100%;height:100%;overflow:scroll;min-height:600px;" id="my-cal-inline"></div>
-
                                     <script type="text/javascript">
                                         (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://cal.id/embed-link/embed.js", "init");
 
@@ -379,8 +358,6 @@
 
                                         Cal.ns["default"]("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#007ee5"},"dark":{"cal-brand":"#fafafa"}},"hideEventTypeDetails":false,"layout":"month_view"});
                                     </script>
-
-                                    <!-- Fallback link in case embed doesn't load -->
                                     <p class="text-center mt-4 text-sm text-gray-500">
                                         Having trouble viewing? 
                                         <a href="https://cal.id/seekersden/1-hour-online-consultancy" 
@@ -401,8 +378,6 @@
                                     from start to finish. This is the most comprehensive way to learn the entire "Eagle's
                                     Tour" from home.
                                 </p>
-                                
-                                <!-- *** MODIFICATION: Added Prerequisite Box *** -->
                                 <div class="my-6 p-4 bg-yellow-50 border border-yellow-300 rounded-lg">
                                     <h4 class="text-lg md:text-xl font-bold text-yellow-800 flex items-center">
                                         <svg class="w-6 h-6 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.332-.216 3.031-1.742 3.031H4.42c-1.526 0-2.493-1.699-1.743-3.031l5.58-9.92zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
@@ -412,29 +387,19 @@
                                         All participants are required to first purchase the <strong>"Self-Paced Kit"</strong> (from the "Courses" section) for the relevant module. This ensures you have all the required materials to follow along with the live, instructor-led sessions.
                                     </p>
                                 </div>
-                                
-                                <!-- *** MODIFICATION: Replaced simple price box with detailed schedule & pricing *** -->
                                 <div class="space-y-6 my-6">
-                                    <!-- Schedule Box -->
                                     <div class="bg-gray-100 border border-gray-200 rounded-lg p-4 md:p-6">
                                         <h4 class="text-lg md:text-xl font-bold text-gray-800 mb-3">Weekly Schedule & Timeline</h4>
                                         <ul class="list-disc list-outside ml-5 space-y-2 text-gray-700 text-sm md:text-base">
-                                            <li>
-                                                <strong class="font-semibold text-gray-900">Main Sessions:</strong> Mon - Thurs (9:00 PM - 11:00 PM IST)
-                                            </li>
-                                            <li>
-                                                <strong class="font-semibold text-gray-900">Review Session:</strong> Friday (9:00 PM - 11:00 PM IST)
+                                            <li><strong class="font-semibold text-gray-900">Main Sessions:</strong> Mon - Thurs (9:00 PM - 11:00 PM IST)</li>
+                                            <li><strong class="font-semibold text-gray-900">Review Session:</strong> Friday (9:00 PM - 11:00 PM IST)
                                                 <ul class="list-circle list-outside ml-6 mt-1 text-xs md:text-sm">
                                                     <li>Brush-up of the completed level</li>
                                                     <li>Introduction to the next level</li>
                                                 </ul>
                                             </li>
-                                            <li>
-                                                <strong class="font-semibold text-gray-900">Timeline:</strong> 1 Level per week, 1 Module (4 levels) per month.
-                                            </li>
-                                            <!-- *** NEW: Annual Schedule Added *** -->
-                                            <li>
-                                                <strong class="font-semibold text-gray-900">Annual Batch Schedule:</strong>
+                                            <li><strong class="font-semibold text-gray-900">Timeline:</strong> 1 Level per week, 1 Module (4 levels) per month.</li>
+                                            <li><strong class="font-semibold text-gray-900">Annual Batch Schedule:</strong>
                                                 <ul class="list-circle list-outside ml-6 mt-1 text-xs md:text-sm">
                                                     <li><strong>Batch 1:</strong> Jan (M1), Feb (M2), Mar (M3), Apr (M4)</li>
                                                     <li><strong>Batch 2:</strong> May (M1), Jun (M2), Jul (M3), Aug (M4)</li>
@@ -443,57 +408,30 @@
                                             </li>
                                         </ul>
                                     </div>
-                                
-                                    <!-- Pricing Box -->
                                     <div class="bg-orange-50 border border-orange-200 rounded-lg p-4 md:p-6">
                                         <h4 class="text-lg md:text-xl font-bold text-gray-800 text-center mb-2">Live Training Tuition Fee</h4>
                                         <p class="text-gray-700 text-center mb-6 text-sm md:text-base">This is the tuition fee for live guidance from the instructor. Materials must be purchased separately from the "Courses" section.</p>
-                                
-                                        <!-- *** MODIFICATION: Changed grid to 4 columns for new option *** -->
                                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
-                                            
-                                            <!-- Option 1: Per Session -->
                                             <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between">
-                                                <div>
-                                                    <p class="font-semibold text-gray-800">Per Session</p>
-                                                    <p class="text-3xl font-bold text-orange-600">₹2,500</p>
-                                                </div>
+                                                <div><p class="font-semibold text-gray-800">Per Session</p><p class="text-3xl font-bold text-orange-600">₹2,500</p></div>
                                                 <p class="text-sm text-gray-600 mt-2">Pay as you go</p>
                                             </div>
-                                            
-                                            <!-- Option 2: Per Level (Highlight) -->
                                             <div class="bg-white p-4 rounded-lg border-2 border-orange-500 shadow-lg relative flex flex-col justify-between">
                                                 <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full">RECOMMENDED</span>
-                                                <div class="pt-3">
-                                                    <p class="font-semibold text-orange-600">Per Level</p>
-                                                    <p class="text-3xl font-bold text-orange-600">₹10,000</p>
-                                                </div>
+                                                <div class="pt-3"><p class="font-semibold text-orange-600">Per Level</p><p class="text-3xl font-bold text-orange-600">₹10,000</p></div>
                                                 <p class="text-sm text-gray-600 mt-2">(Covers 1 week)</p>
                                             </div>
-                                
-                                            <!-- Option 3: Per Module -->
                                             <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between">
-                                                <div>
-                                                    <p class="font-semibold text-gray-800">Per Module</p>
-                                                    <p class="text-3xl font-bold text-orange-600">₹40,000</p>
-                                                </div>
+                                                <div><p class="font-semibold text-gray-800">Per Module</p><p class="text-3xl font-bold text-orange-600">₹40,000</p></div>
                                                 <p class="text-sm text-gray-600 mt-2">(Lumpsum / 1 month)</p>
                                             </div>
-
-                                            <!-- *** NEW: Option 4: Full Program *** -->
                                             <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between">
-                                                <div>
-                                                    <p class="font-semibold text-gray-800">Full Program</p>
-                                                    <p class="text-3xl font-bold text-orange-600">₹1,60,000</p>
-                                                </div>
+                                                <div><p class="font-semibold text-gray-800">Full Program</p><p class="text-3xl font-bold text-orange-600">₹1,60,000</p></div>
                                                 <p class="text-sm text-gray-600 mt-2">(All 4 Modules)</p>
                                             </div>
-                                
                                         </div>
                                     </div>
                                 </div>
-                                <!-- *** END: Detailed Schedule & Pricing *** -->
-                                <!-- *** MODIFICATION: Button made full-width *** -->
                                 <a href="#" onclick="switchMobileView('misc')"
                                     class="block w-full text-center bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">
                                     Contact to Join Next Batch
@@ -514,11 +452,9 @@
                                 </a>
                             </div>
 
-                            <!-- 4. Offline Training Content (Renamed & Updated Form) -->
+                            <!-- 4. Offline Training Content -->
                             <div class="service-tab-content hidden" data-content="offline-full">
-                                <!-- *** CHANGE 4a: SEO Optimized H3 *** -->
                                 <h3 class="text-xl md:text-3xl font-bold text-gray-800">Full In-Person Embedded Systems Training in Bengaluru & Mangaluru</h3>
-                                <!-- *** CHANGE 4b: SEO Optimized Paragraph *** -->
                                 <p class="text-sm md:text-lg text-gray-600 mt-4 mb-6">
                                     We are gauging interest for our full <strong>embedded systems training in Bengaluru</strong> and <strong>in-person IoT course in Mangaluru</strong>. These multi-week, intensive
                                     programs are designed to take you from fundamentals to architect-level in a
@@ -530,81 +466,45 @@
                                     <p class="font-semibold text-lg text-gray-800">Register your interest:</p>
 
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        <!-- Location Column -->
                                         <div class="space-y-3">
                                             <p class="font-semibold text-gray-800">Preferred Location:</p>
-                                            <label
-                                                class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
-                                                <input type="radio" name="offline_location" value="bengaluru"
-                                                    class="form-radio text-orange-500">
-                                                <span class="text-gray-700">
-                                                    <strong class="font-semibold text-gray-800">Bengaluru</strong>
-                                                </span>
+                                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
+                                                <input type="radio" name="offline_location" value="bengaluru" class="form-radio text-orange-500">
+                                                <span class="text-gray-700"><strong class="font-semibold text-gray-800">Bengaluru</strong></span>
                                             </label>
-                                            <label
-                                                class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
-                                                <input type="radio" name="offline_location" value="mangaluru"
-                                                    class="form-radio text-orange-500">
-                                                <span class="text-gray-700">
-                                                    <strong class="font-semibold text-gray-800">Mangaluru</strong>
-                                                </span>
+                                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
+                                                <input type="radio" name="offline_location" value="mangaluru" class="form-radio text-orange-500">
+                                                <span class="text-gray-700"><strong class="font-semibold text-gray-800">Mangaluru</strong></span>
                                             </label>
                                         </div>
-                                        <!-- Timing Column -->
                                         <div class="space-y-3">
                                             <p class="font-semibold text-gray-800">Preferred Timing:</p>
-                                            <label
-                                                class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
-                                                <input type="radio" name="offline_timing" value="weekdays-day"
-                                                    class="form-radio text-orange-500">
-                                                <span class="text-gray-700">
-                                                    <strong class="font-semibold text-gray-800">Weekdays Daytime</strong>
-                                                </span>
+                                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
+                                                <input type="radio" name="offline_timing" value="weekdays-day" class="form-radio text-orange-500">
+                                                <span class="text-gray-700"><strong class="font-semibold text-gray-800">Weekdays Daytime</strong></span>
                                             </label>
-                                            <label
-                                                class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
-                                                <input type="radio" name="offline_timing" value="weekdays-eve"
-                                                    class="form-radio text-orange-500">
-                                                <span class="text-gray-700">
-                                                    <strong class="font-semibold text-gray-800">Weekdays Evening</strong>
-                                                </span>
+                                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
+                                                <input type="radio" name="offline_timing" value="weekdays-eve" class="form-radio text-orange-500">
+                                                <span class="text-gray-700"><strong class="font-semibold text-gray-800">Weekdays Evening</strong></span>
                                             </label>
-                                            <label
-                                                class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
-                                                <input type="radio" name="offline_timing" value="weekends-day"
-                                                    class="form-radio text-orange-500">
-                                                <span class="text-gray-700">
-                                                    <strong class="font-semibold text-gray-800">Weekends Daytime</strong>
-                                                </span>
+                                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
+                                                <input type="radio" name="offline_timing" value="weekends-day" class="form-radio text-orange-500">
+                                                <span class="text-gray-700"><strong class="font-semibold text-gray-800">Weekends Daytime</strong></span>
                                             </label>
-                                            <label
-                                                class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
-                                                <input type="radio" name="offline_timing" value="weekends-eve"
-                                                    class="form-radio text-orange-500">
-                                                <span class="text-gray-700">
-                                                    <strong class="font-semibold text-gray-800">Weekends Evening</strong>
-                                                </span>
+                                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border hover:border-orange-500 transition">
+                                                <input type="radio" name="offline_timing" value="weekends-eve" class="form-radio text-orange-500">
+                                                <span class="text-gray-700"><strong class="font-semibold text-gray-800">Weekends Evening</strong></span>
                                             </label>
                                         </div>
                                     </div>
-
                                     <hr class="border-gray-300">
-
                                     <div>
-                                        <label for="email_interest" class="block font-semibold text-gray-800 mb-2">Your
-                                            Email:</label>
-                                        <input type="email" id="email_interest" name="email"
-                                            placeholder="Enter your email to be notified"
-                                            class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
+                                        <label for="email_interest" class="block font-semibold text-gray-800 mb-2">Your Email:</label>
+                                        <input type="email" id="email_interest" name="email" placeholder="Enter your email to be notified" class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
                                     </div>
-
-                                    <button type="submit"
-                                        class="w-full bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">
-                                        Submit Interest
-                                    </button>
+                                    <button type="submit" class="w-full bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300">Submit Interest</button>
                                     <div id="form-message" class="hidden mt-4 p-4 rounded-lg text-center"></div>
-                                    <p class="text-xs text-center text-gray-500">Note: This is not a booking. We will
-                                        contact you if a batch is formed.</p>
+                                    <p class="text-xs text-center text-gray-500">Note: This is not a booking. We will contact you if a batch is formed.</p>
                                 </form>
                             </div>
                         </div>
@@ -613,116 +513,65 @@
             </section>
         </div>
 
-        <!-- VIEW 4: MISC WRAPPER (Instructor + FAQ + Contact + Footer) -->
+        <!-- VIEW 4: MISC WRAPPER -->
         <div id="view-misc" class="mobile-view-group">
-            
-            <!-- Instructor Section -->
             <section id="instructor" class="py-4 md:py-20 bg-white md:pt-24" data-aos>
-                <div class="container mx-auto px-6">
-                    <div
-                        class="md:flex md:items-center md:space-x-12 bg-white p-8 md:p-12 rounded-2xl shadow-lg border border-gray-100 max-w-7xl mx-auto">
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="md:flex md:items-center md:space-x-12 bg-white p-8 md:p-12 rounded-2xl shadow-lg border border-gray-100 max-w-7xl mx-auto">
                         <div class="md:w-1/3 text-center">
-                            <img src="assets/instructor-photo.png" alt="Instructor Photo"
-                                class="w-48 h-48 rounded-full mx-auto shadow-md">
+                            <img src="assets/instructor-photo.png" alt="Instructor Photo" class="w-48 h-48 rounded-full mx-auto shadow-md">
                             <h3 class="mt-6 text-2xl font-bold">Krishnananda K Hegde</h3>
                             <p class="text-gray-500">Embedded Systems Architect</p>
                         </div>
                         <div class="md:w-2/3 mt-8 md:mt-0">
                             <h2 class="text-2xl md:text-3xl font-bold text-gray-800">Your Guide for the "Eagle's Tour"</h2>
-                            <p class="mt-4 text-base md:text-lg text-gray-600">
-                                With over 20 years of experience, I've designed this program to give you the high-level
-                                landscape view of the entire embedded world. My goal is to bridge the gap between academic
-                                theory and the practical, architectural thinking required to be a high-performing engineer.
-                            </p>
-                            <p class="mt-4 text-base md:text-lg text-gray-600">
-                                We won't just learn <strong class="font-semibold text-gray-800">how</strong> to use a tool;
-                                we'll learn <strong class="font-semibold text-gray-800">why</strong> it exists and where it
-                                fits in the larger system.
-                            </p>
-                            <p class="mt-4 text-base md:text-lg text-gray-600">
-                                This is the key to moving from a coder to a true architect, ready to tackle any challenge.
-                            </p>
+                            <p class="mt-4 text-base md:text-lg text-gray-600">With over 20 years of experience, I've designed this program to give you the high-level landscape view of the entire embedded world. My goal is to bridge the gap between academic theory and the practical, architectural thinking required to be a high-performing engineer.</p>
+                            <p class="mt-4 text-base md:text-lg text-gray-600">We won't just learn <strong class="font-semibold text-gray-800">how</strong> to use a tool; we'll learn <strong class="font-semibold text-gray-800">why</strong> it exists and where it fits in the larger system.</p>
+                            <p class="mt-4 text-base md:text-lg text-gray-600">This is the key to moving from a coder to a true architect, ready to tackle any challenge.</p>
                         </div>
                     </div>
                 </div>
             </section>
-
-            <!-- FAQ Section -->
             <section id="faq" class="py-4 md:py-20 md:pt-24" data-aos>
-                <div class="container mx-auto px-6">
+                <div class="max-w-7xl mx-auto px-6">
                     <div class="text-center mb-6 md:mb-12">
                         <h2 class="text-2xl md:text-4xl font-bold text-gray-800">Frequently Asked Questions</h2>
                         <p class="mt-2 text-sm md:text-lg text-gray-600">Have a question? We've got answers.</p>
                     </div>
                     <div class="bg-white rounded-2xl shadow-lg p-4 md:p-8 max-w-7xl mx-auto">
-                        <div class="space-y-4" id="faq-container">
-                            <!-- FAQ items will be inserted here by JS -->
-                        </div>
+                        <div class="space-y-4" id="faq-container"></div>
                     </div>
                 </div>
             </section>
-
-            <!-- Contact Section -->
             <section id="contact" class="py-4 md:py-20 md:pt-24" data-aos>
-                <div class="container mx-auto px-6"> 
+                <div class="max-w-7xl mx-auto px-6"> 
                     <div class="text-center mb-8"> 
                         <h2 class="text-2xl md:text-4xl font-bold text-gray-800">Have More Questions?</h2>
                         <p class="mt-4 text-sm md:text-lg text-gray-600 max-w-3xl mx-auto">
                             Please use the form below or reach out to us at:
-                            <span
-                                class="inline-flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-lg border border-gray-200 text-base align-middle mx-1">
-                                <span id="email-text"
-                                    class="font-semibold text-orange-600 select-all cursor-text">info@seekersden.in</span>
-                                <button id="copy-email-btn"
-                                    class="p-1 text-gray-600 hover:text-orange-500 hover:bg-gray-200 rounded transition duration-200"
-                                    title="Copy email address">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
-                                        </path>
-                                    </svg>
+                            <span class="inline-flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-lg border border-gray-200 text-base align-middle mx-1">
+                                <span id="email-text" class="font-semibold text-orange-600 select-all cursor-text">info@seekersden.in</span>
+                                <button id="copy-email-btn" class="p-1 text-gray-600 hover:text-orange-500 hover:bg-gray-200 rounded transition duration-200" title="Copy email address">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                                 </button>
                             </span>
                         </p>
                     </div>
-
                     <div class="bg-white rounded-2xl shadow-lg p-4 md:p-12 border border-gray-100 max-w-7xl mx-auto">
                         <form id="contact-form" class="space-y-6">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <!-- Left Column -->
                                 <div class="space-y-6">
-                                    <div>
-                                        <label for="contact_name" class="block font-semibold text-gray-800 mb-2">Your
-                                            Name:</label>
-                                        <input type="text" id="contact_name" name="contact_name"
-                                            placeholder="Enter your name"
-                                            class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-                                            required>
-                                    </div>
-                                    <div>
-                                        <label for="contact_email" class="block font-semibold text-gray-800 mb-2">Your
-                                            Email:</label>
-                                        <input type="email" id="contact_email" name="contact_email"
-                                            placeholder="Enter your email"
-                                            class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-                                            required>
-                                    </div>
-                                    <div>
-                                        <label for="contact_subject" class="block font-semibold text-gray-800 mb-2">Inquiry
-                                            Type:</label>
+                                    <div><label for="contact_name" class="block font-semibold text-gray-800 mb-2">Your Name:</label><input type="text" id="contact_name" name="contact_name" placeholder="Enter your name" class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" required></div>
+                                    <div><label for="contact_email" class="block font-semibold text-gray-800 mb-2">Your Email:</label><input type="email" id="contact_email" name="contact_email" placeholder="Enter your email" class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" required></div>
+                                    <div><label for="contact_subject" class="block font-semibold text-gray-800 mb-2">Inquiry Type:</label>
                                         <div class="select-wrapper">
-                                            <select id="contact_subject" name="contact_subject"
-                                                class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white"
-                                                required>
+                                            <select id="contact_subject" name="contact_subject" class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white" required>
                                                 <option value="" disabled selected>Select inquiry type...</option>
                                                 <option value="General Inquiry">General Inquiry</option>
                                                 <option value="Course Information">Course Information</option>
                                                 <option value="Order Issue / Support">Order Issue / Support</option>
-                                                <option value="Online Consultancy Booking">Online Consultancy Booking
-                                                </option>
-                                                <option value="Online Full Training Inquiry">Online Full Training Inquiry
-                                                </option>
+                                                <option value="Online Consultancy Booking">Online Consultancy Booking</option>
+                                                <option value="Online Full Training Inquiry">Online Full Training Inquiry</option>
                                                 <option value="Onsite Corporate Training">Onsite Corporate Training</option>
                                                 <option value="Offline Training Inquiry">Offline Training Inquiry</option>
                                                 <option value="Technical Support">Technical Support</option>
@@ -731,39 +580,20 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Right Column -->
-                                <div class="flex flex-col">
-                                    <label for="contact_message"
-                                        class="block font-semibold text-gray-800 mb-2">Message:</label>
-                                    <textarea id="contact_message" name="contact_message"
-                                        placeholder="Your question or message..."
-                                        class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 flex-grow"
-                                        required></textarea>
-                                </div>
+                                <div class="flex flex-col"><label for="contact_message" class="block font-semibold text-gray-800 mb-2">Message:</label><textarea id="contact_message" name="contact_message" placeholder="Your question or message..." class="block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 flex-grow" required></textarea></div>
                             </div>
-
-                            <div class="text-right">
-                                <button type="submit" id="contact-submit-btn"
-                                    class="w-full bg-orange-500 text-white font-semibold px-8 py-3 rounded-lg hover:bg-orange-600 transition duration-300">
-                                    Send Message
-                                </button>
-                            </div>
+                            <div class="text-right"><button type="submit" id="contact-submit-btn" class="w-full bg-orange-500 text-white font-semibold px-8 py-3 rounded-lg hover:bg-orange-600 transition duration-300">Send Message</button></div>
                             <div id="contact-form-message" class="hidden mt-4 p-4 rounded-lg text-center"></div>
                         </form>
                     </div>
-
-                    <div class="mt-12 text-gray-500 text-sm text-center"> 
-                    </div>
+                    <div class="mt-12 text-gray-500 text-sm text-center"></div>
                 </div>
             </section>
-
-            <!-- Footer -->
             <footer class="bg-gray-800 text-white">
-                <div class="container mx-auto px-6 py-8 text-center">
+                <div class="max-w-7xl mx-auto px-6 py-8 text-center">
                     <img src="assets/seekersden-logo.png" alt="SeekersDen Logo" class="h-12 w-auto mx-auto">
                     <p class="mt-4 text-gray-400">© 2025 SeekersDen. All rights reserved.</p>
                     <p class="mt-1 text-gray-400">Mangaluru, Karnataka, India</p>
-
                     <div class="mt-4 pt-4 border-t border-gray-700">
                         <a href="terms.html" class="text-gray-400 hover:text-white px-3 py-2 text-sm">Terms</a>
                         <span class="text-gray-500">|</span>
@@ -776,94 +606,60 @@
                 </div>
             </footer>
         </div>
-
     </main>
 
-
     <!-- --- MOBILE FLOATING NAVIGATION SYSTEM --- -->
-
-    <!-- 1. Secondary "Stacked" Bar for COURSE (Updated to match attached Image) -->
-    <!-- Appears ABOVE the bottom nav when Course is active -->
     <div id="mobile-sub-nav-course" class="md:hidden fixed bottom-[60px] left-0 w-full bg-white border-t border-gray-200 z-40 hidden">
         <div class="grid grid-cols-4 h-[70px]">
-            <!-- M1: Foundation -->
             <button onclick="triggerDesktopModule(0)" class="mobile-module-btn group flex flex-col items-center justify-center w-full h-full border-t-2 border-transparent hover:bg-gray-50 mobile-sub-nav-active" data-idx="0">
-                <i class="fas fa-microchip text-2xl mb-1 text-gray-400 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors"></i>
-                <span class="text-[10px] font-semibold text-gray-500 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors">Foundation</span>
+                <i class="fas fa-microchip text-2xl mb-1 text-gray-400 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors"></i><span class="text-[10px] font-semibold text-gray-500 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors">Foundation</span>
             </button>
-
-            <!-- M2: RTOS/IoT -->
             <button onclick="triggerDesktopModule(1)" class="mobile-module-btn group flex flex-col items-center justify-center w-full h-full border-t-2 border-transparent hover:bg-gray-50" data-idx="1">
-                <i class="fas fa-wifi text-2xl mb-1 text-gray-400 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors"></i>
-                <span class="text-[10px] font-semibold text-gray-500 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors">RTOS/IoT</span>
+                <i class="fas fa-wifi text-2xl mb-1 text-gray-400 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors"></i><span class="text-[10px] font-semibold text-gray-500 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors">RTOS/IoT</span>
             </button>
-
-            <!-- M3: FPGA -->
             <button onclick="triggerDesktopModule(2)" class="mobile-module-btn group flex flex-col items-center justify-center w-full h-full border-t-2 border-transparent hover:bg-gray-50" data-idx="2">
-                <i class="fas fa-layer-group text-2xl mb-1 text-gray-400 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors"></i>
-                <span class="text-[10px] font-semibold text-gray-500 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors">FPGA</span>
+                <i class="fas fa-layer-group text-2xl mb-1 text-gray-400 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors"></i><span class="text-[10px] font-semibold text-gray-500 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors">FPGA</span>
             </button>
-
-            <!-- M4: Linux -->
             <button onclick="triggerDesktopModule(3)" class="mobile-module-btn group flex flex-col items-center justify-center w-full h-full border-t-2 border-transparent hover:bg-gray-50" data-idx="3">
-                <i class="fab fa-linux text-2xl mb-1 text-gray-400 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors"></i>
-                <span class="text-[10px] font-semibold text-gray-500 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors">Linux</span>
+                <i class="fab fa-linux text-2xl mb-1 text-gray-400 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors"></i><span class="text-[10px] font-semibold text-gray-500 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors">Linux</span>
             </button>
         </div>
     </div>
 
-    <!-- 2. Secondary "Stacked" Bar for SERVICES (UPDATED: GRID LAYOUT WITH ICONS) -->
     <div id="mobile-sub-nav-services" class="md:hidden fixed bottom-[60px] left-0 w-full bg-white border-t border-gray-200 z-40 hidden">
         <div class="grid grid-cols-4 h-[70px]">
-            <!-- Consultancy -->
             <button onclick="triggerDesktopService('online-consult')" class="mobile-service-btn group flex flex-col items-center justify-center w-full h-full border-t-2 border-transparent hover:bg-gray-50 mobile-sub-nav-active" data-srv="online-consult">
-                <i class="fas fa-headset text-2xl mb-1 text-gray-400 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors"></i>
-                <span class="text-[10px] font-semibold text-gray-500 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors">Consultancy</span>
+                <i class="fas fa-headset text-2xl mb-1 text-gray-400 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors"></i><span class="text-[10px] font-semibold text-gray-500 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors">Consultancy</span>
             </button>
-
-            <!-- Online Class -->
             <button onclick="triggerDesktopService('online-full')" class="mobile-service-btn group flex flex-col items-center justify-center w-full h-full border-t-2 border-transparent hover:bg-gray-50" data-srv="online-full">
-                <i class="fas fa-laptop-code text-2xl mb-1 text-gray-400 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors"></i>
-                <span class="text-[10px] font-semibold text-gray-500 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors">Online Class</span>
+                <i class="fas fa-laptop-code text-2xl mb-1 text-gray-400 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors"></i><span class="text-[10px] font-semibold text-gray-500 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors">Online Class</span>
             </button>
-
-            <!-- Onsite -->
             <button onclick="triggerDesktopService('onsite')" class="mobile-service-btn group flex flex-col items-center justify-center w-full h-full border-t-2 border-transparent hover:bg-gray-50" data-srv="onsite">
-                <i class="fas fa-building text-2xl mb-1 text-gray-400 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors"></i>
-                <span class="text-[10px] font-semibold text-gray-500 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors">Onsite</span>
+                <i class="fas fa-building text-2xl mb-1 text-gray-400 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors"></i><span class="text-[10px] font-semibold text-gray-500 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors">Onsite</span>
             </button>
-
-            <!-- Offline -->
             <button onclick="triggerDesktopService('offline-full')" class="mobile-service-btn group flex flex-col items-center justify-center w-full h-full border-t-2 border-transparent hover:bg-gray-50" data-srv="offline-full">
-                <i class="fas fa-chalkboard-user text-2xl mb-1 text-gray-400 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors"></i>
-                <span class="text-[10px] font-semibold text-gray-500 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors">Offline</span>
+                <i class="fas fa-chalkboard-user text-2xl mb-1 text-gray-400 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors"></i><span class="text-[10px] font-semibold text-gray-500 group-[.mobile-sub-nav-active]:text-orange-500 transition-colors">Offline</span>
             </button>
         </div>
     </div>
 
-    <!-- 3. Primary Bottom Navigation Bar -->
     <nav id="mobile-bottom-nav" class="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 z-50 h-[60px] flex justify-around items-center pb-safe">
         <button onclick="switchMobileView('home')" class="bottom-nav-item flex flex-col items-center justify-center w-full h-full active text-gray-500" data-target="home">
-            <i class="fas fa-home text-xl mb-1"></i>
-            <span class="text-[10px] font-medium">Home</span>
+            <i class="fas fa-home text-xl mb-1"></i><span class="text-[10px] font-medium">Home</span>
         </button>
         <button onclick="switchMobileView('course')" class="bottom-nav-item flex flex-col items-center justify-center w-full h-full text-gray-500" data-target="course">
-            <i class="fas fa-graduation-cap text-xl mb-1"></i>
-            <span class="text-[10px] font-medium">Course</span>
+            <i class="fas fa-graduation-cap text-xl mb-1"></i><span class="text-[10px] font-medium">Course</span>
         </button>
         <button onclick="switchMobileView('services')" class="bottom-nav-item flex flex-col items-center justify-center w-full h-full text-gray-500" data-target="services">
-            <i class="fas fa-concierge-bell text-xl mb-1"></i>
-            <span class="text-[10px] font-medium">Services</span>
+            <i class="fas fa-concierge-bell text-xl mb-1"></i><span class="text-[10px] font-medium">Services</span>
         </button>
         <button onclick="switchMobileView('misc')" class="bottom-nav-item flex flex-col items-center justify-center w-full h-full text-gray-500" data-target="misc">
-            <i class="fas fa-bars text-xl mb-1"></i>
-            <span class="text-[10px] font-medium">Misc</span>
+            <i class="fas fa-bars text-xl mb-1"></i><span class="text-[10px] font-medium">Misc</span>
         </button>
     </nav>
 
     <script>
-        // --- DATA ---
-
+        // --- DATA & SHARED VARIABLES ---
         const courseData = [
             {
                 module: "Module 1: Foundations & Baremetal",
@@ -878,7 +674,7 @@
                     "<strong class='font-semibold text-gray-800'>Junior Engineers (1-3 years):</strong> Who want to build a strong, foundational understanding of microcontroller hardware and bare-metal C programming.",
                     "<strong class='font-semibold text-gray-800'>Computer Science Students:</strong> Seeking to bridge the gap between software theory and real-world hardware application.",
                     "<strong class='font-semibold text-gray-800'>Hobbyists and Makers:</strong> Who want to move beyond basic Arduino sketches to professional, register-level C programming techniques.",
-                    "<strong class'font-semibold text-gray-800'>Professionals Transitioning:</strong> From other fields (like web or enterprise software) who need a ground-up introduction to embedded systems."
+                    "<strong class='font-semibold text-gray-800'>Professionals Transitioning:</strong> From other fields (like web or enterprise software) who need a ground-up introduction to embedded systems."
                 ],
                 workbook: {
                     image: "assets/M1.png",
@@ -1465,24 +1261,36 @@
         // --- EVENT LISTENERS & INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', () => {
 
-            // --- *** FIX: Assign variables AFTER DOM is loaded *** ---
             moduleTabsContainer = document.getElementById('module-tabs');
             contentWrapper = document.getElementById('course-content-wrapper');
             faqContainer = document.getElementById('faq-container');
-            // Mobile Menu variables removed as we are using bottom nav
             desktopNav = document.getElementById('desktop-nav');
 
 
-            // *** FIX 1: Ensure EmailJS Initialization is FIRST for reliability ***
             emailjs.init("DfU1FTDN2YE_8hY-r");
-
-            // Removed old mobile menu listener
 
             initializeCourseSection();
             initializeFAQ();
             initializeServiceTabs();
 
             loadInstamojoScript();
+            
+            // --- SMART NAVBAR HIDE/SHOW ON SCROLL ---
+            let lastScrollTop = 0;
+            const mobileTopBar = document.getElementById('mobile-top-bar');
+
+            window.addEventListener('scroll', function() {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                if (scrollTop > lastScrollTop && scrollTop > 50) { // Add buffer
+                    // Scrolling Down -> Hide
+                    mobileTopBar.classList.add('nav-hidden');
+                } else {
+                    // Scrolling Up -> Show
+                    mobileTopBar.classList.remove('nav-hidden');
+                }
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+            }, false);
+
 
             // --- Handle Offline Interest Form Submission ---
             const offlineForm = document.getElementById('offline-interest-form');
@@ -1704,7 +1512,6 @@
                 threshold: 0
             };
 
-            // *** FIX: Removed the stray '.' before the arrow function ***
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -1737,10 +1544,123 @@
                 });
             }, { threshold: 0.1 });
 
-            // *** FIX: Removed the stray "DqLPO" text ***
             aosElements.forEach(el => {
                 aosObserver.observe(el);
             });
+            
+            // --- ADVANCED SWIPE LOGIC (Parent-Child Navigation) ---
+            let touchStartX = 0;
+            let touchEndX = 0;
+            let touchStartY = 0;
+            let touchEndY = 0;
+            
+            document.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            }, false);
+
+            document.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                touchEndY = e.changedTouches[0].screenY;
+                handleSwipe();
+            }, false);
+
+            function handleSwipe() {
+                const threshold = 75; // Min horizontal distance
+                const yThreshold = 100; // Max vertical distance allowed (to ignore vertical scrolls)
+                
+                const diffX = touchEndX - touchStartX;
+                const diffY = touchEndY - touchStartY;
+
+                // Check if horizontal swipe is dominant and within limits
+                if (Math.abs(diffX) > threshold && Math.abs(diffY) < yThreshold) {
+                    if (diffX < 0) {
+                        // Swiped Left -> Next
+                        navigateTabs(1);
+                    } else {
+                        // Swiped Right -> Previous
+                        navigateTabs(-1);
+                    }
+                }
+            }
+
+            function navigateTabs(direction) {
+                const currentViewEl = document.querySelector('.mobile-view-group.active-view');
+                if (!currentViewEl) return;
+                const currentViewId = currentViewEl.id.replace('view-', '');
+                
+                // 1. HOME VIEW
+                if (currentViewId === 'home') {
+                    if (direction === 1) {
+                        switchMobileView('course');
+                        triggerDesktopModule(0); // Start at beginning
+                    }
+                    // Direction -1 (Left from Home) does nothing
+                } 
+                
+                // 2. COURSE VIEW
+                else if (currentViewId === 'course') {
+                    // Determine current module index
+                    const activeBtn = document.querySelector('#mobile-sub-nav-course .mobile-module-btn.mobile-sub-nav-active');
+                    let currentIdx = activeBtn ? parseInt(activeBtn.dataset.idx) : 0;
+                    let nextIdx = currentIdx + direction;
+                    
+                    // If next module is valid (0-3), switch MODULE
+                    if (nextIdx >= 0 && nextIdx < 4) {
+                        triggerDesktopModule(nextIdx);
+                        // Also reset inner tabs if desired? For now we keep user context or reset? 
+                        // Let's keep context, simpler.
+                    } 
+                    // If swiping BACK from 0, go HOME
+                    else if (nextIdx < 0) {
+                        switchMobileView('home');
+                    } 
+                    // If swiping FORWARD from 3, go SERVICES
+                    else {
+                        switchMobileView('services');
+                        triggerDesktopService('online-consult'); // Start at beginning of Services
+                    }
+                }
+                
+                // 3. SERVICES VIEW
+                else if (currentViewId === 'services') {
+                    const serviceIds = ['online-consult', 'online-full', 'onsite', 'offline-full'];
+                    
+                    // Determine current service index
+                    const activeBtn = document.querySelector('#mobile-sub-nav-services .mobile-service-btn.mobile-sub-nav-active');
+                    let currentSrvId = activeBtn ? activeBtn.dataset.srv : 'online-consult';
+                    let currentIdx = serviceIds.indexOf(currentSrvId);
+                    
+                    // Fallback if ID not found
+                    if (currentIdx === -1) currentIdx = 0;
+                    
+                    let nextIdx = currentIdx + direction;
+                    
+                    // If next service is valid, switch SERVICE
+                    if (nextIdx >= 0 && nextIdx < serviceIds.length) {
+                        triggerDesktopService(serviceIds[nextIdx]);
+                    } 
+                    // If swiping BACK from first service, go COURSE (Last Module)
+                    else if (nextIdx < 0) {
+                        switchMobileView('course');
+                        triggerDesktopModule(3); // Go to LAST module
+                    } 
+                    // If swiping FORWARD from last service, go MISC
+                    else {
+                        switchMobileView('misc');
+                    }
+                }
+                
+                // 4. MISC VIEW
+                else if (currentViewId === 'misc') {
+                    // If swiping BACK from Misc, go SERVICES (Last Service)
+                    if (direction === -1) {
+                        switchMobileView('services');
+                        triggerDesktopService('offline-full'); // Go to LAST service
+                    }
+                    // Direction 1 (Right from Misc) does nothing
+                }
+            }
         });
     </script>
 
