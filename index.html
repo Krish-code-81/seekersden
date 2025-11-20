@@ -1597,27 +1597,40 @@
                     // Direction -1 (Left from Home) does nothing
                 } 
                 
-                // 2. COURSE VIEW
+                // 2. COURSE VIEW (UPDATED: Nested Navigation)
                 else if (currentViewId === 'course') {
-                    // Determine current module index
-                    const activeBtn = document.querySelector('#mobile-sub-nav-course .mobile-module-btn.mobile-sub-nav-active');
-                    let currentIdx = activeBtn ? parseInt(activeBtn.dataset.idx) : 0;
-                    let nextIdx = currentIdx + direction;
+                    const innerTabs = ['idealFor', 'curriculum', 'kit', 'code'];
+                    const currentInnerIdx = innerTabs.indexOf(currentSubTab);
                     
-                    // If next module is valid (0-3), switch MODULE
-                    if (nextIdx >= 0 && nextIdx < 4) {
-                        triggerDesktopModule(nextIdx);
-                        // Also reset inner tabs if desired? For now we keep user context or reset? 
-                        // Let's keep context, simpler.
+                    // Calculate logical next step in inner tabs
+                    const nextInnerIdx = currentInnerIdx + direction;
+
+                    // 2a. Move WITHIN current module's inner tabs
+                    if (nextInnerIdx >= 0 && nextInnerIdx < innerTabs.length) {
+                        const nextTabName = innerTabs[nextInnerIdx];
+                        const targetBtn = document.querySelector(`.mobile-inner-tab-btn[data-tab="${nextTabName}"]`);
+                        if (targetBtn) targetBtn.click();
                     } 
-                    // If swiping BACK from 0, go HOME
-                    else if (nextIdx < 0) {
-                        switchMobileView('home');
-                    } 
-                    // If swiping FORWARD from 3, go SERVICES
+                    // 2b. At boundary -> Switch MODULE
                     else {
-                        switchMobileView('services');
-                        triggerDesktopService('online-consult'); // Start at beginning of Services
+                        // Determine current module index
+                        const activeBtn = document.querySelector('#mobile-sub-nav-course .mobile-module-btn.mobile-sub-nav-active');
+                        let currentModuleIdx = activeBtn ? parseInt(activeBtn.dataset.idx) : 0;
+                        let nextModuleIdx = currentModuleIdx + direction;
+                        
+                        // Move to Next/Prev Module
+                        if (nextModuleIdx >= 0 && nextModuleIdx < 4) {
+                            triggerDesktopModule(nextModuleIdx);
+                        } 
+                        // Move back to Home
+                        else if (nextModuleIdx < 0) {
+                            switchMobileView('home');
+                        } 
+                        // Move forward to Services
+                        else {
+                            switchMobileView('services');
+                            triggerDesktopService('online-consult');
+                        }
                     }
                 }
                 
