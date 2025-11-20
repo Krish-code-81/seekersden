@@ -1547,15 +1547,17 @@
                 aosObserver.observe(el);
             });
             
-            // --- ADVANCED SWIPE LOGIC (Parent-Child Navigation) ---
+            // --- ADVANCED SWIPE LOGIC (Context-Aware) ---
             let touchStartX = 0;
             let touchEndX = 0;
             let touchStartY = 0;
             let touchEndY = 0;
+            let swipeStartTarget = null;
             
             document.addEventListener('touchstart', e => {
                 touchStartX = e.changedTouches[0].screenX;
                 touchStartY = e.changedTouches[0].screenY;
+                swipeStartTarget = e.target; // Capture where the touch started
             }, false);
 
             document.addEventListener('touchend', e => {
@@ -1573,105 +1575,90 @@
 
                 // Check if horizontal swipe is dominant and within limits
                 if (Math.abs(diffX) > threshold && Math.abs(diffY) < yThreshold) {
-                    if (diffX < 0) {
-                        // Swiped Left -> Next
-                        navigateTabs(1);
+                    const direction = diffX < 0 ? 1 : -1; // 1 = Next (Left Swipe), -1 = Prev (Right Swipe)
+                    
+                    const currentViewEl = document.querySelector('.mobile-view-group.active-view');
+                    if (!currentViewEl) return;
+                    const currentViewId = currentViewEl.id.replace('view-', '');
+
+                    // Check if swipe started inside specific content areas
+                    // 1. Course Content: Inside the main wrapper (text, inner tabs, kit info)
+                    const isCourseContent = currentViewId === 'course' && 
+                                          swipeStartTarget && 
+                                          swipeStartTarget.closest('#course-content-wrapper');
+                    
+                    // 2. Services Content: Inside the visible service content area
+                    const isServicesContent = currentViewId === 'services' && 
+                                            swipeStartTarget && 
+                                            swipeStartTarget.closest('.service-tab-content');
+
+                    if (isCourseContent) {
+                        navigateCourseContent(direction);
+                    } else if (isServicesContent) {
+                        navigateServicesContent(direction);
                     } else {
-                        // Swiped Right -> Previous
-                        navigateTabs(-1);
+                        navigateParentViews(currentViewId, direction);
                     }
                 }
             }
 
-            function navigateTabs(direction) {
-                const currentViewEl = document.querySelector('.mobile-view-group.active-view');
-                if (!currentViewEl) return;
-                const currentViewId = currentViewEl.id.replace('view-', '');
+            function navigateParentViews(currentViewId, direction) {
+                const views = ['home', 'course', 'services', 'misc'];
+                const currentIndex = views.indexOf(currentViewId);
                 
-                // 1. HOME VIEW
-                if (currentViewId === 'home') {
-                    if (direction === 1) {
-                        switchMobileView('course');
-                        triggerDesktopModule(0); // Start at beginning
-                    }
-                    // Direction -1 (Left from Home) does nothing
-                } 
-                
-                // 2. COURSE VIEW (UPDATED: Nested Navigation)
-                else if (currentViewId === 'course') {
-                    const innerTabs = ['idealFor', 'curriculum', 'kit', 'code'];
-                    const currentInnerIdx = innerTabs.indexOf(currentSubTab);
-                    
-                    // Calculate logical next step in inner tabs
-                    const nextInnerIdx = currentInnerIdx + direction;
+                if (currentIndex === -1) return;
 
-                    // 2a. Move WITHIN current module's inner tabs
-                    if (nextInnerIdx >= 0 && nextInnerIdx < innerTabs.length) {
-                        const nextTabName = innerTabs[nextInnerIdx];
-                        const targetBtn = document.querySelector(`.mobile-inner-tab-btn[data-tab="${nextTabName}"]`);
-                        if (targetBtn) targetBtn.click();
-                    } 
-                    // 2b. At boundary -> Switch MODULE
-                    else {
-                        // Determine current module index
-                        const activeBtn = document.querySelector('#mobile-sub-nav-course .mobile-module-btn.mobile-sub-nav-active');
-                        let currentModuleIdx = activeBtn ? parseInt(activeBtn.dataset.idx) : 0;
-                        let nextModuleIdx = currentModuleIdx + direction;
-                        
-                        // Move to Next/Prev Module
-                        if (nextModuleIdx >= 0 && nextModuleIdx < 4) {
-                            triggerDesktopModule(nextModuleIdx);
-                        } 
-                        // Move back to Home
-                        else if (nextModuleIdx < 0) {
-                            switchMobileView('home');
-                        } 
-                        // Move forward to Services
-                        else {
-                            switchMobileView('services');
-                            triggerDesktopService('online-consult');
-                        }
+                const nextIndex = currentIndex + direction;
+
+                if (nextIndex >= 0 && nextIndex < views.length) {
+                    const nextView = views[nextIndex];
+                    switchMobileView(nextView);
+                    
+                    // Reset to start when entering views via parent swipe
+                    if (nextView === 'course') triggerDesktopModule(0);
+                    if (nextView === 'services') triggerDesktopService('online-consult');
+                }
+            }
+
+            function navigateCourseContent(direction) {
+                // 1. Try switching Inner Tabs first (Ideal For -> Curriculum -> Kit -> Code)
+                const innerTabs = ['idealFor', 'curriculum', 'kit', 'code'];
+                const currentInnerIdx = innerTabs.indexOf(currentSubTab);
+                const nextInnerIdx = currentInnerIdx + direction;
+
+                if (nextInnerIdx >= 0 && nextInnerIdx < innerTabs.length) {
+                    const nextTabName = innerTabs[nextInnerIdx];
+                    const targetBtn = document.querySelector(`.mobile-inner-tab-btn[data-tab="${nextTabName}"]`);
+                    if (targetBtn) targetBtn.click();
+                } 
+                // 2. If at Inner Tab boundary, switch Module
+                else {
+                    const activeBtn = document.querySelector('#mobile-sub-nav-course .mobile-module-btn.mobile-sub-nav-active');
+                    let currentModuleIdx = activeBtn ? parseInt(activeBtn.dataset.idx) : 0;
+                    let nextModuleIdx = currentModuleIdx + direction;
+                    
+                    // Only switch module if within bounds (0-3)
+                    // We do NOT switch parent view here (e.g. to Home) to keep interaction distinct
+                    if (nextModuleIdx >= 0 && nextModuleIdx < 4) {
+                        triggerDesktopModule(nextModuleIdx);
                     }
                 }
-                
-                // 3. SERVICES VIEW
-                else if (currentViewId === 'services') {
-                    const serviceIds = ['online-consult', 'online-full', 'onsite', 'offline-full'];
-                    
-                    // Determine current service index
-                    const activeBtn = document.querySelector('#mobile-sub-nav-services .mobile-service-btn.mobile-sub-nav-active');
-                    let currentSrvId = activeBtn ? activeBtn.dataset.srv : 'online-consult';
-                    let currentIdx = serviceIds.indexOf(currentSrvId);
-                    
-                    // Fallback if ID not found
-                    if (currentIdx === -1) currentIdx = 0;
-                    
-                    let nextIdx = currentIdx + direction;
-                    
-                    // If next service is valid, switch SERVICE
-                    if (nextIdx >= 0 && nextIdx < serviceIds.length) {
-                        triggerDesktopService(serviceIds[nextIdx]);
-                    } 
-                    // If swiping BACK from first service, go COURSE (Last Module)
-                    else if (nextIdx < 0) {
-                        switchMobileView('course');
-                        triggerDesktopModule(3); // Go to LAST module
-                    } 
-                    // If swiping FORWARD from last service, go MISC
-                    else {
-                        switchMobileView('misc');
-                    }
-                }
-                
-                // 4. MISC VIEW
-                else if (currentViewId === 'misc') {
-                    // If swiping BACK from Misc, go SERVICES (Last Service)
-                    if (direction === -1) {
-                        switchMobileView('services');
-                        triggerDesktopService('offline-full'); // Go to LAST service
-                    }
-                    // Direction 1 (Right from Misc) does nothing
-                }
+            }
+
+            function navigateServicesContent(direction) {
+                 const serviceIds = ['online-consult', 'online-full', 'onsite', 'offline-full'];
+                 
+                 const activeBtn = document.querySelector('#mobile-sub-nav-services .mobile-service-btn.mobile-sub-nav-active');
+                 let currentSrvId = activeBtn ? activeBtn.dataset.srv : 'online-consult';
+                 let currentIdx = serviceIds.indexOf(currentSrvId);
+                 
+                 if (currentIdx === -1) currentIdx = 0;
+                 
+                 let nextIdx = currentIdx + direction;
+                 
+                 if (nextIdx >= 0 && nextIdx < serviceIds.length) {
+                     triggerDesktopService(serviceIds[nextIdx]);
+                 }
             }
         });
     </script>
