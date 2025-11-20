@@ -1547,17 +1547,15 @@
                 aosObserver.observe(el);
             });
             
-            // --- ADVANCED SWIPE LOGIC (Strict Zone-Based) ---
+            // --- ADVANCED SWIPE LOGIC (Parent-Child Navigation) ---
             let touchStartX = 0;
             let touchEndX = 0;
             let touchStartY = 0;
             let touchEndY = 0;
-            let swipeStartTarget = null;
             
             document.addEventListener('touchstart', e => {
                 touchStartX = e.changedTouches[0].screenX;
                 touchStartY = e.changedTouches[0].screenY;
-                swipeStartTarget = e.target; // Capture exactly what was touched
             }, false);
 
             document.addEventListener('touchend', e => {
@@ -1567,105 +1565,51 @@
             }, false);
 
             function handleSwipe() {
-                const threshold = 50; // Reduced threshold for better responsiveness
-                const yThreshold = 100; 
+                const threshold = 75; // Min horizontal distance
+                const yThreshold = 100; // Max vertical distance allowed (to ignore vertical scrolls)
                 
                 const diffX = touchEndX - touchStartX;
                 const diffY = touchEndY - touchStartY;
 
-                // Check if horizontal swipe is dominant
+                // Check if horizontal swipe is dominant and within limits
                 if (Math.abs(diffX) > threshold && Math.abs(diffY) < yThreshold) {
-                    const direction = diffX < 0 ? 1 : -1; // 1 = Next (Left Swipe), -1 = Prev (Right Swipe)
-                    
-                    const currentViewEl = document.querySelector('.mobile-view-group.active-view');
-                    if (!currentViewEl) return;
-                    const currentViewId = currentViewEl.id.replace('view-', '');
-
-                    // --- HITBOX DETECTION ---
-                    
-                    // 1. Course Inner Zone: STRICTLY inside the #course-content-wrapper
-                    // This includes the Module Title, Desc, Inner Tabs, and the active content.
-                    const isCourseInnerZone = currentViewId === 'course' && 
-                                              swipeStartTarget && 
-                                              swipeStartTarget.closest('#course-content-wrapper');
-
-                    // 2. Services Inner Zone: STRICTLY inside the .service-tab-content
-                    // This matches only the white card area of the active service.
-                    const isServicesInnerZone = currentViewId === 'services' && 
-                                                swipeStartTarget && 
-                                                swipeStartTarget.closest('.service-tab-content');
-
-                    // --- NAVIGATION LOGIC ---
-                    
-                    if (isCourseInnerZone) {
-                        navigateCourseContent(direction);
-                    } else if (isServicesInnerZone) {
-                        navigateServicesContent(direction);
+                    if (diffX < 0) {
+                        // Swiped Left -> Next
+                        navigateTabs(1);
                     } else {
-                        // If we are NOT in a strict inner zone, we navigate the Parents.
-                        // This allows swiping on headers, backgrounds, or empty space to move Home <-> Misc.
-                        navigateParentViews(currentViewId, direction);
+                        // Swiped Right -> Previous
+                        navigateTabs(-1);
                     }
                 }
             }
 
-            function navigateParentViews(currentViewId, direction) {
-                const views = ['home', 'course', 'services', 'misc'];
-                const currentIndex = views.indexOf(currentViewId);
+            function navigateTabs(direction) {
+                const currentViewEl = document.querySelector('.mobile-view-group.active-view');
+                if (!currentViewEl) return;
+                const currentViewId = currentViewEl.id.replace('view-', '');
                 
-                if (currentIndex === -1) return;
-
-                const nextIndex = currentIndex + direction;
-
-                if (nextIndex >= 0 && nextIndex < views.length) {
-                    const nextView = views[nextIndex];
-                    switchMobileView(nextView);
-                    
-                    // Optional: Reset state when entering via parent swipe?
-                    // For now, we keep the state (e.g. active module) as is, 
-                    // so users don't lose their place if they accidentally swipe out.
+                // RESTRICTED LOGIC: Only work for 'course' view
+                if (currentViewId !== 'course') {
+                    return;
                 }
-            }
-
-            function navigateCourseContent(direction) {
-                // 1. Try switching Inner Tabs first (Ideal For -> Curriculum -> Kit -> Code)
-                const innerTabs = ['idealFor', 'curriculum', 'kit', 'code'];
-                const currentInnerIdx = innerTabs.indexOf(currentSubTab);
-                const nextInnerIdx = currentInnerIdx + direction;
-
-                if (nextInnerIdx >= 0 && nextInnerIdx < innerTabs.length) {
-                    const nextTabName = innerTabs[nextInnerIdx];
-                    const targetBtn = document.querySelector(`.mobile-inner-tab-btn[data-tab="${nextTabName}"]`);
-                    if (targetBtn) targetBtn.click();
-                } 
-                // 2. If at Inner Tab boundary, switch Module
-                else {
-                    const activeBtn = document.querySelector('#mobile-sub-nav-course .mobile-module-btn.mobile-sub-nav-active');
-                    let currentModuleIdx = activeBtn ? parseInt(activeBtn.dataset.idx) : 0;
-                    let nextModuleIdx = currentModuleIdx + direction;
+                
+                // Inside COURSE VIEW
+                if (currentViewId === 'course') {
+                    const innerTabs = ['idealFor', 'curriculum', 'kit', 'code'];
+                    const currentInnerIdx = innerTabs.indexOf(currentSubTab);
                     
-                    if (nextModuleIdx >= 0 && nextModuleIdx < 4) {
-                        triggerDesktopModule(nextModuleIdx);
-                    }
-                    // Note: We do NOT fall back to Parent View here. 
-                    // Inner swipes stay inside the Course content logic.
-                }
-            }
+                    // Calculate logical next step in inner tabs
+                    const nextInnerIdx = currentInnerIdx + direction;
 
-            function navigateServicesContent(direction) {
-                 const serviceIds = ['online-consult', 'online-full', 'onsite', 'offline-full'];
-                 
-                 const activeBtn = document.querySelector('#mobile-sub-nav-services .mobile-service-btn.mobile-sub-nav-active');
-                 let currentSrvId = activeBtn ? activeBtn.dataset.srv : 'online-consult';
-                 let currentIdx = serviceIds.indexOf(currentSrvId);
-                 
-                 if (currentIdx === -1) currentIdx = 0;
-                 
-                 let nextIdx = currentIdx + direction;
-                 
-                 if (nextIdx >= 0 && nextIdx < serviceIds.length) {
-                     triggerDesktopService(serviceIds[nextIdx]);
-                 }
+                    // Move WITHIN current module's inner tabs ONLY
+                    if (nextInnerIdx >= 0 && nextInnerIdx < innerTabs.length) {
+                        const nextTabName = innerTabs[nextInnerIdx];
+                        const targetBtn = document.querySelector(`.mobile-inner-tab-btn[data-tab="${nextTabName}"]`);
+                        if (targetBtn) targetBtn.click();
+                    } 
+                    // If at boundary (nextInnerIdx < 0 or >= length), DO NOTHING.
+                    // No module switching, no view switching.
+                }
             }
         });
     </script>
