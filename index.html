@@ -1547,7 +1547,7 @@
                 aosObserver.observe(el);
             });
             
-            // --- ADVANCED SWIPE LOGIC (Context-Aware) ---
+            // --- ADVANCED SWIPE LOGIC (Strict Zone-Based) ---
             let touchStartX = 0;
             let touchEndX = 0;
             let touchStartY = 0;
@@ -1557,7 +1557,7 @@
             document.addEventListener('touchstart', e => {
                 touchStartX = e.changedTouches[0].screenX;
                 touchStartY = e.changedTouches[0].screenY;
-                swipeStartTarget = e.target; // Capture where the touch started
+                swipeStartTarget = e.target; // Capture exactly what was touched
             }, false);
 
             document.addEventListener('touchend', e => {
@@ -1567,13 +1567,13 @@
             }, false);
 
             function handleSwipe() {
-                const threshold = 75; // Min horizontal distance
-                const yThreshold = 100; // Max vertical distance allowed (to ignore vertical scrolls)
+                const threshold = 50; // Reduced threshold for better responsiveness
+                const yThreshold = 100; 
                 
                 const diffX = touchEndX - touchStartX;
                 const diffY = touchEndY - touchStartY;
 
-                // Check if horizontal swipe is dominant and within limits
+                // Check if horizontal swipe is dominant
                 if (Math.abs(diffX) > threshold && Math.abs(diffY) < yThreshold) {
                     const direction = diffX < 0 ? 1 : -1; // 1 = Next (Left Swipe), -1 = Prev (Right Swipe)
                     
@@ -1581,22 +1581,29 @@
                     if (!currentViewEl) return;
                     const currentViewId = currentViewEl.id.replace('view-', '');
 
-                    // Check if swipe started inside specific content areas
-                    // 1. Course Content: Inside the main wrapper (text, inner tabs, kit info)
-                    const isCourseContent = currentViewId === 'course' && 
-                                          swipeStartTarget && 
-                                          swipeStartTarget.closest('#course-content-wrapper');
+                    // --- HITBOX DETECTION ---
                     
-                    // 2. Services Content: Inside the visible service content area
-                    const isServicesContent = currentViewId === 'services' && 
-                                            swipeStartTarget && 
-                                            swipeStartTarget.closest('.service-tab-content');
+                    // 1. Course Inner Zone: STRICTLY inside the #course-content-wrapper
+                    // This includes the Module Title, Desc, Inner Tabs, and the active content.
+                    const isCourseInnerZone = currentViewId === 'course' && 
+                                              swipeStartTarget && 
+                                              swipeStartTarget.closest('#course-content-wrapper');
 
-                    if (isCourseContent) {
+                    // 2. Services Inner Zone: STRICTLY inside the .service-tab-content
+                    // This matches only the white card area of the active service.
+                    const isServicesInnerZone = currentViewId === 'services' && 
+                                                swipeStartTarget && 
+                                                swipeStartTarget.closest('.service-tab-content');
+
+                    // --- NAVIGATION LOGIC ---
+                    
+                    if (isCourseInnerZone) {
                         navigateCourseContent(direction);
-                    } else if (isServicesContent) {
+                    } else if (isServicesInnerZone) {
                         navigateServicesContent(direction);
                     } else {
+                        // If we are NOT in a strict inner zone, we navigate the Parents.
+                        // This allows swiping on headers, backgrounds, or empty space to move Home <-> Misc.
                         navigateParentViews(currentViewId, direction);
                     }
                 }
@@ -1614,9 +1621,9 @@
                     const nextView = views[nextIndex];
                     switchMobileView(nextView);
                     
-                    // Reset to start when entering views via parent swipe
-                    if (nextView === 'course') triggerDesktopModule(0);
-                    if (nextView === 'services') triggerDesktopService('online-consult');
+                    // Optional: Reset state when entering via parent swipe?
+                    // For now, we keep the state (e.g. active module) as is, 
+                    // so users don't lose their place if they accidentally swipe out.
                 }
             }
 
@@ -1637,11 +1644,11 @@
                     let currentModuleIdx = activeBtn ? parseInt(activeBtn.dataset.idx) : 0;
                     let nextModuleIdx = currentModuleIdx + direction;
                     
-                    // Only switch module if within bounds (0-3)
-                    // We do NOT switch parent view here (e.g. to Home) to keep interaction distinct
                     if (nextModuleIdx >= 0 && nextModuleIdx < 4) {
                         triggerDesktopModule(nextModuleIdx);
                     }
+                    // Note: We do NOT fall back to Parent View here. 
+                    // Inner swipes stay inside the Course content logic.
                 }
             }
 
