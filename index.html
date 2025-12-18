@@ -329,7 +329,8 @@
 
 
                     <!-- CTA Button -->
-                    <a data-aos href="#courses" onclick="if(window.innerWidth <= 768) { switchMobileView('course'); }"
+                    <a data-aos href="#courses"
+                        onclick="if(window.innerWidth <= 768) { event.preventDefault(); switchMobileView('course'); }"
                         class="mt-10 inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-200 bg-orange-600 rounded-xl hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-600 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
                         Explore The Trajectory
                         <i class="fas fa-arrow-right ml-2"></i>
