@@ -323,12 +323,6 @@
                         sectors like Automotive, Defense, and Industrial Automation.
                     </p>
 
-
-
-
-
-
-
                     <!-- CTA Button -->
                     <a data-aos href="#courses"
                         onclick="if(window.innerWidth <= 768) { event.preventDefault(); switchMobileView('course'); }"
@@ -347,9 +341,14 @@
                     <div class="text-center mb-6 md:mb-12">
                         <h2 class="text-2xl md:text-4xl font-bold text-gray-800">Your Embedded Systems Learning
                             Trajectory</h2>
-                        <p class="mt-2 text-sm md:text-lg text-gray-600">A comprehensive 4-module journey designed to
-                            equip you with the specific skills needed for Practical Academics and Industrial
-                            Expertise—distilled into a flexible, self-paced format that fits your schedule.</p>
+                        <p class="mt-2 text-sm md:text-lg text-gray-600 text-balance">Designed to build the skills
+                            needed for
+                            <strong>Academic Projects</strong> and <strong>Industrial Expertise</strong>. Get the
+                            Self-Paced Kit, complete the
+                            workbook sessions,
+                            build the listed Projects, consult us online for guidance, and get certified for
+                            your <strong>internship</strong> or <strong>career advancement</strong>.
+                        </p>
                     </div>
 
                     <div class="bg-white md:rounded-2xl md:shadow-lg lg:flex lg:space-x-8 md:p-8 max-w-7xl mx-auto">
@@ -905,11 +904,11 @@
                     { name: "Level 3: Actuators & Hardware Design", duration: "4 Sessions (1-2 Weeks)", topics: ["Controlling DC Motors using H-Bridge drivers.", "Driving Stepper Motors with precise switching sequences.", "Introduction to Galvanic Isolation using Relays and Optocouplers.", "Introduction to Printed Circuit Board (PCB) design concepts."] },
                     { name: "Level 4: Software Fundamentals", duration: "4 Sessions (1-2 Weeks)", topics: ["Mastering advanced C concepts like pointers and function pointers.", "Applying bit manipulation techniques for efficient hardware control.", "Designing and implementing robust state machines for event-driven systems.", "Introduction to creating custom, reusable driver libraries."] },
                 ],
-                whoFor: [
-                    "<strong class='font-semibold text-gray-800'>Junior Engineers (1-3 years):</strong> Who want to build a strong, foundational understanding of microcontroller hardware and bare-metal C programming.",
-                    "<strong class='font-semibold text-gray-800'>Computer Science Students:</strong> Seeking to bridge the gap between software theory and real-world hardware application.",
-                    "<strong class='font-semibold text-gray-800'>Hobbyists and Makers:</strong> Who want to move beyond basic Arduino sketches to professional, register-level C programming techniques.",
-                    "<strong class='font-semibold text-gray-800'>Professionals Transitioning:</strong> From other fields (like web or enterprise software) who need a ground-up introduction to embedded systems."
+                projects: [
+                    { title: "Digital Weather Station", desc: "Build a station that reads analog sensors (LDR/Pot) via ADC and displays data on an I2C LCD." },
+                    { title: "Smart Lighting System", desc: "Use PWM to control brightness and Timers to automate lighting based on time intervals." },
+                    { title: "Keypad Security Lock", desc: "Implement a password-protected lock using GPIO for keypad input and UART for status logging." },
+                    { title: "Ultrasonic Distance Meter", desc: "Precise distance measurement using Timers, Interrupts, and serial communication (UART)." }
                 ],
                 workbook: {
                     image: "assets/M1.png",
@@ -939,11 +938,11 @@
                     { name: "Level 3: IoT & Networking", duration: "4 Sessions (1-2 Weeks)", topics: ["Fundamentals of computer networking: IP, TCP, UDP, and sockets.", "Introduction to common IoT hardware like Wi-Fi and Ethernet modules.", "Understanding the `client-server` model for connected devices.", "Securing embedded devices with basic principles of network security."] },
                     { name: "Level 4: Building a Connected Device", duration: "4 Sessions (1-2 Weeks)", topics: ["Introduction to the MQTT protocol for lightweight IoT communication.", "Sending sensor data from your device to a public MQTT broker.", "Receiving commands from the cloud to control your device.", "Architecting a complete sensor-to-cloud IoT application."] },
                 ],
-                whoFor: [
-                    "<strong class='font-semibold text-gray-800'>Embedded Developers:</strong> Who find their bare-metal projects are becoming too complex and need to manage multiple tasks efficiently.",
-                    "<strong class='font-semibold text-gray-800'>Engineers:</strong> Who need to build responsive, multi-threaded applications and understand core RTOS concepts like tasks, queues, and mutexes.",
-                    "<strong class='font-semibold text-gray-800'>IoT Aspirants:</strong> Who want to learn how to connect their hardware projects to the internet and cloud services using protocols like MQTT.",
-                    "<strong class='font-semibold text-gray-800'>Advanced Hobbyists:</strong> Looking to build more sophisticated projects that can handle multiple sensors and communication streams simultaneously."
+                projects: [
+                    { title: "Multi-Tasking Smart Gateway", desc: "Manage multiple peripherals (Sensors, LCD, Motors) simultaneously using FreeRTOS Tasks and Mutexes." },
+                    { title: "Real-Time Data Logger", desc: "A robust system using Queues to collect high-speed sensor data and log it to Flash/SD memory." },
+                    { title: "MQTT Environment Monitor", desc: "Publish temperature and humidity data to a cloud broker and monitor it from a remote dashboard." },
+                    { title: "Remote Device Controller", desc: "A system that receives commands via MQTT to control hardware actuators (Relays/Motors) from anywhere." }
                 ],
                 workbook: {
                     image: "assets/M2.png",
@@ -973,11 +972,11 @@
                     { name: "Level 3: FPGA Implementation", duration: "4 Sessions (1-2 Weeks)", topics: ["Understanding the internal architecture of FPGAs and selecting a development board.", "Using a professional FPGA toolchain (e.g., Xilinx Vivado or Intel Quartus).", "Mastering the complete design flow:. synthesis, place-and-route, and timing analysis.", "Programming your hardware design onto a physical FPGA board and testing it in real-time."] },
                     { name: "Level 4: System-on-Chip (SoC) Design", duration: "4 Sessions (1-2 Weeks)", topics: ["Integrating pre-built Intellectual Property (IP) cores into your design.", "Interfacing your custom FPGA logic with an embedded soft-core or hard-core processor.", "Designing a custom AXI peripheral and connecting it to a system bus.", "Introduction to High-Level Synthesis (HLS) and advanced on-chip debugging techniques."] },
                 ],
-                whoFor: [
-                    "<strong class='font-semibold text-gray-800'>Software & Embedded Engineers:</strong> Who are limited by processors and want to learn how to design custom hardware for high-performance applications.",
-                    "<strong class='font-semibold text-gray-800'>Developers:</strong> Who want to transition from a software role into a digital design or FPGA engineering career path.",
-                    "<strong class='font-semibold text-gray-800'>Electronics Students:</strong> Who want practical, hands-on experience with a Hardware Description Language (Verilog/VHDL) and professional FPGA toolchains.",
-                    "<strong class='font-semibold text-gray-800'>High-Performance Hobbyists:</strong> With projects requiring high-speed parallel processing, like custom retro-computing, audio, or video processing."
+                projects: [
+                    { title: "Custom PWM Controller", desc: "Design a high-precision PWM generator in Verilog/VHDL to control motor speed directly in hardware logic." },
+                    { title: "High-Speed SPI Master", desc: "Implement a hardware-level SPI protocol master for ultra-fast communication with external peripherals." },
+                    { title: "FSM Digital Clock", desc: "Develop a digital clock using Finite State Machines with features like alarm, stopwatch, and reset logic." },
+                    { title: "Custom AXI Peripheral", desc: "Create a hardware accelerator and interface it with an embedded processor via the AXI bus." }
                 ],
                 workbook: {
                     image: "assets/M3.png",
@@ -1007,11 +1006,11 @@
                     { name: "Level 3: Inter-Process Communication", duration: "4 Sessions (1-2 Weeks)", topics: ["Communicating between processes using Pipes and FIFOs.", "Implementing robust messaging with POSIX and System V Message Queues.", "High-speed data exchange using Shared Memory.", "Process synchronization using semaphores and mutexes in user space."] },
                     { name: "Level 4: Advanced Linux Applications", duration: "4 Sessions (1-2 Weeks)", topics: ["Introduction to Real-time Linux (PREEMPT_RT).", "Advanced system debugging and profiling tools (gdb, perf, ftrace).", "Building a custom, minimal Linux distribution with the Yocto Project.", "Developing complex, multi-threaded applications in the Linux user space."] },
                 ],
-                whoFor: [
-                    "<strong class='font-semibold text-gray-800'>Experienced Embedded Engineers:</strong> Who need to master Linux to work on complex products like networking gateways, IoT hubs, and automotive systems.",
-                    "<strong class='font-semibold text-gray-800'>Developers aiming for an Architect role:</strong> As mastering the top of the embedded stack is essential for becoming a 'Full Stack IoT Architect'.",
-                    "<strong class='font-semibold text-gray-800'>System Administrators:</strong> Or enterprise Linux developers who want to specialize their skills for the embedded domain.",
-                    "<strong class='font-semibold text-gray-800'>System Builders:</strong> Who want to learn how to create a complete, custom Linux OS from the ground up using professional tools."
+                projects: [
+                    { title: "Custom Yocto Distribution", desc: "Build a minimal, secured Linux OS from scratch tailored for a specific industrial application." },
+                    { title: "Sensor Character Driver", desc: "Write a Linux kernel driver to interface with a custom hardware sensor and expose it to user space." },
+                    { title: "IPC Video Streamer", desc: "A multi-process application using Shared Memory to stream video data between a capture and display process." },
+                    { title: "Industrial Web Gateway", desc: "Develop a secured web server running on embedded Linux to monitor and control factory floor hardware." }
                 ],
                 workbook: {
                     image: "assets/M4.png",
@@ -1042,7 +1041,7 @@
         ];
 
         // --- GLOBAL STATE ---
-        let currentSubTab = 'idealFor'; // Default to 'idealFor'
+        let currentSubTab = 'curriculum'; // Changed default to 'curriculum' since Projects moved to last
 
         // --- *** FIX: Define variables in the outer scope *** ---
         let moduleTabsContainer, contentWrapper, faqContainer, mobileMenuButton, mobileMenu, desktopNav;
@@ -1168,17 +1167,14 @@
                 </div>
             `).join('');
 
-            const whoForHtml = `<ul class="list-none space-y-3">
-                ${moduleData.whoFor.map(item => {
-                const formattedItem = item;
-                return `
-                        <li class="flex items-start">
-                            <svg class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <span class="text-gray-600">${formattedItem}</span>
-                        </li>
-                    `
-            }).join('')}
-            </ul>`;
+            const projectsHtml = `<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                ${moduleData.projects.map(proj => `
+                    <div class="p-4 bg-orange-50 border border-orange-100 rounded-xl hover:bg-white hover:shadow-md transition duration-300">
+                        <h4 class="font-bold text-gray-800 text-lg mb-2">${proj.title}</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed">${proj.desc}</p>
+                    </div>
+                `).join('')}
+            </div>`;
 
 
             // Calculate bundled price for Self-Paced Kit
@@ -1268,11 +1264,6 @@
                     <!-- 1. MOBILE INNER TABS (New Segmented Control Style) -->
                     <div class="md:hidden mt-6">
                         <div class="bg-gray-100 rounded-t-xl p-1 pb-0 grid grid-cols-4 gap-1 items-end mobile-inner-tabs-container" style="border-bottom: 1px solid #f3f4f6;">
-                            <button class="curriculum-sub-tab mobile-inner-tab-btn group flex flex-col items-center justify-center py-3 rounded-lg ${currentSubTab === 'idealFor' ? 'active' : ''}" data-tab="idealFor">
-                                <i class="fas fa-crosshairs text-xl mb-1"></i>
-                                <span class="text-[10px] font-medium">Ideal For</span>
-                            </button>
-                            
                             <button class="curriculum-sub-tab mobile-inner-tab-btn group flex flex-col items-center justify-center py-3 rounded-lg ${currentSubTab === 'curriculum' ? 'active' : ''}" data-tab="curriculum">
                                 <i class="fas fa-list-alt text-xl mb-1"></i>
                                 <span class="text-[10px] font-medium">Curriculum</span>
@@ -1287,15 +1278,17 @@
                                 <i class="fas fa-file-code text-xl mb-1"></i>
                                 <span class="text-[10px] font-medium">Code Files</span>
                             </button>
+
+                            <button class="curriculum-sub-tab mobile-inner-tab-btn group flex flex-col items-center justify-center py-3 rounded-lg ${currentSubTab === 'projects' ? 'active' : ''}" data-tab="projects">
+                                <i class="fas fa-rocket text-xl mb-1"></i>
+                                <span class="text-[10px] font-medium">Projects</span>
+                            </button>
                         </div>
                     </div>
 
                     <!-- 2. DESKTOP INNER TABS (ORIGINAL ROW) -->
                     <div class="hidden md:block mt-6 border-b border-gray-200 overflow-x-auto">
                         <div class="flex flex-wrap -mb-px gap-x-4">
-                            <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md whitespace-nowrap ${currentSubTab === 'idealFor' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="idealFor">
-                                Ideal For
-                            </button>
                             <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md whitespace-nowrap ${currentSubTab === 'curriculum' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="curriculum">
                                 Curriculum
                             </button>
@@ -1305,13 +1298,13 @@
                             <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md whitespace-nowrap ${currentSubTab === 'code' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="code">
                                 Code Files
                             </button>
+                            <button class="curriculum-sub-tab px-4 py-2 text-sm font-semibold rounded-t-md whitespace-nowrap ${currentSubTab === 'projects' ? 'tab-active' : 'text-gray-600 hover:bg-orange-50'}" data-tab="projects">
+                                Projects
+                            </button>
                         </div>
                     </div>
                     
                     <div class="mt-6">
-                        <div class="sub-tab-content ${currentSubTab === 'idealFor' ? '' : 'hidden'}" data-content="idealFor">
-                            ${whoForHtml}
-                        </div>
                         <div class="sub-tab-content ${currentSubTab === 'curriculum' ? '' : 'hidden'}" data-content="curriculum">
                             ${levelsHtml}
                         </div>
@@ -1320,6 +1313,9 @@
                         </div>
                         <div class="sub-tab-content ${currentSubTab === 'code' ? '' : 'hidden'}" data-content="code">
                             ${codeFilesHtml}
+                        </div>
+                        <div class="sub-tab-content ${currentSubTab === 'projects' ? '' : 'hidden'}" data-content="projects">
+                            ${projectsHtml}
                         </div>
                     </div>
                 </div>
@@ -1405,8 +1401,8 @@
             document.querySelectorAll('.module-tab').forEach(tab => {
                 tab.addEventListener('click', () => {
                     const moduleIndex = parseInt(tab.dataset.moduleIndex);
-                    // Reset to 'Ideal For' tab when switching modules
-                    currentSubTab = 'idealFor';
+                    // Reset to 'Curriculum' tab when switching modules
+                    currentSubTab = 'curriculum';
 
                     document.querySelectorAll('.module-tab').forEach(t => {
                         t.classList.remove('module-tab-active');
@@ -1581,7 +1577,7 @@
                         // INSERING SERVICE_ID and OFFLINE TEMPLATE ID
                         await emailjs.send('service_7hppzcd', 'template_z14vx9a', templateParams);
 
-                        formMessage.textContent = 'Thank you! Your interest has been submitted successfully. We will contact you when a batch is formed.';
+                        formMessage.textContent = 'Thank you! Your interest has been submitted successfully. We will contact you if a batch is formed.';
                         formMessage.className = 'mt-4 p-4 rounded-lg text-center bg-green-100 text-green-700 border border-green-300';
                         formMessage.classList.remove('hidden');
 
@@ -1831,7 +1827,7 @@
 
                 // Inside COURSE VIEW
                 if (currentViewId === 'course') {
-                    const innerTabs = ['idealFor', 'curriculum', 'kit', 'code'];
+                    const innerTabs = ['curriculum', 'kit', 'code', 'projects'];
                     const currentInnerIdx = innerTabs.indexOf(currentSubTab);
 
                     // Calculate logical next step in inner tabs
