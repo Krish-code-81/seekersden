@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeekersDen Articles</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-orange': '#F2994A',
+                        'brand-orange-hover': '#e08330',
+                        'brand-dark': '#161616',
+                        'brand-darker': '#0d0d0d',
+                        'brand-gray': '#2c2e31',
+                        'brand-light-gray': '#3f4246'
+                    },
+                    fontFamily: {
+                        mono: ['"Fira Code"', 'monospace'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #161616; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #F2994A; }
+
+        .prose h2 { font-size: 1.5rem; font-weight: 700; color: #fff; margin-top: 2rem; margin-bottom: 1rem; }
+        .prose h3 { font-size: 1.25rem; font-weight: 600; color: #e5e7eb; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+        .prose p { margin-bottom: 1.25rem; line-height: 1.8; color: #d1d5db; font-size: 1.05rem; }
+        .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; color: #d1d5db; }
+        .prose li { margin-bottom: 0.5rem; }
+        .prose strong { color: #F2994A; }
+        .prose blockquote { border-left: 4px solid #F2994A; padding-left: 1rem; font-style: italic; color: #9ca3af; margin: 1.5rem 0; }
+        
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Filter Button Active State */
+        .filter-btn { position: relative; }
+        .filter-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: transparent;
+            transition: background-color 0.2s;
+        }
+        .filter-btn.active { color: #F2994A; }
+        .filter-btn.active::after { background-color: #F2994A; }
+        
+        .featured-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #F2994A;
+            color: #0d0d0d;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 4px;
+            transform: rotate(5deg);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="bg-brand-darker text-gray-200 font-sans h-screen flex flex-col overflow-hidden items-center p-4 sm:p-8">
+
+    <div class="w-full max-w-6xl h-full flex flex-col bg-brand-dark border border-gray-800 shadow-2xl rounded-xl overflow-hidden relative">
+
+        <!-- Header -->
+        <header class="bg-brand-dark border-b border-gray-800 h-16 flex items-center px-6 shadow-lg z-10 shrink-0">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="app.showList()">
+                <img src="assets/seekersden-logo.png" style="height: 40px; width: auto;" alt="Logo">
+                <h1 class="text-xl font-bold tracking-wide hidden sm:block">SeekersDen <span class="text-brand-orange font-normal">Articles</span></h1>
+            </div>
+            
+            <!-- Navigation -->
+            <div class="ml-auto hidden md:flex gap-6 text-sm font-medium">
+                <button onclick="app.filter('all')" data-category="all" class="filter-btn active text-gray-400 hover:text-white transition-colors pb-1">All</button>
+                <button onclick="app.filter('engineering')" data-category="engineering" class="filter-btn text-gray-400 hover:text-white transition-colors pb-1">Eng & Mgmt</button>
+                <button onclick="app.filter('world')" data-category="world" class="filter-btn text-gray-400 hover:text-white transition-colors pb-1">World & Infra</button>
+                <button onclick="app.filter('opinion')" data-category="opinion" class="filter-btn text-gray-400 hover:text-white transition-colors pb-1">Opinion & Policy</button>
+                <button onclick="app.filter('lifestyle')" data-category="lifestyle" class="filter-btn text-gray-400 hover:text-white transition-colors pb-1">Lifestyle</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-hidden relative w-full flex">
+            
+            <!-- List View -->
+            <div id="view-list" class="w-full h-full overflow-y-auto p-6 md:p-10 fade-in">
+                <div class="max-w-5xl mx-auto">
+                    <div class="mb-10 text-center">
+                        <h2 class="text-3xl font-bold text-white mb-3">Insights & Perspectives</h2>
+                        <p class="text-gray-400">Technical depth, societal observations, and personal growth.</p>
+                    </div>
+
+                    <!-- Search -->
+                    <div class="mb-8 relative max-w-2xl mx-auto">
+                        <input type="text" id="search-input" onkeyup="app.search()" placeholder="Search articles..." 
+                            class="w-full bg-brand-darker border border-gray-700 rounded-lg py-3 px-5 text-gray-200 focus:outline-none focus:border-brand-orange transition-colors shadow-inner">
+                        <svg class="w-5 h-5 text-gray-500 absolute right-4 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+
+                    <!-- Featured -->
+                    <div id="featured-section" class="mb-10 hidden">
+                        <h3 class="text-brand-orange text-sm font-bold uppercase tracking-widest mb-4 border-b border-gray-800 pb-2">Featured Reads</h3>
+                        <div id="featured-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+                    </div>
+
+                    <!-- Grid -->
+                    <h3 id="all-articles-header" class="text-gray-500 text-sm font-bold uppercase tracking-widest mb-4 border-b border-gray-800 pb-2">Latest Articles</h3>
+                    <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                </div>
+            </div>
+
+            <!-- Reader View -->
+            <div id="view-reader" class="absolute inset-0 bg-brand-dark z-20 overflow-y-auto hidden">
+                <div class="max-w-3xl mx-auto p-6 md:p-10 pb-24">
+                    <button onclick="app.showList()" class="flex items-center gap-2 text-gray-400 hover:text-brand-orange mb-8 transition-colors group sticky top-0 bg-brand-dark py-4 z-30 w-full border-b border-gray-800/50 backdrop-blur-md">
+                        <span class="transform group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Library
+                    </button>
+
+                    <article class="fade-in">
+                        <div class="mb-8 border-b border-gray-800 pb-8">
+                            <span id="article-category" class="text-xs font-bold tracking-wider uppercase text-brand-orange mb-2 block">Category</span>
+                            <h1 id="article-title" class="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">Article Title</h1>
+                            <div class="flex items-center gap-4 text-sm text-gray-500">
+                                <span id="article-read-time">Read Time</span>
+                                <span>&bull;</span>
+                                <span id="article-date">Updated Today</span>
+                            </div>
+                        </div>
+                        <div id="article-content" class="prose font-serif max-w-none"></div>
+                    </article>
+
+                    <div class="mt-16 pt-8 border-t border-gray-800 text-center">
+                        <button onclick="app.showList()" class="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-sans text-sm transition-colors">Read Another Article</button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="mt-4 text-center shrink-0">
+        <a href="https://www.seekersden.in" target="_blank" class="text-gray-600 hover:text-brand-orange transition-colors duration-200 text-sm sm:text-base tracking-wide no-underline font-mono">www.seekersden.in</a>
+    </div>
+
+    <script>
+        const ARTICLES = [
+            // Engineering & Management
+            { id: 1, title: "MIL-STD-1553: The Backbone of Military Avionics", category: "technical", featured: true, summary: "A deep dive into the deterministic, serial command/response bus used in defense systems like missiles and fighter jets.", readTime: "6 min read", content: `<h2>Introduction</h2><p>In the world of defense and avionics, reliability isn't just a requirement; it's a matter of survival. <strong>MIL-STD-1553</strong> (specifically 1553B) remains the gold standard for on-board data handling.</p><h2>How it Works</h2><p>Unlike Ethernet, 1553 uses a strict <strong>Command/Response</strong> protocol managed by a single Bus Controller.</p>` },
+            { id: 2, title: "The Cost of Ambiguity: Requirements Gathering", category: "process", featured: false, summary: "Why 'Shift Left' saves millions. Exploring the V-Model and the cost of fixing bugs in design vs. maintenance.", readTime: "4 min read", content: `<h2>The Most Expensive Bugs</h2><p>Fixing a defect during the Requirements phase costs 1x. Fixing it during Maintenance costs 100x to 1000x.</p>` },
+            { id: 3, title: "Product Lifecycle Management (PLM) in Defense", category: "management", featured: false, summary: "Managing hardware-software dependency over 20+ year lifecycles. Obsolescence management strategies.", readTime: "5 min read", content: `<h2>Beyond the Launch</h2><p>In embedded systems (automotive, medical, defense), the lifecycle can span 20+ years. Obsolescence management is key.</p>` },
+            
+            // World & Infra
+            { id: 4, title: "Beneath Our Feet: Who Lays the Pipes?", category: "world", featured: true, summary: "An exploration of the invisible infrastructure network—water, gas, and fiber—and the complex coordination required.", readTime: "7 min read", content: `<h2>The Invisible City</h2><p>Who decides where a water pipe goes? This article explores the coordination challenges in public works.</p>` },
+            { id: 5, title: "The Logistics of Road Building", category: "world", featured: false, summary: "It's not just pouring tar. Understanding the layers of civil engineering that keep our supply chains moving.", readTime: "5 min read", content: `<h2>More Than Asphalt</h2><p>A road is a structure with a foundation, base course, and wearing course. Understanding this helps us appreciate infrastructure.</p>` },
+
+            // Opinion & Policy
+            { id: 6, title: "Opinion: Accountability in Public Works", category: "opinion", featured: true, summary: "A proposal for a digital-first approach to government contracts to ensure transparency and quality.", readTime: "6 min read", content: `<h2>The Feedback Loop</h2><p>We need Digital Warranty Tracking for public assets so citizens can report issues directly to contractors.</p>` },
+            { id: 7, title: "Fixing the Education Gap", category: "opinion", featured: false, summary: "Why rote memorization is failing the next generation of engineers, and how practical labs can fix it.", readTime: "4 min read", content: `<h2>Engineers Who Can't Solder</h2><p>We need to shift from "Theory First" to "Practice First" in our government colleges.</p>` },
+
+            // Lifestyle
+            { id: 8, title: "The Engineer's Morning Routine", category: "lifestyle", featured: false, summary: "Optimizing the human machine. How exercise and structured deep work enable sustained cognitive performance.", readTime: "5 min read", content: `<h2>Input vs Output</h2><p>Just as an embedded system needs stable power, a brain needs stable glucose and oxygen through exercise.</p>` },
+            { id: 9, title: "Mental Models for Problem Solving", category: "lifestyle", featured: false, summary: "Using First Principles thinking to break down complex life problems, not just code.", readTime: "4 min read", content: `<h2>First Principles</h2><p>Boil things down to the most fundamental truths and reason up from there.</p>` }
+        ];
+
+        const app = {
+            currentFilter: 'all',
+
+            init: function() {
+                this.filter('all'); // Initialize with 'All' active
+            },
+
+            filter: function(category) {
+                this.currentFilter = category;
+                
+                // Visual Update for Buttons
+                document.querySelectorAll('.filter-btn').forEach(b => {
+                    if (b.dataset.category === category) {
+                        b.classList.add('active', 'text-brand-orange');
+                        b.classList.remove('text-gray-400');
+                    } else {
+                        b.classList.remove('active', 'text-brand-orange');
+                        b.classList.add('text-gray-400');
+                    }
+                });
+
+                document.getElementById('search-input').value = "";
+                
+                // CRITICAL FIX: Ensure we switch back to list view when filtering
+                this.showList();
+                
+                this.renderFeatured();
+                this.renderList();
+            },
+
+            renderList: function(searchQuery = "") {
+                const grid = document.getElementById('articles-grid');
+                let filtered = ARTICLES;
+
+                // Category Filter
+                if (this.currentFilter !== 'all') {
+                    if (this.currentFilter === 'engineering') {
+                        filtered = filtered.filter(a => ['technical', 'management', 'process'].includes(a.category));
+                    } else {
+                        filtered = filtered.filter(a => a.category === this.currentFilter);
+                    }
+                }
+
+                // Search Filter
+                if (searchQuery) {
+                    const q = searchQuery.toLowerCase();
+                    filtered = filtered.filter(a => 
+                        a.title.toLowerCase().includes(q) || 
+                        a.summary.toLowerCase().includes(q)
+                    );
+                    document.getElementById('featured-section').classList.add('hidden');
+                    document.getElementById('all-articles-header').innerText = "Search Results";
+                } else {
+                    // Filter out featured from bottom list
+                    filtered = filtered.filter(a => !a.featured);
+                    
+                    document.getElementById('featured-section').classList.remove('hidden');
+                    let headerText = "Latest Articles";
+                    if (this.currentFilter !== 'all') headerText = this.getCategoryName(this.currentFilter) + " Articles";
+                    document.getElementById('all-articles-header').innerText = headerText;
+                    
+                    this.renderFeatured(); 
+                }
+
+                if (filtered.length === 0) {
+                    grid.innerHTML = `<div class="col-span-full text-center text-gray-500 py-10">No additional articles found.</div>`;
+                    return;
+                }
+
+                grid.innerHTML = filtered.map(article => this.createCardHTML(article, false)).join('');
+            },
+
+            renderFeatured: function() {
+                const container = document.getElementById('featured-section');
+                const grid = document.getElementById('featured-grid');
+                
+                let featured = ARTICLES.filter(a => a.featured);
+
+                if (this.currentFilter !== 'all') {
+                    if (this.currentFilter === 'engineering') {
+                        featured = featured.filter(a => ['technical', 'management', 'process'].includes(a.category));
+                    } else {
+                        featured = featured.filter(a => a.category === this.currentFilter);
+                    }
+                }
+
+                if (featured.length === 0) {
+                    container.classList.add('hidden');
+                    return;
+                }
+
+                container.classList.remove('hidden');
+                grid.innerHTML = featured.map(article => this.createCardHTML(article, true)).join('');
+            },
+
+            createCardHTML: function(article, isFeatured) {
+                let catColor = "text-brand-orange bg-brand-orange/10";
+                if (article.category === 'world') catColor = "text-blue-400 bg-blue-400/10";
+                if (article.category === 'opinion') catColor = "text-purple-400 bg-purple-400/10";
+                if (article.category === 'lifestyle') catColor = "text-green-400 bg-green-400/10";
+
+                return `
+                    <div onclick="app.openArticle(${article.id})" 
+                        class="bg-brand-gray border border-gray-700 rounded-lg p-6 cursor-pointer hover:border-brand-orange hover:bg-[#323538] transition-all group flex flex-col h-full relative overflow-hidden">
+                        ${isFeatured ? '<div class="featured-badge">FEATURED</div>' : ''}
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-xs font-bold uppercase tracking-widest px-2 py-1 rounded ${catColor}">
+                                ${this.getCategoryName(article.category)}
+                            </span>
+                            <span class="text-xs text-gray-500">${article.readTime}</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-brand-orange transition-colors">
+                            ${article.title}
+                        </h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6 flex-1">
+                            ${article.summary}
+                        </p>
+                        <div class="flex items-center text-sm text-gray-500 font-mono mt-auto">
+                            <span class="group-hover:translate-x-1 transition-transform text-brand-orange">Read Article &rarr;</span>
+                        </div>
+                    </div>
+                `;
+            },
+
+            getCategoryName: function(cat) {
+                if(['technical', 'management', 'process'].includes(cat)) return 'Eng & Mgmt';
+                if(cat === 'world') return 'World & Infra';
+                if(cat === 'opinion') return 'Opinion';
+                if(cat === 'lifestyle') return 'Lifestyle';
+                return 'Article';
+            },
+
+            openArticle: function(id) {
+                const article = ARTICLES.find(a => a.id === id);
+                if (!article) return;
+                document.getElementById('article-title').innerText = article.title;
+                document.getElementById('article-category').innerText = this.getCategoryName(article.category);
+                document.getElementById('article-read-time').innerText = article.readTime;
+                document.getElementById('article-content').innerHTML = article.content;
+                document.getElementById('view-list').classList.add('hidden');
+                document.getElementById('view-reader').classList.remove('hidden');
+                window.scrollTo(0,0);
+            },
+
+            showList: function() {
+                document.getElementById('view-reader').classList.add('hidden');
+                document.getElementById('view-list').classList.remove('hidden');
+            },
+
+            search: function() {
+                this.renderList(document.getElementById('search-input').value);
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => app.init());
+    </script>
+</body>
+</html>

@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeekersDen AI Typing Tutor</title>
+    <style>
+        /* --- SEEKERSDEN ORANGE THEME --- */
+        :root {
+            --bg-color: #0d0d0d;
+            --panel-bg: #161616;
+            --text-color: #e0e0e0;
+            --accent-color: #FF9F1C;
+            /* SeekersDen Orange */
+            --accent-dim: rgba(255, 159, 28, 0.15);
+
+            --correct-color: #6A9955;
+            /* Green for success */
+            --error-color: #ff4444;
+            --cursor-color: #FF9F1C;
+            --word-active-bg: rgba(255, 159, 28, 0.08);
+            --hand-inactive: #333;
+            --modal-bg: rgba(0, 0, 0, 0.85);
+        }
+
+        body {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        #game-container {
+            background-color: var(--panel-bg);
+            /* Reduced bottom padding to truncate the box right after hands */
+            padding: 30px 30px 5px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.7);
+            border: 1px solid #333;
+            max-width: 900px;
+            width: 85%;
+            overflow: hidden;
+            /* Prevent container expansion */
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 15px;
+            position: relative;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+        }
+
+        .sub-title {
+            font-size: 0.8rem;
+            color: #666;
+            font-weight: normal;
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Mode Selector & Mastery Button */
+        .controls-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .mode-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mode-label {
+            font-size: 0.9rem;
+            color: #888;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        select#mode-select {
+            background-color: #222;
+            color: var(--accent-color);
+            border: 1px solid #444;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        select#mode-select:hover {
+            border-color: var(--accent-color);
+        }
+
+        select#mode-select:focus {
+            box-shadow: 0 0 0 2px var(--accent-dim);
+        }
+
+        #mastery-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: transparent;
+            color: #888;
+            border: 1px solid #444;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        #mastery-btn:hover {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        /* All Mastered State */
+        #mastery-btn.all-mastered {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+            background-color: rgba(255, 159, 28, 0.1);
+            box-shadow: 0 0 15px var(--accent-dim);
+        }
+
+        #mastery-btn.all-mastered svg {
+            filter: drop-shadow(0 0 5px var(--accent-color));
+        }
+
+        /* Description Text */
+        .info-text {
+            margin-top: 25px;
+            font-size: 0.95rem;
+            color: #999;
+            line-height: 1.4;
+            max-width: 100%;
+        }
+
+        .info-text em {
+            display: block;
+            margin-top: 15px;
+            font-style: italic;
+            color: #888;
+        }
+
+        .highlight-text {
+            color: var(--accent-color);
+        }
+
+        /* Code Display Area */
+        #quote-display {
+            font-size: 1.5rem;
+            margin-bottom: 0;
+            text-align: left;
+            white-space: pre-wrap;
+            line-height: 1.8;
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            padding: 20px;
+            border-radius: 8px;
+            min-height: 100px;
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+            color: #444;
+            user-select: none;
+            cursor: text;
+        }
+
+        #quote-input {
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            left: 0;
+            height: 0;
+            width: 0;
+        }
+
+        /* Character/Word Styling */
+        .word {
+            display: inline-block;
+            margin-right: 0.2em;
+            padding: 2px 0;
+            border-radius: 4px;
+        }
+
+        .word.current {
+            background-color: var(--word-active-bg);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .char {
+            position: relative;
+        }
+
+        .correct {
+            color: #e0e0e0;
+        }
+
+        .incorrect {
+            color: var(--error-color);
+            text-decoration: underline;
+            background-color: rgba(255, 68, 68, 0.1);
+        }
+
+        /* Cursor Animation */
+        .cursor::before {
+            content: '';
+            position: absolute;
+            left: -1px;
+            top: 10%;
+            height: 80%;
+            width: 2px;
+            background-color: var(--cursor-color);
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* Stats Row */
+        #stats-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            gap: 20px;
+            position: relative;
+            /* For absolute positioning of hint */
+        }
+
+        #wpm-box {
+            color: var(--correct-color);
+            font-weight: bold;
+            font-size: 2rem;
+            white-space: nowrap;
+        }
+
+        #mistake-box {
+            color: var(--error-color);
+            text-align: right;
+            width: 100%;
+            /* Fixed Height Settings */
+            height: 40px;
+            overflow: hidden;
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 5px;
+            /* Fade Mask on Left */
+            mask-image: linear-gradient(to right, transparent 0%, black 15%);
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%);
+        }
+
+        .label {
+            font-size: 0.8rem;
+            color: #666;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .keys-list {
+            font-family: 'Consolas';
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            background: #222;
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: var(--accent-color);
+            white-space: nowrap;
+            /* Prevent individual words from breaking */
+        }
+
+        /* Restart Hint - Restored to stats row */
+        #restart-hint {
+            color: #666;
+            font-size: 0.85rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+            text-align: center;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: auto;
+            z-index: 10;
+            text-shadow: 0 0 10px var(--panel-bg);
+        }
+
+        #restart-hint.visible {
+            opacity: 1;
+        }
+
+        /* Hands Container */
+        #hands-wrapper {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .hand-svg {
+            width: 280px;
+            height: auto;
+        }
+
+        .finger-shape {
+            fill: var(--hand-inactive);
+            transition: fill 0.15s ease-out;
+            stroke: #222;
+            stroke-width: 1px;
+        }
+
+        .finger-shape.active {
+            fill: var(--accent-color);
+            filter: drop-shadow(0 0 5px var(--accent-color));
+        }
+
+        /* Site Link - Outside Box */
+        .site-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .site-link a {
+            color: #444;
+            text-decoration: none;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            transition: color 0.2s;
+        }
+
+        .site-link a:hover {
+            color: var(--accent-color);
+        }
+
+        /* MASTERY MODAL */
+        #mastery-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--modal-bg);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        #mastery-modal.open {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--panel-bg);
+            border: 1px solid #444;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 1000px;
+            /* 10 cols */
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 15px;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: var(--accent-color);
+            font-size: 1.5rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #fff;
+        }
+
+        .modal-body {
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .word-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            /* 10 columns */
+            gap: 8px;
+        }
+
+        .mastery-word {
+            font-size: 0.9rem;
+            padding: 4px;
+            background: #222;
+            border-radius: 4px;
+            text-align: center;
+            color: #555;
+            border: 1px solid transparent;
+            transition: all 0.3s;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .mastery-word.perfected {
+            color: #fff;
+            background-color: rgba(106, 153, 85, 0.2);
+            border-color: var(--correct-color);
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- MASTERY MODAL -->
+    <div id="mastery-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Word Mastery Progress</h2>
+                <button class="close-btn" onclick="toggleMastery()">×</button>
+            </div>
+            <div class="modal-body">
+                <p style="color:#888; font-size: 0.9rem; margin-bottom: 15px;">
+                    Words turned <span style="color: var(--correct-color)">Green</span> have been typed perfectly at
+                    least once.
+                </p>
+                <div id="word-grid" class="word-grid">
+                    <!-- JS will populate -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-container">
+        <div class="header">
+            <div class="header-top">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <img src="assets/seekersden-logo.png" style="height: 55px; width: auto;" alt="Logo">
+                    <div>
+                        <h1>SeekersDen <span style="color:#fff">AI Typing Tutor</span></h1>
+                        <span class="sub-title">Adaptive Muscle Memory Trainer</span>
+                    </div>
+                </div>
+
+                <div class="controls-container">
+                    <!-- MODE SELECTION -->
+                    <div class="mode-container">
+                        <!-- Label Removed as requested -->
+                        <select id="mode-select">
+                            <option value="english">Regular English</option>
+                            <option value="numbers">Numbers Only</option>
+                            <option value="symbols">Special Symbols</option>
+                            <option value="coder">Embedded Coder</option>
+                        </select>
+                    </div>
+                    <!-- MASTERY BUTTON -->
+                    <button id="mastery-btn" onclick="toggleMastery()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <defs>
+                                <linearGradient id="star-fill-gradient">
+                                    <stop id="star-grad-1" offset="0%" style="stop-color:var(--accent-color)" />
+                                    <stop id="star-grad-2" offset="0%" style="stop-color:transparent" />
+                                </linearGradient>
+                            </defs>
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                                fill="url(#star-fill-gradient)"></polygon>
+                        </svg>
+                        Word Mastery
+                    </button>
+                </div>
+            </div>
+
+            <p id="mode-description" class="info-text">
+                Master the <span class="highlight-text">Top 200 Words (Zipf's Law)</span> and common N-Grams to build
+                high-speed muscle memory.
+                Instead of focusing on individual keys, this tool trains you to see and type whole words as single
+                rhythmic units.
+                <em><span class="highlight-text">Adaptive Logic:</span> Mistakes trigger immediate repetition drills for
+                    that specific word.</em>
+            </p>
+        </div>
+
+        <div id="quote-display" onclick="focusInput()">Loading...</div>
+        <textarea id="quote-input" autofocus></textarea>
+
+        <div id="stats-row">
+            <div style="flex: 0 0 auto; text-align: left;">
+                <span class="label">SPEED</span>
+                <div id="wpm-box">0 WPM</div>
+            </div>
+
+            <div id="restart-hint">Press <strong>Tab</strong> to load next race</div>
+
+            <!-- Added min-width: 0 to fix flex overflow issue -->
+            <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-end;">
+                <span class="label">NEEDS PRACTICE</span>
+                <div id="mistake-box">None</div>
+            </div>
+        </div>
+
+        <!-- VISUAL HANDS GUIDE -->
+        <div id="hands-wrapper">
+            <svg class="hand-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                <!-- Left Hand -->
+                <g id="hand-left" transform="translate(10, 0)">
+                    <!-- Pinky -->
+                    <path id="l-pinky" class="finger-shape" d="M10,120 L10,70 Q10,60 20,60 Q30,60 30,70 L30,120 Z" />
+                    <!-- Ring -->
+                    <path id="l-ring" class="finger-shape" d="M35,120 L35,50 Q35,40 45,40 Q55,40 55,50 L55,120 Z" />
+                    <!-- Middle -->
+                    <path id="l-middle" class="finger-shape" d="M60,120 L60,35 Q60,25 70,25 Q80,25 80,35 L80,120 Z" />
+                    <!-- Index -->
+                    <path id="l-index" class="finger-shape" d="M85,120 L85,50 Q85,40 95,40 Q105,40 105,50 L105,120 Z" />
+                    <!-- Thumb -->
+                    <path id="l-thumb" class="finger-shape" d="M110,130 L140,110 Q150,115 145,125 L120,150 Z" />
+                    <!-- Palm Base -->
+                    <path class="finger-shape" d="M10,120 L110,120 L120,150 Q60,180 10,120 Z"
+                        style="fill: #222; stroke:none;" />
+                </g>
+
+                <!-- Right Hand -->
+                <g id="hand-right" transform="translate(200, 0)">
+                    <!-- Thumb -->
+                    <path id="r-thumb" class="finger-shape" d="M50,150 L25,125 Q20,115 30,110 L60,130 Z" />
+                    <!-- Index -->
+                    <path id="r-index" class="finger-shape" d="M65,120 L65,50 Q65,40 75,40 Q85,40 85,50 L85,120 Z" />
+                    <!-- Middle -->
+                    <path id="r-middle" class="finger-shape"
+                        d="M90,120 L90,35 Q90,25 100,25 Q110,25 110,35 L110,120 Z" />
+                    <!-- Ring -->
+                    <path id="r-ring" class="finger-shape"
+                        d="M115,120 L115,50 Q115,40 125,40 Q135,40 135,50 L135,120 Z" />
+                    <!-- Pinky -->
+                    <path id="r-pinky" class="finger-shape"
+                        d="M140,120 L140,70 Q140,60 150,60 Q160,60 160,70 L160,120 Z" />
+                    <!-- Palm Base -->
+                    <path class="finger-shape" d="M160,120 L60,120 L50,150 Q110,180 160,120 Z"
+                        style="fill: #222; stroke:none;" />
+                </g>
+            </svg>
+        </div>
+    </div>
+
+    <!-- SITE LINK -->
+    <div class="site-link">
+        <a href="https://www.seekersden.in" target="_blank">www.seekersden.in</a>
+    </div>
+
+    <script>
+        // --- DATASETS ---
+
+        // 1. Regular English (Zipf's Law)
+        // Verified Top 200 Unique Words
+        const topWords = [
+            "the", "be", "to", "of", "and", "a", "in", "that", "have", "I", "it", "for", "not", "on", "with", "he", "as", "you", "do", "at",
+            "this", "but", "his", "by", "from", "they", "we", "say", "her", "she", "or", "an", "will", "my", "one", "all", "would", "there", "their", "what",
+            "so", "up", "out", "if", "about", "who", "get", "which", "go", "me", "when", "make", "can", "like", "time", "no", "just", "him", "know", "take",
+            "people", "into", "year", "your", "good", "some", "could", "them", "see", "other", "than", "then", "now", "look", "only", "come", "its", "over", "think", "also",
+            "back", "after", "use", "two", "how", "our", "work", "first", "well", "way", "even", "new", "want", "because", "any", "these", "give", "day", "most", "us",
+            "is", "are", "was", "were", "been", "has", "had", "did", "does", "made", "find", "call", "may", "part", "such", "little", "where", "must", "much", "before",
+            "right", "too", "old", "through", "same", "tell", "boy", "follow", "came", "show", "around", "form", "three", "small", "set", "end", "put", "home", "read", "hand",
+            "port", "large", "spell", "add", "land", "here", "big", "high", "act", "why", "ask", "men", "change", "went", "light", "kind", "off", "need", "house", "picture",
+            "try", "again", "animal", "point", "mother", "world", "near", "build", "self", "earth", "father", "head", "stand", "own", "page", "should", "country", "found", "answer", "school",
+            "grow", "study", "still", "learn", "plant", "cover", "food", "sun", "four", "between", "state", "keep", "eye", "never", "last", "let", "thought", "city", "tree", "cross",
+            "farm", "hard", "start", "might", "story", "saw", "far", "sea", "draw", "left", "late", "run", "don't", "while", "press", "close", "night", "real", "life", "few",
+            "north", "open", "seem", "together", "next", "white", "children", "begin", "got", "walk", "example", "ease", "paper", "group", "always", "music", "those", "both", "mark", "book"
+        ];
+        const nGrams = ["ing", "ter", "ver", "est", "ent", "tion", "hat", "tha", "ere", "ate", "ith", "eth", "san", "his", "st", "nd", "ough", "ould", "ight", "other"];
+
+        // 2. Numbers Only
+        const numberWords = [
+            "1990", "2024", "10", "100", "0", "1", "55", "123", "9876", "404", "500", "3.14", "0.01", "1,000", "12:30", "24/7", "11", "99", "75", "150",
+            "12", "19", "25", "50", "8080", "200", "15", "60", "365", "101", "111", "007", "42", "7", "3", "9"
+        ];
+
+        // 3. Special Symbols
+        const symbolWords = [
+            "{}", "[]", "()", "<>", "++", "--", "==", "!=", "&&", "||", "=>", "->", "::", "/*", "*/", "//", "$", "#", "@", "%", "^", "&", "*",
+            "~", "`", "_", "+", "=", "|", "\\", "?", "!", ";", ":", "\"", "'", "...", "./"
+        ];
+
+        // 4. Embedded Coder
+        const coderWords = [
+            "function", "const", "var", "let", "if", "else", "return", "true", "false", "null", "undefined", "class", "void", "int", "char", "float",
+            "double", "struct", "import", "export", "from", "while", "for", "switch", "case", "break", "default", "try", "catch", "finally", "public",
+            "private", "async", "await", "static", "this", "new", "delete", "typeof", "instanceof", "print", "console", "log", "main", "args", "std", "cout"
+        ];
+
+        // --- DESCRIPTIONS ---
+        const modeDescriptions = {
+            english: `Master the <span class="highlight-text">Top 200 Words (Zipf's Law)</span> and common N-Grams to build high-speed muscle memory. Instead of focusing on individual keys, this tool trains you to see and type whole words as single rhythmic units. <em><span class="highlight-text">Adaptive Logic:</span> Mistakes trigger immediate repetition drills for that specific word.</em>`,
+            numbers: `Master numeric data entry. Drills focus on random digit strings, years, decimals, and common numeric patterns to improve your data entry speed and accuracy.<em><span class="highlight-text">Adaptive Logic:</span> Mistakes trigger immediate repetition drills for specific number sets.</em>`,
+            symbols: `Conquer the specific characters used in programming and logic. Focus on brackets, operators, and punctuation to reduce hesitation when coding.<em><span class="highlight-text">Adaptive Logic:</span> Mistakes trigger immediate repetition drills for specific symbol groups.</em>`,
+            coder: `Internalize common syntax keywords from Python, C++, and JavaScript. Typing "function", "return", and "const" automatically boosts your coding flow.<em><span class="highlight-text">Adaptive Logic:</span> Mistakes trigger immediate repetition drills for specific keywords.</em>`
+        };
+
+        // --- KEY TO FINGER MAPPING ---
+        const fingerMap = {
+            // Left Hand
+            '1': 'l-pinky', '!': 'l-pinky', 'q': 'l-pinky', 'a': 'l-pinky', 'z': 'l-pinky', '`': 'l-pinky', '~': 'l-pinky',
+            '2': 'l-ring', '@': 'l-ring', 'w': 'l-ring', 's': 'l-ring', 'x': 'l-ring',
+            '3': 'l-middle', '#': 'l-middle', 'e': 'l-middle', 'd': 'l-middle', 'c': 'l-middle',
+            '4': 'l-index', '$': 'l-index', '5': 'l-index', '%': 'l-index', 'r': 'l-index', 't': 'l-index', 'f': 'l-index', 'g': 'l-index', 'v': 'l-index', 'b': 'l-index',
+
+            // Thumbs
+            ' ': 'l-thumb', // Defaulting Space to left thumb (can be right, typically purely preference)
+
+            // Right Hand
+            '6': 'r-index', '^': 'r-index', '7': 'r-index', '&': 'r-index', 'y': 'r-index', 'u': 'r-index', 'h': 'r-index', 'j': 'r-index', 'n': 'r-index', 'm': 'r-index',
+            '8': 'r-middle', '*': 'r-middle', 'i': 'r-middle', 'k': 'r-middle', ',': 'r-middle', '<': 'r-middle',
+            '9': 'r-ring', '(': 'r-ring', 'o': 'r-ring', 'l': 'r-ring', '.': 'r-ring', '>': 'r-ring',
+            '0': 'r-pinky', ')': 'r-pinky', '-': 'r-pinky', '_': 'r-pinky', '=': 'r-pinky', '+': 'r-pinky',
+            'p': 'r-pinky', '[': 'r-pinky', '{': 'r-pinky', ']': 'r-pinky', '}': 'r-pinky', '\\': 'r-pinky', '|': 'r-pinky',
+            ';': 'r-pinky', ':': 'r-pinky', '\'': 'r-pinky', '"': 'r-pinky', '/': 'r-pinky', '?': 'r-pinky'
+        };
+
+        // --- VARIABLES ---
+        const quoteDisplay = document.getElementById('quote-display');
+        const quoteInput = document.getElementById('quote-input');
+        const wpmDisplay = document.getElementById('wpm-box');
+        const mistakeDisplay = document.getElementById('mistake-box');
+        const restartHint = document.getElementById('restart-hint');
+        const modeSelect = document.getElementById('mode-select');
+        const modeDescription = document.getElementById('mode-description');
+        const handSvgs = document.querySelectorAll('.finger-shape');
+
+        // Modal elements
+        const masteryModal = document.getElementById('mastery-modal');
+        const wordGrid = document.getElementById('word-grid');
+
+        let currentText = "";
+        let startTime = null;
+        let timerRunning = false;
+        let isGameFinished = false;
+
+        // Adaptive Learning State
+        let sessionFailedWords = new Set();
+        let previousRoundFailedWords = [];
+
+        // Persistence State
+        let perfectedWords = new Set();
+
+        // --- FUNCTIONS ---
+
+        // Load mastery from local storage
+        function loadMastery() {
+            // Reset functionality as requested for this session update
+            localStorage.removeItem('seekersden_perfected_words');
+
+            const saved = localStorage.getItem('seekersden_perfected_words');
+            if (saved) {
+                perfectedWords = new Set(JSON.parse(saved));
+            }
+            updateMasteryIcon(); // Check on load
+        }
+
+        // Save mastery
+        function saveMastery() {
+            localStorage.setItem('seekersden_perfected_words', JSON.stringify([...perfectedWords]));
+            updateMasteryIcon(); // Check on save
+        }
+
+        // Check if all words are mastered and update icon
+        function updateMasteryIcon() {
+            const uniqueTopWords = new Set(topWords);
+            let masteredCount = 0;
+
+            // Check intersection count
+            for (let word of uniqueTopWords) {
+                if (perfectedWords.has(word)) {
+                    masteredCount++;
+                }
+            }
+
+            const total = uniqueTopWords.size || 1; // avoid divide by zero
+            const percentage = Math.floor((masteredCount / total) * 100);
+
+            // Update Gradient
+            const stop1 = document.getElementById('star-grad-1');
+            const stop2 = document.getElementById('star-grad-2');
+            if (stop1 && stop2) {
+                stop1.setAttribute('offset', percentage + '%');
+                stop2.setAttribute('offset', percentage + '%');
+            }
+
+            const btn = document.getElementById('mastery-btn');
+            if (percentage === 100) {
+                btn.classList.add('all-mastered');
+            } else {
+                btn.classList.remove('all-mastered');
+            }
+        }
+
+        // Toggle Modal
+        window.toggleMastery = function () {
+            if (masteryModal.classList.contains('open')) {
+                masteryModal.classList.remove('open');
+            } else {
+                renderMastery();
+                masteryModal.classList.add('open');
+            }
+        };
+
+        // Render the Grid
+        function renderMastery() {
+            wordGrid.innerHTML = '';
+            // Sort alphabetically case-insensitive for easier finding
+            const uniqueWords = [...new Set(topWords)].sort((a, b) =>
+                a.toLowerCase().localeCompare(b.toLowerCase())
+            );
+
+            uniqueWords.forEach(word => {
+                const div = document.createElement('div');
+                div.className = 'mastery-word';
+                div.innerText = word;
+                if (perfectedWords.has(word)) {
+                    div.classList.add('perfected');
+                }
+                wordGrid.appendChild(div);
+            });
+        }
+
+        function focusInput() {
+            quoteInput.focus();
+        }
+
+        // Generate content based on Mode
+        function generateContent() {
+            let content = [];
+
+            // 1. Inject Drills (if any exist from previous round)
+            if (previousRoundFailedWords.length > 0) {
+                // Drill logic: Repeat the failed item 3 times
+                const topFailures = [...new Set(previousRoundFailedWords)].slice(0, 3);
+                topFailures.forEach(word => {
+                    content.push(word);
+                    content.push(word);
+                    content.push(word);
+                });
+            }
+
+            const targetLength = 30; // Items per session
+            const mode = modeSelect.value;
+            let sourceArr = [];
+            let secondaryArr = null; // For mixing (like ngrams)
+
+            // Select Source Data
+            if (mode === 'english') {
+                sourceArr = topWords;
+                secondaryArr = nGrams;
+            } else if (mode === 'numbers') {
+                sourceArr = numberWords;
+            } else if (mode === 'symbols') {
+                sourceArr = symbolWords;
+            } else if (mode === 'coder') {
+                sourceArr = coderWords;
+            }
+
+            // Fill Content
+            while (content.length < targetLength) {
+                let randomItem;
+
+                // Special mix logic for English (85% words, 15% n-grams)
+                if (mode === 'english' && secondaryArr) {
+                    const useSecondary = Math.random() < 0.15;
+                    const src = useSecondary ? secondaryArr : sourceArr;
+                    randomItem = src[Math.floor(Math.random() * src.length)];
+                } else {
+                    // Standard logic for other modes
+                    randomItem = sourceArr[Math.floor(Math.random() * sourceArr.length)];
+                }
+
+                content.push(randomItem);
+            }
+
+            return content.join(' ');
+        }
+
+        function highlightFinger(char) {
+            // Remove previous highlights
+            handSvgs.forEach(el => el.classList.remove('active'));
+
+            if (!char) return;
+
+            const lowerChar = char.toLowerCase();
+            // Map character to finger ID
+            let fingerId = fingerMap[lowerChar];
+
+            // Fallback for special case space (sometimes it comes as non-breaking space)
+            if (char === ' ' || char === '\u00A0') fingerId = 'l-thumb';
+
+            if (fingerId) {
+                const fingerEl = document.getElementById(fingerId);
+                if (fingerEl) {
+                    fingerEl.classList.add('active');
+                }
+
+                // If shifted char (uppercase or symbols on top row), highlight shift?
+                // For simplicity, we just show the main finger. 
+                // Advanced: could highlight opposite pinky for shift.
+            }
+        }
+
+        function initGame() {
+            // 1. Generate text
+            currentText = generateContent();
+
+            // 2. Reset State
+            sessionFailedWords.clear();
+            quoteInput.value = "";
+            startTime = null;
+            timerRunning = false;
+            isGameFinished = false; // Reset game finished state
+            restartHint.classList.remove('visible');
+            wpmDisplay.innerText = "0 WPM";
+            mistakeDisplay.innerHTML = "None";
+
+            // 3. Render HTML
+            quoteDisplay.innerHTML = '';
+
+            const words = currentText.split(' ');
+            let charGlobalIndex = 0;
+
+            words.forEach((word, wordIdx) => {
+                const wordSpan = document.createElement('span');
+                wordSpan.classList.add('word');
+                wordSpan.dataset.wordText = word; // Store text for mistake tracking
+
+                // Add characters
+                word.split('').forEach(char => {
+                    const charSpan = document.createElement('span');
+                    charSpan.innerText = char;
+                    charSpan.classList.add('char');
+                    charSpan.dataset.index = charGlobalIndex;
+                    wordSpan.appendChild(charSpan);
+                    charGlobalIndex++;
+                });
+
+                quoteDisplay.appendChild(wordSpan);
+
+                // Add Space (except last word)
+                if (wordIdx < words.length - 1) {
+                    const spaceSpan = document.createElement('span');
+                    spaceSpan.innerHTML = '&nbsp;';
+                    spaceSpan.classList.add('char');
+                    spaceSpan.dataset.index = charGlobalIndex;
+                    wordSpan.appendChild(spaceSpan);
+                    charGlobalIndex++;
+                }
+            });
+
+            // 4. Initial Highlight
+            updateVisuals(0);
+            focusInput();
+        }
+
+        // --- EVENTS ---
+
+        // Mode Change
+        modeSelect.addEventListener('change', () => {
+            // Clear drills when switching modes
+            previousRoundFailedWords = [];
+
+            // Update Description Text
+            const newMode = modeSelect.value;
+            if (modeDescriptions[newMode]) {
+                modeDescription.innerHTML = modeDescriptions[newMode];
+            }
+
+            initGame();
+        });
+
+        // Typing Loop
+        quoteInput.addEventListener('input', () => {
+            // Lock game if already finished
+            if (isGameFinished) return;
+
+            const inputVal = quoteInput.value;
+            const inputLen = inputVal.length;
+
+            if (!timerRunning && inputLen > 0) {
+                startTime = new Date();
+                timerRunning = true;
+                restartHint.classList.add('visible');
+            }
+
+            updateVisuals(inputLen);
+
+            if (timerRunning) {
+                const timeNow = new Date();
+                const timeElapsed = (timeNow - startTime) / 1000 / 60;
+                if (timeElapsed > 0) {
+                    const wpm = Math.round((inputLen / 5) / timeElapsed);
+                    wpmDisplay.innerText = wpm + " WPM";
+                }
+            }
+
+            if (inputLen === currentText.length) {
+                if (inputVal === currentText) {
+                    finishGame();
+                }
+            }
+        });
+
+        function updateVisuals(caretIndex) {
+            const allCharSpans = quoteDisplay.querySelectorAll('.char');
+            const inputVal = quoteInput.value;
+
+            let allCorrectSoFar = true;
+            let nextCharToType = null;
+
+            allCharSpans.forEach((span, i) => {
+                span.classList.remove('cursor', 'correct', 'incorrect');
+
+                if (i === caretIndex) {
+                    span.classList.add('cursor');
+                    nextCharToType = span.innerText;
+                }
+
+                const expectedChar = span.innerText === '\u00A0' ? ' ' : span.innerText;
+                const typedChar = inputVal[i];
+
+                if (typedChar == null) {
+                    // Not typed yet
+                } else if (typedChar === expectedChar) {
+                    span.classList.add('correct');
+                } else {
+                    span.classList.add('incorrect');
+                    allCorrectSoFar = false;
+
+                    // Adaptive Logic: Track failed unit
+                    const parentWord = span.parentElement;
+                    if (parentWord && parentWord.classList.contains('word')) {
+                        const failedWord = parentWord.dataset.wordText;
+                        if (failedWord) sessionFailedWords.add(failedWord);
+                    }
+                }
+            });
+
+            // If caret is at the end, clear hands
+            if (caretIndex >= allCharSpans.length) {
+                highlightFinger(null);
+            } else {
+                highlightFinger(nextCharToType);
+            }
+
+            document.querySelectorAll('.word').forEach(w => w.classList.remove('current'));
+            if (caretIndex < allCharSpans.length) {
+                const currentSpan = allCharSpans[caretIndex];
+                const currentWordDiv = currentSpan.closest('.word');
+                if (currentWordDiv) currentWordDiv.classList.add('current');
+            }
+
+            if (sessionFailedWords.size > 0) {
+                mistakeDisplay.innerHTML = Array.from(sessionFailedWords)
+                    .map(w => `<span class="keys-list">${w}</span>`)
+                    .join(' ');
+            }
+        }
+
+        function finishGame() {
+            timerRunning = false;
+            isGameFinished = true; // Set game finished state
+            highlightFinger(null); // Turn off hands
+            previousRoundFailedWords = Array.from(sessionFailedWords);
+
+            // Check for Perfected Words
+            // Only consider English Mode words for Mastery
+            if (modeSelect.value === 'english') {
+                const words = currentText.split(' ');
+                words.forEach(word => {
+                    // If word is not in failed set, and it's a valid top word
+                    if (!sessionFailedWords.has(word) && topWords.includes(word)) {
+                        perfectedWords.add(word);
+                    }
+                });
+                saveMastery();
+            }
+
+            restartHint.innerHTML = "Session Complete! Press <strong>Tab</strong> to generate next set.";
+        }
+
+        quoteInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                initGame();
+            }
+        });
+
+        // Global Click Listener Adjustment
+        document.addEventListener('click', (e) => {
+            // Prevent focusing the hidden textarea if the user is clicking the dropdown, button or modal
+            if (e.target.closest('#mode-select') || e.target.closest('#mastery-btn') || e.target.closest('#mastery-modal')) {
+                return;
+            }
+            focusInput();
+        });
+
+        // Start
+        loadMastery();
+        initGame();
+
+    </script>
+</body>
+
+</html>

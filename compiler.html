@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeekersDen Embedded Compiler</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-orange': '#F2994A',
+                        'brand-orange-hover': '#e08330',
+                        'brand-dark': '#161616', /* Active Container */
+                        'brand-darker': '#09090b', /* Background */
+                        'brand-gray': '#2c2e31',
+                        'terminal-green': '#4AF626',
+                    },
+                    fontFamily: {
+                        mono: ['"Fira Code"', 'Consolas', 'monospace'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'led-on': '0 0 10px 2px #F2994A',
+                        'led-off': 'inset 0 0 5px 0px rgba(0,0,0,0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #161616; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #F2994A; }
+
+        /* Shared Editor Styles to ensure perfect sync */
+        .editor-shared {
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 14px !important; /* Strict font size */
+            line-height: 24px !important; /* Strict line height */
+        }
+
+        /* Code Editor Line Numbers */
+        .line-numbers {
+            user-select: none;
+            text-align: right;
+            color: #555;
+            padding-right: 12px;
+            overflow: hidden; 
+        }
+        
+        /* Editor Textarea */
+        #code-editor {
+            background: transparent;
+            color: #e0e0e0;
+            outline: none;
+            resize: none;
+            white-space: pre;
+            overflow-wrap: normal;
+            overflow-x: auto;
+        }
+
+        /* LED Styles */
+        .led {
+            transition: all 0.1s ease;
+        }
+        .led.on {
+            background-color: #F2994A;
+            box-shadow: 0 0 15px #F2994A;
+        }
+        .led.off {
+            background-color: #3f2818; /* Dark/Dim Orange */
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.8);
+        }
+
+        /* Button Press Effect */
+        .board-btn:active {
+            transform: scale(0.95);
+            background-color: #F2994A;
+            color: black;
+            border-color: #F2994A;
+        }
+
+        /* --- IDE TABS STYLING --- */
+        .tabs-header {
+            display: flex;
+            background-color: #121212; /* Darker header background */
+            border-bottom: 1px solid #1e1e1e; /* Blend with editor top */
+            overflow-x: auto; /* Allow scrolling if many tabs */
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            font-size: 0.8rem;
+            font-family: 'Inter', sans-serif;
+            color: #71717a; /* Zinc-500 */
+            cursor: pointer;
+            border-right: 1px solid #1f1f22;
+            background-color: #121212;
+            transition: all 0.1s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-top: 2px solid transparent; /* Reserve space for active indicator */
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: #e4e4e7;
+            background-color: #1a1a1a;
+        }
+
+        .tab-btn.active {
+            background-color: #1e1e1e; /* Seamless with Editor */
+            color: #fff;
+            border-top: 2px solid #F2994A; /* Orange Top Indicator */
+            font-weight: 500;
+        }
+        
+        .tab-btn svg {
+            width: 14px;
+            height: 14px;
+            opacity: 0.7;
+        }
+        
+        .tab-btn.active svg {
+            opacity: 1;
+            color: #F2994A;
+        }
+
+        /* Site Link - Outside Box */
+        .site-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .site-link a {
+            color: #444;
+            text-decoration: none;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            transition: color 0.2s;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+
+        .site-link a:hover {
+            color: #F2994A;
+        }
+    </style>
+</head>
+<body class="bg-brand-darker text-gray-200 font-sans h-screen w-screen flex flex-col items-center justify-center p-4 sm:p-8 overflow-hidden">
+
+    <!-- MAIN CONTAINER -->
+    <div class="w-full max-w-6xl h-full flex flex-col bg-brand-dark border border-gray-700 shadow-2xl rounded-xl overflow-hidden relative">
+
+        <!-- HEADER -->
+        <header class="bg-brand-dark border-b border-gray-700 h-16 flex items-center px-6 shrink-0 justify-between">
+            <div class="flex items-center gap-3">
+                <img src="assets/seekersden-logo.png" alt="SeekersDen" class="h-8 w-auto">
+                <h1 class="text-xl font-bold tracking-wide">SeekersDen <span class="text-brand-orange font-normal">Compiler Tool</span></h1>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <select id="lang-select" onchange="compiler.changeLanguage()" class="bg-brand-gray text-sm text-gray-300 border border-gray-600 rounded px-3 py-1 focus:border-brand-orange outline-none">
+                    <option value="c">Embedded C</option>
+                    <option value="cpp">Embedded C++</option>
+                    <!-- Python removed temporarily to focus on C timer logic complexity -->
+                </select>
+                <button onclick="compiler.runCode()" class="bg-brand-orange hover:bg-brand-orange-hover text-brand-darker font-bold px-6 py-1.5 rounded flex items-center gap-2 transition-colors">
+                    <span>▶ Run / Flash</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- MAIN WORKSPACE (Split View) -->
+        <main class="flex-1 flex overflow-hidden">
+            
+            <!-- LEFT: CODE EDITOR -->
+            <div class="flex-1 flex flex-col border-r border-gray-700 min-w-0">
+                
+                <!-- NEW: FILE TABS with Icons -->
+                <div class="tabs-header select-none">
+                    <div id="tab-readme" class="tab-btn" onclick="compiler.switchTab('readme')">
+                        <!-- Info/Doc Icon -->
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span id="tab-title-readme">readme.txt</span>
+                    </div>
+                    <div id="tab-main" class="tab-btn active" onclick="compiler.switchTab('main')">
+                        <!-- File Icon -->
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        <span id="tab-title-main">main.c</span>
+                    </div>
+                    <div id="tab-interrupt" class="tab-btn" onclick="compiler.switchTab('interrupt')">
+                        <!-- Lightning/Interrupt Icon -->
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        <span id="tab-title-interrupt">interrupt.c</span>
+                    </div>
+                    <!-- New: FSM Tab -->
+                    <div id="tab-fsm" class="tab-btn" onclick="compiler.switchTab('fsm')">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        <span id="tab-title-fsm">fsm.c</span>
+                    </div>
+                    <!-- New: RTOS Tab -->
+                    <div id="tab-rtos" class="tab-btn" onclick="compiler.switchTab('rtos')">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+                        <span id="tab-title-rtos">rtos.c</span>
+                    </div>
+                </div>
+                
+                <!-- Editor Area -->
+                <div class="flex-1 flex relative overflow-hidden bg-[#1e1e1e]">
+                    <!-- Line Numbers Container -->
+                    <div class="w-12 bg-[#1e1e1e] border-r border-gray-800 pt-4 pb-4 h-full text-right pr-2 text-gray-600 block editor-shared line-numbers" id="line-numbers">
+                        1
+                    </div>
+                    <!-- Text Area -->
+                    <textarea id="code-editor" class="flex-1 h-full p-4 bg-transparent border-none focus:ring-0 editor-shared" spellcheck="false" oninput="compiler.updateLineNumbers()" onkeydown="compiler.handleTab(event)"></textarea>
+                </div>
+            </div>
+
+            <!-- RIGHT: VIRTUAL HARDWARE -->
+            <div class="w-[400px] flex flex-col shrink-0 bg-[#121212]">
+                
+                <!-- 1. THE BOARD SIMULATION -->
+                <div class="h-1/2 p-6 border-b border-gray-700 flex flex-col relative">
+                    <div class="absolute top-2 right-2 text-xs text-gray-500 font-mono">V_BOARD_V3.0</div>
+                    <h2 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">GPIO & Interrupts</h2>
+
+                    <!-- LED Array -->
+                    <div class="mb-8">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-xs text-gray-500">LED Array (Output)</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-brand-dark p-4 rounded-lg border border-gray-700">
+                            <!-- 8 LEDs -->
+                            <div class="flex flex-col items-center gap-1"><div id="led-0" class="led off w-6 h-6 rounded-full"></div><span class="text-[10px] text-gray-500">0</span></div>
+                            <div class="flex flex-col items-center gap-1"><div id="led-1" class="led off w-6 h-6 rounded-full"></div><span class="text-[10px] text-gray-500">1</span></div>
+                            <div class="flex flex-col items-center gap-1"><div id="led-2" class="led off w-6 h-6 rounded-full"></div><span class="text-[10px] text-gray-500">2</span></div>
+                            <div class="flex flex-col items-center gap-1"><div id="led-3" class="led off w-6 h-6 rounded-full"></div><span class="text-[10px] text-gray-500">3</span></div>
+                            <div class="flex flex-col items-center gap-1"><div id="led-4" class="led off w-6 h-6 rounded-full"></div><span class="text-[10px] text-gray-500">4</span></div>
+                            <div class="flex flex-col items-center gap-1"><div id="led-5" class="led off w-6 h-6 rounded-full"></div><span class="text-[10px] text-gray-500">5</span></div>
+                            <div class="flex flex-col items-center gap-1"><div id="led-6" class="led off w-6 h-6 rounded-full"></div><span class="text-[10px] text-gray-500">6</span></div>
+                            <div class="flex flex-col items-center gap-1"><div id="led-7" class="led off w-6 h-6 rounded-full"></div><span class="text-[10px] text-gray-500">7</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-xs text-gray-500">User Buttons (IRQ Triggers)</span>
+                        </div>
+                        <div class="grid grid-cols-4 gap-4">
+                            <button id="btn-0" onmousedown="compiler.pressBtn(0)" onmouseup="compiler.releaseBtn(0)" class="board-btn bg-brand-gray border border-gray-600 text-gray-300 rounded p-2 text-xs font-mono hover:border-brand-orange transition">BTN_0</button>
+                            <button id="btn-1" onmousedown="compiler.pressBtn(1)" onmouseup="compiler.releaseBtn(1)" class="board-btn bg-brand-gray border border-gray-600 text-gray-300 rounded p-2 text-xs font-mono hover:border-brand-orange transition">BTN_1</button>
+                            <button id="btn-2" onmousedown="compiler.pressBtn(2)" onmouseup="compiler.releaseBtn(2)" class="board-btn bg-brand-gray border border-gray-600 text-gray-300 rounded p-2 text-xs font-mono hover:border-brand-orange transition">BTN_2</button>
+                            <button id="btn-3" onmousedown="compiler.pressBtn(3)" onmouseup="compiler.releaseBtn(3)" class="board-btn bg-brand-gray border border-gray-600 text-gray-300 rounded p-2 text-xs font-mono hover:border-brand-orange transition">BTN_3</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. SERIAL TERMINAL -->
+                <div class="h-1/2 flex flex-col bg-black">
+                    <div class="bg-brand-gray h-8 flex items-center px-4 justify-between border-t border-b border-gray-700">
+                        <span class="text-xs text-gray-400 font-mono">UART Serial Monitor (115200)</span>
+                        <button onclick="compiler.clearTerminal()" class="text-xs text-brand-orange hover:text-white">Clear</button>
+                    </div>
+                    <div id="terminal-output" class="flex-1 p-4 font-mono text-xs text-terminal-green overflow-y-auto whitespace-pre-wrap font-bold">
+System Initialized...
+Waiting for flash...
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- SITE LINK -->
+    <div class="site-link">
+        <a href="https://www.seekersden.in" target="_blank">www.seekersden.in</a>
+    </div>
+
+    <!-- SIMULATION ENGINE -->
+    <script>
+        // --- CONSTANTS & TEMPLATES ---
+        const README_CONTENT = `SeekersDen Embedded Sandbox
+===========================
+
+A lightweight, browser-based simulator for embedded systems learning.
+Write C/C++ code to control virtual hardware without physical boards.
+
+CAPABILITIES:
+- Virtual GPIO: Control 8 LEDs and read 4 Buttons.
+- Hardware Timer: Simulated countdown timer with Interrupt support.
+- External Interrupts: Buttons trigger EXT_IRQ when pressed.
+- FSM & RTOS: Dedicated tabs for logic organization.
+- Logic Engine: Transpiles C/C++ logic to JavaScript for execution.
+
+API REFERENCE:
+--------------
+
+1. GPIO (LEDs & Buttons)
+   void LED_ON(int id);       // Turn LED 0-7 ON
+   void LED_OFF(int id);      // Turn LED 0-7 OFF
+   void LED_TOGGLE(int id);   // Toggle LED 0-7
+   int  READ_BTN(int id);     // Returns 1 if BTN 0-3 is held down, else 0
+
+2. Interrupts (ISR)
+   void ENABLE_ISR();         // Enable Global Interrupts
+   void DISABLE_ISR();        // Disable Global Interrupts
+
+   // Timer Interrupt (fires when TIMER count hits 0)
+   ISR(TIMER_IRQ) { ... }
+
+   // External Interrupt (fires on ANY button press)
+   ISR(EXT_IRQ) {
+       if (READ_BTN(0)) { ... } // Check which button caused it
+   }
+
+3. Hardware Timer
+   void TIMER_LOAD(int val);  // Set timer countdown value (ms)
+   void TIMER_START();        // Start the timer
+   void TIMER_STOP();         // Stop the timer
+
+4. Timing & Serial
+   void delay(int ms);        // Blocking delay
+   void printf(char* fmt, ...); // Print to Serial Monitor
+`;
+
+        const STARTER_CODE = {
+            c: {
+                main: `#include <stdio.h>\n#include "board.h"\n\n// Check fsm.c and rtos.c tabs\n\nint main() {\n    printf("System Booting...\\n");\n    \n    // 1. Initialize State Machine\n    fsm_init();\n    \n    // 2. Initialize Scheduler (RTOS)\n    rtos_init();\n    \n    printf("RTOS & FSM Initialized.\\n");\n    printf(" - Press BTN_0 to change FSM State\\n");\n    printf(" - RTOS Task 1 is blinking LED 7\\n");\n    \n    // 3. Start Scheduler (Blocking Infinite Loop)\n    rtos_start();\n    \n    return 0;\n}`,
+                interrupt: `#include "board.h"\n\n// --- TIMER INTERRUPT ---\n// Used by RTOS for Context Switching (Tick)\nISR(TIMER_IRQ) {\n    rtos_tick(); // Notify scheduler\n}\n\n// --- EXTERNAL INTERRUPT ---\nISR(EXT_IRQ) {\n    // Forward button events to FSM\n    if (READ_BTN(0)) {\n        fsm_send_event(0);\n    }\n}`,
+                fsm: `#include "board.h"\n\n// --- FINITE STATE MACHINE ---\ntypedef enum { STATE_IDLE, STATE_ACTIVE, STATE_ERROR } State_t;\nState_t current_state = STATE_IDLE;\n\nvoid fsm_init() {\n    current_state = STATE_IDLE;\n    printf("[FSM] Init: IDLE\\n");\n}\n\nvoid fsm_send_event(int event_id) {\n    switch(current_state) {\n        case STATE_IDLE:\n            if (event_id == 0) {\n                current_state = STATE_ACTIVE;\n                printf("[FSM] IDLE -> ACTIVE\\n");\n                LED_ON(0);\n            }\n            break;\n        case STATE_ACTIVE:\n            if (event_id == 0) {\n                current_state = STATE_IDLE;\n                printf("[FSM] ACTIVE -> IDLE\\n");\n                LED_OFF(0);\n            }\n            break;\n    }\n}`,
+                rtos: `#include "board.h"\n\n// --- SIMPLE ROUND ROBIN SCHEDULER ---\n\n// Global variables (since static is stripped in simulation)\nint task1_timer = 0;\nint task2_count = 0;\n\nvoid task_1() {\n    // Task 1: Blink LED 7 slowly\n    task1_timer++;\n    if (task1_timer % 10 == 0) LED_TOGGLE(7);\n}\n\nvoid task_2() {\n    // Task 2: Monitoring\n    task2_count++;\n    if (task2_count % 20 == 0) printf("[RTOS] CPU Load: OK\\n");\n}\n\nvoid rtos_init() {\n    TIMER_LOAD(100); // 100ms Tick\n    TIMER_START();\n    ENABLE_ISR();\n}\n\n// Called by ISR\nvoid rtos_tick() {\n    // In real RTOS, this switches stack.\n    // Here we simulate cooperative scheduling\n}\n\nvoid rtos_start() {\n    while(1) {\n        task_1();\n        task_2();\n        delay(100); // Sleep until next tick\n    }\n}`
+            },
+            cpp: {
+                main: `#include <iostream>\n#include "board.hpp"\n\nint main() {\n    printf("C++ System...\\n");\n    fsm_init();\n    rtos_start();\n    return 0;\n}`,
+                interrupt: `#include "board.hpp"\n\nISR(TIMER_IRQ) {\n    // Tick\n}\n\nISR(EXT_IRQ) {\n    if (READ_BTN(0)) fsm_trigger();\n}`,
+                fsm: `#include "board.hpp"\n\nclass StateMachine {\n    int state = 0;\npublic:\n    void trigger() {\n        state = !state;\n        if(state) {\n            printf("[CPP FSM] State: ON\\n");\n            LED_ON(0);\n        } else {\n            printf("[CPP FSM] State: OFF\\n");\n            LED_OFF(0);\n        }\n    }\n} fsm;\n\nvoid fsm_init() { printf("FSM Ready\\n"); }\nvoid fsm_trigger() { fsm.trigger(); }`,
+                rtos: `#include "board.hpp"\n\nvoid rtos_start() {\n    printf("RTOS Loop\\n");\n    int tick = 0;\n    while(true) {\n        if (tick++ % 10 == 0) LED_TOGGLE(7);\n        delay(100);\n    }\n}`
+            }
+        };
+
+        const compiler = {
+            // State
+            executionRunId: 0,
+            btnStates: [0, 0, 0, 0], 
+            extIrqPending: false, // Flag for external interrupt
+            isRunning: false,
+            
+            // File System
+            activeTab: 'main', // 'main', 'interrupt', 'fsm', 'rtos'
+            files: {
+                readme: README_CONTENT,
+                main: "",
+                interrupt: "",
+                fsm: "",
+                rtos: ""
+            },
+            
+            // Hardware Peripheral State
+            hw: {
+                timerCount: 0,
+                timerReload: 0,
+                timerRunning: false,
+                irqEnabled: false
+            },
+
+            init: function() {
+                // Attach explicit scroll listener
+                const editor = document.getElementById('code-editor');
+                if (editor) {
+                    editor.onscroll = this.syncScroll;
+                }
+                this.changeLanguage();
+            },
+
+            // --- UI HANDLING ---
+            updateLineNumbers: function() {
+                const textarea = document.getElementById('code-editor');
+                const lineNumbers = document.getElementById('line-numbers');
+                if (!textarea || !lineNumbers) return;
+                
+                const lines = textarea.value.split('\n').length;
+                // Generate lines with <br> to strictly match textarea lines
+                lineNumbers.innerHTML = Array(lines).fill(0).map((_, i) => i + 1).join('<br>');
+            },
+
+            syncScroll: function() {
+                const textarea = document.getElementById('code-editor');
+                const lineNumbers = document.getElementById('line-numbers');
+                if(textarea && lineNumbers) {
+                    lineNumbers.scrollTop = textarea.scrollTop;
+                }
+            },
+
+            handleTab: function(e) {
+                if (e.key === 'Tab') {
+                    e.preventDefault();
+                    const start = e.target.selectionStart;
+                    const end = e.target.selectionEnd;
+                    e.target.value = e.target.value.substring(0, start) + "    " + e.target.value.substring(end);
+                    e.target.selectionStart = e.target.selectionEnd = start + 4;
+                }
+            },
+
+            // Save current editor content to memory before switching
+            saveCurrentBuffer: function() {
+                const content = document.getElementById('code-editor').value;
+                this.files[this.activeTab] = content;
+            },
+
+            switchTab: function(tabName) {
+                this.saveCurrentBuffer();
+                this.activeTab = tabName;
+                
+                // UI Update
+                document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+                document.getElementById(`tab-${tabName}`).classList.add('active');
+                
+                // Load Content
+                const editor = document.getElementById('code-editor');
+                editor.value = this.files[tabName];
+                
+                // Read-only logic for readme
+                if (tabName === 'readme') {
+                    editor.setAttribute('readonly', true);
+                    editor.style.opacity = '0.7';
+                } else {
+                    editor.removeAttribute('readonly');
+                    editor.style.opacity = '1';
+                }
+                
+                this.updateLineNumbers();
+                this.syncScroll(); // Resync on tab switch
+            },
+
+            changeLanguage: function() {
+                this.stopExecution();
+                const lang = document.getElementById('lang-select').value;
+                
+                // 1. Load fresh starter code into memory
+                if (STARTER_CODE[lang]) {
+                    this.files.main = STARTER_CODE[lang].main;
+                    this.files.interrupt = STARTER_CODE[lang].interrupt;
+                    this.files.fsm = STARTER_CODE[lang].fsm;
+                    this.files.rtos = STARTER_CODE[lang].rtos;
+                }
+                
+                // 2. Update File Extensions in Tab Titles
+                const extMap = { c: '.c', cpp: '.cpp' };
+                const ext = extMap[lang] || '.c';
+                document.getElementById('tab-title-main').innerText = 'main' + ext;
+                document.getElementById('tab-title-interrupt').innerText = 'interrupt' + ext;
+                document.getElementById('tab-title-fsm').innerText = 'fsm' + ext;
+                document.getElementById('tab-title-rtos').innerText = 'rtos' + ext;
+
+                // 3. Force switch to main tab on language change
+                this.activeTab = 'main';
+                document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+                document.getElementById('tab-main').classList.add('active');
+                
+                const editor = document.getElementById('code-editor');
+                editor.removeAttribute('readonly');
+                editor.style.opacity = '1';
+                editor.value = this.files.main;
+                
+                this.updateLineNumbers();
+                this.syncScroll();
+            },
+
+            clearTerminal: function() {
+                document.getElementById('terminal-output').innerText = "> Terminal Cleared\n";
+            },
+
+            // --- HARDWARE API (Exposed to Sandboxed Code) ---
+            api: {
+                _led_on: function(id) {
+                    if (id >= 0 && id <= 7) {
+                        document.getElementById(`led-${id}`).classList.remove('off');
+                        document.getElementById(`led-${id}`).classList.add('on');
+                    }
+                },
+                _led_off: function(id) {
+                    if (id >= 0 && id <= 7) {
+                        document.getElementById(`led-${id}`).classList.remove('on');
+                        document.getElementById(`led-${id}`).classList.add('off');
+                    }
+                },
+                _led_toggle: function(id) {
+                    if (id >= 0 && id <= 7) {
+                        const led = document.getElementById(`led-${id}`);
+                        if (led.classList.contains('on')) {
+                            led.classList.remove('on');
+                            led.classList.add('off');
+                        } else {
+                            led.classList.remove('off');
+                            led.classList.add('on');
+                        }
+                    }
+                },
+                _read_btn: function(id) {
+                    if (id >= 0 && id <= 3) {
+                        return compiler.btnStates[id] === 1;
+                    }
+                    return false;
+                },
+                _printf: function(msg) {
+                    const term = document.getElementById('terminal-output');
+                    term.innerText += msg;
+                    term.scrollTop = term.scrollHeight;
+                },
+                
+                // TIMER API
+                _timer_load: function(val) {
+                    compiler.hw.timerReload = val;
+                    compiler.hw.timerCount = val; // Load immediately
+                },
+                _timer_start: function() { compiler.hw.timerRunning = true; },
+                _timer_stop: function() { compiler.hw.timerRunning = false; },
+                _enable_isr: function() { compiler.hw.irqEnabled = true; },
+                _disable_isr: function() { compiler.hw.irqEnabled = false; }
+            },
+
+            // --- SMART TRANSPILER ENGINE ---
+            runCode: async function() {
+                this.saveCurrentBuffer(); // Ensure latest edits are captured
+                
+                // Increment Run ID
+                this.executionRunId++;
+                const currentRun = this.executionRunId;
+
+                this.stopExecution();
+                this.isRunning = true;
+
+                // Reset Hardware
+                for(let i=0; i<8; i++) this.api._led_off(i);
+                this.hw = { timerCount: 0, timerReload: 0, timerRunning: false, irqEnabled: false };
+                this.extIrqPending = false;
+                
+                this.clearTerminal();
+                this.api._printf("Linking files...\n");
+                
+                // Combine Files for Simulation (Order matters: FSM/RTOS/INT declarations first, then MAIN)
+                // We concat everything so 'main' can see functions defined in other files (simulating linker)
+                const fullCode = [
+                    this.files.fsm,
+                    this.files.rtos,
+                    this.files.interrupt,
+                    this.files.main
+                ].join('\n\n');
+
+                const lang = document.getElementById('lang-select').value;
+
+                await new Promise(r => setTimeout(r, 500));
+                
+                if (this.executionRunId !== currentRun) return;
+
+                this.api._printf("--- EXECUTION START ---\n");
+
+                try {
+                    let jsCode = this.transpileCtoJS(fullCode);
+
+                    // Execute Sandboxed
+                    const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+                    
+                    // Create context with API methods
+                    const sandbox = new AsyncFunction(
+                        'printf', 'LED_ON', 'LED_OFF', 'LED_TOGGLE', 'READ_BTN', 'delay', 
+                        'TIMER_LOAD', 'TIMER_START', 'TIMER_STOP', 'ENABLE_ISR', 'DISABLE_ISR',
+                        'isActiveRun', 'runId',
+                        jsCode
+                    );
+
+                    // Execute
+                    await sandbox(
+                        (fmt, ...args) => this.printfAdapter(currentRun, fmt, ...args), 
+                        this.api._led_on, 
+                        this.api._led_off, 
+                        this.api._led_toggle, 
+                        this.api._read_btn,
+                        (ms) => this.delayAdapter(currentRun, ms), 
+                        this.api._timer_load,
+                        this.api._timer_start,
+                        this.api._timer_stop,
+                        this.api._enable_isr,
+                        this.api._disable_isr,
+                        (checkId) => checkId === this.executionRunId,
+                        currentRun
+                    );
+
+                    if (this.executionRunId === currentRun) {
+                        this.api._printf("\n--- EXECUTION END ---\n");
+                    }
+
+                } catch (e) {
+                    if (this.executionRunId === currentRun) {
+                        this.api._printf(`\nRUNTIME ERROR: ${e.message}\n`);
+                        console.error(e);
+                    }
+                }
+            },
+
+            stopExecution: function() {
+                this.isRunning = false;
+                // RunID increment happens in runCode start
+            },
+
+            // --- ADAPTERS & TICK LOGIC ---
+
+            printfAdapter: function(runId, fmt, ...args) {
+                if (runId !== compiler.executionRunId) return;
+                if (!fmt) return;
+                
+                let formatted = String(fmt);
+                args.forEach(arg => {
+                    formatted = formatted.replace(/%[dxfsc]/, arg);
+                });
+                formatted = formatted.replace(/\\n/g, '\n');
+                compiler.api._printf(formatted);
+            },
+
+            // This is the heartbeat of the simulation
+            delayAdapter: async function(runId, ms) {
+                const slice = 10; 
+                let remaining = ms;
+
+                while (remaining > 0) {
+                    if (runId !== compiler.executionRunId) throw new Error("STOPPED");
+                    
+                    const step = Math.min(remaining, slice);
+                    await new Promise(resolve => setTimeout(resolve, step));
+                    
+                    // Hardware Timer Logic
+                    if (compiler.hw.timerRunning) {
+                        compiler.hw.timerCount -= step;
+                        if (compiler.hw.timerCount <= 0) {
+                            compiler.hw.timerCount = compiler.hw.timerReload;
+                            if (compiler.hw.irqEnabled && typeof window._virtual_isr_timer === 'function') {
+                                await window._virtual_isr_timer();
+                            }
+                        }
+                    }
+
+                    // External Interrupt Logic (Button Press)
+                    if (compiler.extIrqPending) {
+                        compiler.extIrqPending = false; // Clear flag
+                        if (compiler.hw.irqEnabled && typeof window._virtual_isr_ext === 'function') {
+                            await window._virtual_isr_ext();
+                        }
+                    }
+                    
+                    remaining -= step;
+                }
+            },
+
+            // --- TRANSPILER ---
+            
+            transpileCtoJS: function(code) {
+                let js = code;
+
+                // 0. ENUM HANDLING (Convert enums to global variables)
+                // Matches: typedef enum { A, B } T;  OR  enum { A, B };
+                js = js.replace(/(?:typedef\s+)?enum\s*[\w\s]*\{([^}]+)\}\s*[\w\s]*;/g, function(match, body) {
+                    let replacements = [];
+                    let val = 0;
+                    body.split(',').forEach(item => {
+                        let name = item.trim();
+                        // Handle comments in enum body if any (basic removal)
+                        name = name.split('//')[0].trim(); 
+                        if (!name) return;
+                        
+                        // Handle specific assignments e.g. STATE = 5
+                        if (name.includes('=')) {
+                            let parts = name.split('=');
+                            name = parts[0].trim();
+                            val = parseInt(parts[1].trim()) || val;
+                        }
+                        replacements.push(`var ${name} = ${val++};`);
+                    });
+                    return replacements.join(' ');
+                });
+
+                // 1. Preprocessor
+                js = js.replace(/^#include.*$/gm, '// $&');
+                js = js.replace(/^#define.*$/gm, '// $&'); 
+                js = js.replace(/^typedef.*$/gm, '// $&'); // Ignore typedefs
+
+                // 2. ISR Handler Mapping
+                js = js.replace(/ISR\s*\(\s*TIMER_IRQ\s*\)\s*\{/g, 'window._virtual_isr_timer = async function() {');
+                js = js.replace(/ISR\s*\(\s*EXT_IRQ\s*\)\s*\{/g, 'window._virtual_isr_ext = async function() {');
+
+                // 3. Class Handling (C++)
+                js = js.replace(/\b(public|private|protected)\s*:/g, '');
+                
+                // 4. Type Removals
+                
+                // A. First, remove modifiers completely (static, unsigned, etc.)
+                // replacing them with an empty string so they don't conflict with 'let'
+                const modifiers = ['static', 'volatile', 'const', 'unsigned', 'signed', 'long', 'short', 'struct', 'enum'];
+                modifiers.forEach(m => {
+                    const re = new RegExp(`\\b${m}\\s+`, 'g');
+                    js = js.replace(re, ''); 
+                });
+
+                // B. Then, replace the remaining base types with 'let'
+                const types = ['int', 'float', 'double', 'char', 'bool', 'void', 'State_t'];
+                types.forEach(t => {
+                    const re = new RegExp(`\\b${t}\\s+`, 'g');
+                    js = js.replace(re, 'let ');
+                });
+                
+                // Function args cleanup: (let a, let b) -> (a, b)
+                js = js.replace(/\(([^)]*)\)/g, function(match, args) {
+                    return '(' + args.replace(/\blet\s+/g, '') + ')';
+                });
+
+                // 5. Return types (convert function defs to async)
+                // 'let funcName(' -> 'async function funcName('
+                js = js.replace(/let\s+(\w+)\s*\(/g, 'async function $1(');
+
+                // 6. Delay & Hardware Calls
+                js = js.replace(/\bdelay\s*\(/g, 'await delay(');
+                
+                // 7. Loop Safety
+                js = js.replace(/while\s*\((.*?)\)\s*\{/g, 'while($1) { if(!isActiveRun(runId)) return; await delay(1); ');
+                js = js.replace(/for\s*\((.*?)\)\s*\{/g, 'for($1) { if(!isActiveRun(runId)) return; await delay(1); ');
+
+                // 8. Output
+                js = js.replace(/std::cout\s*<<\s*(.*);/g, 'printf($1);');
+                js = js.replace(/<<\s*std::endl/g, ' + "\\n"');
+
+                // 9. Execute Main
+                js += '\n\n// Auto-Start\nawait main();';
+
+                js = js.replace(/return\s+0;/g, 'return;');
+
+                return js;
+            },
+
+            // --- HARDWARE INTERACTION ---
+            setLed: function(id, state) { /* Used by API */ },
+            
+            pressBtn: function(id) { 
+                this.btnStates[id] = 1; 
+                // Set interrupt pending flag
+                this.extIrqPending = true;
+            },
+            
+            releaseBtn: function(id) { 
+                this.btnStates[id] = 0; 
+            }
+        };
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            compiler.init();
+        });
+
+    </script>
+</body>
+</html>
