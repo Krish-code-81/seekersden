@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,84 +27,99 @@
         }
     </script>
     <style>
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #161616; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #F2994A; }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
 
-        .code-keyword { color: #569cd6; }
-        .code-type { color: #4ec9b0; }
-        .code-string { color: #ce9178; }
-        .code-comment { color: #6a9955; }
-        .code-number { color: #b5cea8; }
-        .code-function { color: #dcdcaa; }
+        ::-webkit-scrollbar-track {
+            background: #161616;
+        }
 
-        .tab-content { animation: fadeIn 0.3s ease-in-out; }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F2994A;
+        }
+
+        .tab-content {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
+
 <body class="bg-brand-darker text-gray-200 font-sans h-screen flex flex-col overflow-hidden items-center p-4 sm:p-8">
 
-    <!-- MAIN CONTAINER -->
-    <div class="w-full max-w-5xl h-full flex flex-col bg-brand-dark border border-gray-800 shadow-2xl rounded-xl overflow-hidden relative">
+    <div
+        class="w-full max-w-5xl h-full flex flex-col bg-brand-dark border border-gray-800 shadow-2xl rounded-xl overflow-hidden relative">
 
-        <!-- Header -->
-<header class="bg-brand-dark border-b border-gray-800 h-16 flex items-center px-6 shadow-lg z-10 shrink-0">
-    <div class="flex items-center gap-4">
-        <img src="assets/seekersden-logo.png" style="height: 48px; width: auto;" alt="SeekersDen Logo">
-        
-        <h1 class="text-xl font-bold tracking-wide">SeekersDen <span class="text-brand-orange font-normal">Interview Tool</span></h1>
-    </div>
-</header>
+        <header class="bg-brand-dark border-b border-gray-800 h-16 flex items-center px-6 shadow-lg z-10 shrink-0">
+            <div class="flex items-center gap-4">
+                <img src="assets/seekersden-logo.png" style="height: 48px; width: auto;" alt="SeekersDen Logo"
+                    onerror="this.src='https://via.placeholder.com/48?text=SD'">
+                <h1 class="text-xl font-bold tracking-wide">SeekersDen <span
+                        class="text-brand-orange font-normal">Interview Tool</span></h1>
+            </div>
+        </header>
 
-        <!-- Progress Steps -->
         <div class="bg-brand-dark border-b border-gray-800 h-12 flex items-center px-6 shrink-0">
             <nav class="flex w-full max-w-4xl mx-auto">
                 <ul class="flex w-full justify-between items-center text-sm">
-                    <li id="step-1" class="step-item text-brand-orange font-semibold flex items-center gap-2">
-                        <span class="w-6 h-6 rounded-full border-2 border-brand-orange flex items-center justify-center text-xs">1</span>
-                        Select Domain
+                    <li id="step-1" onclick="app.switchTab('config', 1)"
+                        class="step-item text-brand-orange font-semibold flex items-center gap-2 cursor-pointer">
+                        <span
+                            class="w-6 h-6 rounded-full border-2 border-brand-orange flex items-center justify-center text-xs">1</span>
+                        Select Topic
                     </li>
                     <li class="h-px bg-gray-700 flex-1 mx-4"></li>
                     <li id="step-2" class="step-item text-gray-500 flex items-center gap-2">
-                        <span class="w-6 h-6 rounded-full border-2 border-gray-500 flex items-center justify-center text-xs">2</span>
+                        <span
+                            class="w-6 h-6 rounded-full border-2 border-gray-500 flex items-center justify-center text-xs">2</span>
                         Assessment
                     </li>
                     <li class="h-px bg-gray-700 flex-1 mx-4"></li>
                     <li id="step-3" class="step-item text-gray-500 flex items-center gap-2">
-                        <span class="w-6 h-6 rounded-full border-2 border-gray-500 flex items-center justify-center text-xs">3</span>
+                        <span
+                            class="w-6 h-6 rounded-full border-2 border-gray-500 flex items-center justify-center text-xs">3</span>
                         Results
                     </li>
                     <li class="h-px bg-gray-700 flex-1 mx-4"></li>
                     <li id="step-4" class="step-item text-gray-500 flex items-center gap-2">
-                        <span class="w-6 h-6 rounded-full border-2 border-gray-500 flex items-center justify-center text-xs">4</span>
+                        <span
+                            class="w-6 h-6 rounded-full border-2 border-gray-500 flex items-center justify-center text-xs">4</span>
                         Deep Dive
                     </li>
                 </ul>
             </nav>
         </div>
 
-        <!-- Main Content -->
         <main class="flex-1 overflow-hidden relative w-full">
-            
-            <!-- TAB 1: Domain Configuration -->
             <div id="tab-config" class="absolute inset-0 flex flex-col tab-content">
                 <div class="flex-1 overflow-y-auto p-6">
                     <div class="max-w-3xl mx-auto">
-                        <h2 class="text-2xl font-bold mb-2">Select Assessment Domain</h2>
-                        <p class="text-gray-400 mb-8">Choose a specialized technical domain to generate a focused assessment session.</p>
-
-                        <div id="accordion-container" class="space-y-3 pb-8">
-                            <!-- Injected by JS -->
-                        </div>
+                        <h2 class="text-2xl font-bold mb-2">Select Assessment Topic</h2>
+                        <p class="text-gray-400 mb-8">Choose a specialized technical topic to generate a focused
+                            assessment session.</p>
+                        <div id="accordion-container" class="space-y-3 pb-8"></div>
                     </div>
                 </div>
                 <div class="bg-brand-dark p-4 border-t border-gray-800 shrink-0 flex justify-end">
                     <div class="max-w-3xl w-full mx-auto flex justify-end">
-                        <button id="btn-start" disabled onclick="app.startAssessment()" 
+                        <button id="btn-start" disabled onclick="app.startAssessment()"
                             class="bg-gray-700 text-white px-8 py-3 rounded font-semibold transition-all opacity-50 cursor-not-allowed">
                             Start Session
                         </button>
@@ -111,9 +127,12 @@
                 </div>
             </div>
 
-            <!-- TAB 2: Quiz Interface -->
             <div id="tab-assessment" class="absolute inset-0 overflow-y-auto p-6 hidden bg-brand-dark tab-content">
                 <div class="max-w-3xl mx-auto pb-20">
+                    <button onclick="app.switchTab('config', 1)"
+                        class="mb-4 text-sm text-gray-500 hover:text-white flex items-center gap-2 transition-colors">
+                        <span>&larr;</span> Change Topic
+                    </button>
                     <div class="flex justify-between items-end mb-6 border-b border-gray-800 pb-4">
                         <div>
                             <h2 class="text-xl font-bold text-white" id="assessment-title">Topic</h2>
@@ -126,21 +145,22 @@
                     </div>
                     <div id="questions-container" class="space-y-12"></div>
                     <div class="mt-12 pt-8 border-t border-gray-800 text-center">
-                        <button onclick="app.submitAssessment()" class="bg-brand-orange hover:bg-brand-orange-hover text-white px-12 py-4 rounded font-bold text-lg shadow-lg transform transition hover:scale-105">
+                        <button onclick="app.submitAssessment()"
+                            class="bg-brand-orange hover:bg-brand-orange-hover text-white px-12 py-4 rounded font-bold text-lg shadow-lg transform transition hover:scale-105">
                             Submit Answers
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB 3: Scorecard -->
             <div id="tab-results" class="absolute inset-0 overflow-y-auto p-6 hidden tab-content">
                 <div class="max-w-4xl mx-auto">
                     <div class="bg-brand-gray rounded-lg p-8 text-center mb-8 border border-gray-600 shadow-xl">
                         <h2 class="text-gray-400 text-sm uppercase tracking-widest mb-2">Score</h2>
                         <div class="text-6xl font-bold text-white mb-2" id="final-score">0/10</div>
                         <div class="text-xl text-brand-orange mb-6" id="score-message"> proficiency</div>
-                        <button onclick="app.goToReview()" class="bg-white text-brand-dark px-6 py-2 rounded font-semibold hover:bg-gray-200">
+                        <button onclick="app.goToReview()"
+                            class="bg-white text-brand-dark px-6 py-2 rounded font-semibold hover:bg-gray-200">
                             View Explanations
                         </button>
                     </div>
@@ -150,7 +170,7 @@
                             <thead class="bg-brand-dark text-gray-400 text-xs uppercase">
                                 <tr>
                                     <th class="p-4 border-b border-gray-600">#</th>
-                                    <th class="p-4 border-b border-gray-600">Concept</th>
+                                    <th class="p-4 border-b border-gray-600 text-topic">Concept</th>
                                     <th class="p-4 border-b border-gray-600 text-center">Result</th>
                                     <th class="p-4 border-b border-gray-600 text-right">Review</th>
                                 </tr>
@@ -159,632 +179,175 @@
                         </table>
                     </div>
                     <div class="mt-8 text-center">
-                        <button onclick="location.reload()" class="text-gray-400 hover:text-white underline">Start New Session</button>
+                        <button onclick="location.reload()" class="text-gray-400 hover:text-white underline">Start New
+                            Session</button>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB 4: Deep Dive -->
             <div id="tab-review" class="absolute inset-0 overflow-y-auto p-6 hidden tab-content">
                 <div class="max-w-3xl mx-auto pb-20">
                     <div class="flex items-center gap-4 mb-8">
-                        <button onclick="app.switchTab('results')" class="text-gray-400 hover:text-white">&larr; Back</button>
+                        <button onclick="app.switchTab('results')" class="text-gray-400 hover:text-white">&larr;
+                            Back</button>
                         <h2 class="text-2xl font-bold text-white">Technical Explanations</h2>
                     </div>
                     <div id="review-container" class="space-y-8"></div>
                     <div class="mt-12 text-center">
-                        <button onclick="location.reload()" class="bg-brand-orange text-white px-8 py-3 rounded font-bold">New Assessment</button>
+                        <button onclick="location.reload()"
+                            class="bg-brand-orange text-white px-8 py-3 rounded font-bold">New Assessment</button>
                     </div>
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- FOOTER -->
     <div class="mt-4 text-center shrink-0">
-        <a href="https://www.seekersden.in" target="_blank" class="text-gray-600 hover:text-brand-orange transition-colors duration-200 text-sm sm:text-base tracking-wide no-underline font-mono">www.seekersden.in</a>
+        <a href="https://www.seekersden.in" target="_blank"
+            class="text-gray-600 hover:text-brand-orange transition-colors duration-200 text-sm sm:text-base tracking-wide no-underline font-mono">www.seekersden.in</a>
     </div>
 
+    <script src="questions.js"></script>
     <script>
         // === 1. TOPIC HIERARCHY ===
         const TOPICS = [
-            // --- SECTION 1: EMBEDDED SYSTEMS ---
-            { id: "c_essentials", section: "EMBEDDED SYSTEMS & FIRMWARE", title: "1. C Programming: Essentials", subs: ["Data Types & Sizes", "Storage Classes", "Bitwise Operations", "Structs & Unions", "Enums", "Macros", "Const Correctness", "Type Casting", "Variadic Functions", "Error Handling"] },
+            // --- SECTION 1: C & C++ FOUNDATIONS ---
+            { id: "c_essentials", section: "C & C++ FOUNDATIONS", title: "1. C Programming: Essentials", subs: ["Data Types & Sizes", "Storage Classes", "Bitwise Operations", "Structs & Unions", "Enums", "Macros", "Const Correctness", "Type Casting", "Variadic Functions", "Error Handling"] },
             { id: "c_memory", title: "2. C Programming: Pointers & Memory", subs: ["Pointer Arithmetic", "Function Pointers", "Void Pointers", "Arrays vs Pointers", "Stack vs Heap", "Memory Leaks", "Dangling Pointers", "Buffer Overflows", "Dynamic Allocation", "Padding/Packing"] },
             { id: "cpp_oop", title: "3. C++: Object Oriented Programming", subs: ["Classes", "Constructors", "Inheritance", "Polymorphism", "Encapsulation", "Operator Overloading", "Abstract Classes", "Static Members", "Friend Functions", "V-Table Internals"] },
             { id: "cpp_stl", title: "4. C++: Modern & STL", subs: ["Smart Pointers", "Lambda Expressions", "Move Semantics", "Templates", "STL Containers", "Iterators", "RAII Pattern", "Exception Handling", "Type Inference", "Concurrency"] },
             { id: "bare_metal", title: "5. Microcontroller Architecture", subs: ["Interrupts & ISRs", "GPIO", "Timers", "ADC/DAC", "DMA", "Watchdog", "Boot Sequence", "Clock Trees", "Power Modes", "Registers"] },
-            { id: "protocols", title: "6. Embedded Communication Protocols", subs: ["UART", "I2C", "SPI", "CAN Bus", "USB", "Ethernet", "Modbus", "Serial Debugging", "Signal Integrity", "Bus Arbitration"] },
+
+            // --- SECTION 2: EMBEDDED SYSTEM DESIGN ---
+            { id: "protocols", section: "EMBEDDED SYSTEM DESIGN", title: "6. Embedded Communication Protocols", subs: ["UART", "I2C", "SPI", "CAN Bus", "USB", "Ethernet", "Modbus", "Serial Debugging", "Signal Integrity", "Bus Arbitration"] },
             { id: "rtos", title: "7. Real-Time Operating Systems (RTOS)", subs: ["Scheduling", "Context Switching", "Stack Overflow", "Mutex vs Semaphore", "Message Queues", "Priority Inversion", "Deadlocks", "Event Groups", "Software Timers", "Critical Sections"] },
             { id: "linux_kernel", title: "8. Embedded Linux: Kernel Space", subs: ["Kernel Modules", "Device Tree", "Character Drivers", "Interrupt Handling", "Synchronization", "Memory Management", "Sysfs/Procfs", "Platform Drivers", "Bootloaders (U-Boot)", "Kernel Build"] },
             { id: "linux_user", title: "9. Embedded Linux: User Space", subs: ["System Calls", "Multi-threading (pthreads)", "IPC", "Sockets", "File I/O", "Signals", "Shared Memory", "Daemons", "Cross-Compilation", "GDB"] },
             { id: "emerging", title: "10. Emerging Tech (Rust & Python)", subs: ["Rust Ownership", "Rust Lifetimes", "Rust Unsafe Code", "Rust Option/Result", "Python Hardware Access", "Python Unit Testing", "Python Data Parsing", "MicroPython Basics", "FFI", "Build Systems"] },
-            { id: "automotive", title: "11. Automotive Embedded (AUTOSAR)", subs: ["AUTOSAR Layers", "RTE & VFB", "BSW & SWC", "CAN-FD", "LIN Protocol", "FlexRay", "Diagnostics (UDS)", "ISO 26262 Safety", "Auto Ethernet", "ECU Abstraction"] },
-            { id: "digital_electronics", title: "12. Digital Electronics & Logic", subs: ["Logic Gates", "Flip-Flops", "Combinational Circuits", "Sequential Circuits", "ADC/DAC Resolution", "Op-Amps", "Pull-up/Pull-down", "Voltage Levels", "Signal Integrity", "Clock Generation"] },
-            { id: "testing_safety", title: "13. Testing, QA & Safety", subs: ["Unit Testing", "Static Analysis (MISRA)", "Code Coverage", "V-Model", "Black/White Box", "HARA", "ASIL Levels", "Fault Injection", "Integration Testing", "Safety Goals"] },
-            { id: "debugging", title: "14. System Debugging", subs: ["JTAG/SWD", "GDB", "Breakpoints", "Logic Analyzers", "Oscilloscopes", "Map Files", "Stack Traces", "Core Dumps", "OTA Debugging", "Profiling"] },
-            { id: "iot_net", title: "15. IoT & Device Connectivity", subs: ["IoT Architecture", "MQTT (Device)", "CoAP", "WiFi (802.11)", "BLE (GATT)", "LoRaWAN", "TLS/SSL", "OTA Updates", "Edge Computing", "Power Management"] },
 
-            // --- SECTION 2: ENTERPRISE & INTEGRATION ---
-            { id: "integration_arch", section: "FULL STACK IOT / ENTERPRISE INTEGRATION", title: "16. Integration Patterns & Architecture", subs: ["SOA vs Microservices", "API-Led Connectivity", "ESB Patterns", "Sync vs Async", "Batch vs Real-time", "Event-Driven Arch", "Orchestration", "Circuit Breaker", "Loose Coupling", "Scalability"] },
-            { id: "protocols_standards", title: "17. Enterprise Protocols & Standards", subs: ["REST Principles", "SOAP Structure", "JSON vs XML", "HTTP Verbs/Status", "OData", "OpenAPI (Swagger)", "GraphQL", "WSDL & XSD", "Serialization", "HATEOAS"] },
-            { id: "middleware_cloud", title: "18. Middleware & Cloud Integration", subs: ["iPaaS (Mulesoft)", "Azure Integration", "AWS Integration", "Kafka (Message Broker)", "Pub/Sub", "Dead Letter Queues", "Hybrid Integration", "Cloud Native", "Webhooks", "ETL"] },
-            { id: "ot_it_convergence", title: "19. OT/IT Convergence (Industrial IoT)", subs: ["OT vs IT Priorities", "OPC UA", "MQTT Sparkplug B", "SCADA to ERP", "Purdue Model", "Industrial Gateways", "Historians", "Digital Twins", "Modbus TCP", "Edge Analytics"] },
-            { id: "security_api", title: "20. Security & API Management", subs: ["OAuth 2.0", "JWT", "API Gateways", "mTLS", "API Keys vs Tokens", "CORS", "SQL Injection", "Zero Trust", "OpenID Connect", "Rate Limiting"] },
-            { id: "csharp_dotnet", title: "21. C# & .NET Core Integration", subs: ["Async/Await", "Dependency Injection", "Delegates & Events", "LINQ", "Garbage Collection", "ASP.NET Core WebAPI", "Interfaces vs Abstract", "Exception Handling", "NuGet", "Generics"] },
-            { id: "iot_data_devops", title: "22. IoT Data & DevOps Strategy", subs: ["SQL vs NoSQL vs Time-Series", "InfluxDB / TimescaleDB", "CI/CD Pipelines", "Docker Containers", "Kubernetes Basics", "Infrastructure as Code", "Device Provisioning", "Data Retention Policies", "Cold vs Hot Storage", "Scalability Strategies"] },
-            { id: "edge_ai", title: "23. Edge AI & Machine Learning", subs: ["Cloud AI vs Edge AI", "TensorFlow Lite", "TinyML Concepts", "Model Quantization", "MLOps Pipeline", "NPU/TPU Accelerators", "On-device Inference", "Anomaly Detection", "Computer Vision (OpenCV)", "Federated Learning"] },
-            { id: "future_tech", title: "24. Generative AI & Future Trends", subs: ["LLMs for IoT (RAG)", "Generative AI Agents", "WebAssembly (Wasm) on Edge", "Software Bill of Materials (SBOM)", "Private 5G Slicing", "Industrial Metaverse (AR/VR)", "Non-Terrestrial Networks (Satellite)", "Prompt Engineering", "Vector Databases", "Digital Ethics"] }
+            // --- SECTION 3: ADVANCED TOPICS ---
+            { id: "patterns", section: "ADVANCED TOPICS", title: "11. Design Patterns for Embedded Systems", subs: ["State Machines", "Producer-Consumer", "Mediator Pattern", "Anti-Patterns", "Pub-Sub Pattern", "Hardware Proxies", "SOLID Principles", "Super-Loop vs OS", "UI Patterns (MVC)", "Reliability Patterns"] },
+            { id: "build_process", title: "12. Build Process & Toolchains", subs: ["Preprocessing & Linking", "Makefiles & CMake", "Cross-Compilation Flow", "Linker Scripts (.ld)", "Startup Code (crt0)", "ABI & EABI", "Map File Analysis", "Libc Integration", "Optimizaton Flags", "Bootloaders"] },
+            { id: "memory_mgmt", title: "13. Memory Management Strategies", subs: ["Static vs Dynamic", "MPU & MMU", "Alignment & Padding", "Stack Painting", "Buffer Overflows", "Volatile & Barriers", "DMA Management", "Cache Coherency", "Serialization", "ECC & Integrity"] },
+            { id: "debug_test", title: "14. Debugging & Testing", subs: ["JTAG & SWD", "Oscilloscopes & Logic Analyzers", "Unit Testing (Unity)", "Printf & Logging", "Mocking & Faking", "Code Coverage (Gcov)", "Performance Profiling", "Logic Decoding", "Electrical Debugging", "Heisenbugs"] },
+            { id: "safety", title: "15. Safety Critical Systems", subs: ["MISRA C", "ISO 26262 & ASIL", "Code Coverage (MCDC)", "Failure Analysis (FMEA)", "Partitioning", "Tool Qualification", "Coding Rules", "Fault Tolerance", "Hardware Monitors", "Safety Culture"] },
+
+            // --- SECTION 4: FUTURE PLACEHOLDERS (To be generated) ---
+            { id: "iot_cloud", section: "IOT & CONNECTIVITY", title: "16. IoT Connectivity", subs: ["IoT Architecture", "MQTT Protocol", "CoAP Protocol", "REST & HTTP", "WiFi & ESP32", "BLE & GATT", "LoRaWAN", "Cellular IoT", "Mesh Networking", "Cloud Platforms"] },
+            { id: "security", title: "17. Embedded Security", subs: ["CIA & Threats", "Cryptography Basics", "Hashing & Signatures", "Secure Boot & Chain", "TrustZone & TEE", "HSM & TPM Keys", "TLS & DTLS", "Attacks (Side-Channel)", "Key Management", "Physical Security"] },
+            { id: "dsp", title: "18. Digital Signal Processing", subs: ["Nyquist & FFT", "Convolution & FIR", "IIR & Filters", "Math & Algorithms", "SDR & Radio", "PID Control", "Sensor Fusion", "Audio Processing", "Image Processing", "TinyML"] },
+            { id: "motors", title: "19. Motor Control", subs: ["Motor Types", "DC Control", "BLDC & Commutation", "H-Bridge & Drivers", "FOC Vector Control", "SVPWM Modulation", "Encoders & Sensing", "Stepper Motors", "Control Loops", "Protection & Safety"] },
+            { id: "low_power", title: "20. Low Power Design", subs: ["Sleep Modes", "Wakeup Sources", "Run Modes", "Power Domains", "Battery Tech", "Energy Harvesting", "ULP MCUs", "Current Measurement", "Code Optimization", "Leakage & HW"] },
+            { id: "fpga", title: "21. FPGA & Hardware Logic", subs: ["FPGA vs ASIC", "Verilog & VHDL", "Combinational Logic", "Sequential Logic", "FSM Machines", "Static Timing", "Clock Domains", "DSP & RAM", "Testbenches", "Synthesis & PAR"] },
+            { id: "wireless", title: "22. Wireless Profiles (BLE/LoRa)", subs: ["Wireless Basics", "BLE Basics", "Profiles & Services", "PHY & Link Layer", "BLE Security", "LoRa Basics", "LoRaWAN Arch", "LoRa Modulation", "Zigbee & Thread", "Antenna & Matching"] },
+            { id: "bootloaders", title: "23. Advanced Bootloaders (OTA)", subs: ["Bootloader Basics", "Reset & Startup", "Memory Layout", "Flash Operations", "UART/Serial Proto", "Dual Bank OTA", "FW Encryption", "Secure Boot", "Recovery Mode", "OTA & Cloud"] },
+            { id: "interview_soft", title: "24. Soft Skills & System Design", subs: ["Requirements", "Architecture", "Components", "Power Budget", "BOM & Cost", "Project Mgmt", "Code Review", "Debugging", "Documentation", "Career & Tips"] }
         ];
 
-        // === 2. FULL QUESTION BANK (200 REAL QUESTIONS) ===
-        const QUESTIONS_DB = {
-            // 1. C ESSENTIALS
-            "c_essentials": [
-                { id: 101, text: "What is the primary purpose of the 'volatile' keyword in embedded C?", options: ["To optimize code speed", "To tell the compiler not to optimize reads/writes to a variable", "To make a variable constant", "To allocate memory in Flash"], correct: 1, explanation: "Crucial for hardware registers and global variables shared between ISRs and main code, preventing the compiler from caching the value." },
-                { id: 102, text: "Which operator is used to clear the 3rd bit of a variable 'x'?", options: ["x |= (1 << 3)", "x &= ~(1 << 3)", "x ^= (1 << 3)", "x = 3"], correct: 1, explanation: "ANDing with the complement of the bitmask clears specific bits." },
-                { id: 103, text: "What is the size of a pointer on a 32-bit architecture?", options: ["2 bytes", "4 bytes", "8 bytes", "Depends on the data type it points to"], correct: 1, explanation: "Pointers store memory addresses, so on a 32-bit system, they are always 32 bits (4 bytes)." },
-                { id: 104, text: "In 'const int * p', what is constant?", options: ["The pointer p itself", "The integer value p points to", "Both", "Neither"], correct: 1, explanation: "Read right-to-left: 'pointer to a constant int'. You cannot change *p, but you can change p." },
-                { id: 105, text: "What happens if you declare a local variable 'static' inside a function?", options: ["It is re-initialized every call", "It retains its value between function calls", "It becomes global", "It causes a compile error"], correct: 1, explanation: "Static local variables are stored in the data segment, not the stack, preserving state." },
-                { id: 106, text: "Which is a valid use of a 'union'?", options: ["Storing multiple values simultaneously", "Accessing the same memory location as different data types", "Allocating dynamic memory", "Creating a linked list"], correct: 1, explanation: "Unions allow different data views (e.g., viewing 4 bytes as a float or a uint32)." },
-                { id: 107, text: "What is 'Little Endian'?", options: ["MSB is at the lowest address", "LSB is at the lowest address", "Data is compressed", "A small processor"], correct: 1, explanation: "Least Significant Byte first. Intel/ARM are typically little-endian." },
-                { id: 108, text: "What is the result of 'sizeof(char)' in C standard?", options: ["Always 1", "Depends on compiler", "4", "8"], correct: 0, explanation: "The standard defines sizeof(char) as 1 byte." },
-                { id: 109, text: "Why use 'stdint.h' types like uint32_t instead of int?", options: ["It looks cooler", "To ensure portable, exact-width integers across different compilers/archs", "It is faster", "It uses less RAM"], correct: 1, explanation: "Standard 'int' size varies (16-bit vs 32-bit). Embedded code needs precise control." },
-                { id: 110, text: "What is a 'memory leak'?", options: ["Hardware fault", "Failure to free allocated heap memory", "Stack overflow", "Reading uninitialized memory"], correct: 1, explanation: "Occurs when malloc() is called without a corresponding free(), gradually consuming all RAM." }
-            ],
-            // 2. C MEMORY
-            "c_memory": [
-                { id: 201, text: "Where are local variables typically stored?", options: ["Heap", "Stack", "Flash", "EEPROM"], correct: 1, explanation: "The Stack stores temporary variables and return addresses during function calls." },
-                { id: 202, text: "What does 'void *' represent?", options: ["A null pointer", "A generic pointer that can point to any data type", "A function returning nothing", "An error"], correct: 1, explanation: "Used for generic data handling, like in memcpy or malloc." },
-                { id: 203, text: "What happens if you dereference a NULL pointer?", options: ["It returns 0", "Undefined behavior (often a crash/HardFault)", "It allocates memory", "Nothing"], correct: 1, explanation: "Accessing address 0 usually triggers a hardware fault or OS segmentation fault." },
-                { id: 204, text: "Difference between malloc() and calloc()?", options: ["No difference", "malloc initializes to zero; calloc does not", "calloc initializes memory to zero; malloc leaves it uninitialized", "calloc is for C++"], correct: 2, explanation: "Calloc allocates and clears. Malloc only allocates." },
-                { id: 205, text: "What is a 'Dangling Pointer'?", options: ["A pointer pointing to freed memory", "A null pointer", "A global pointer", "A function pointer"], correct: 0, explanation: "Dangerous because the memory might now be used by something else." },
-                { id: 206, text: "Where is 'malloc' memory allocated from?", options: ["Stack", "Heap", "Flash", "Registers"], correct: 1, explanation: "Dynamic memory comes from the Heap pool." },
-                { id: 207, text: "What is 'Structure Padding'?", options: ["Adding comments", "Compiler adding empty bytes to align data to architecture boundaries", "Compressing data", "Encrypting structs"], correct: 1, explanation: "Ensures fast memory access (e.g., aligning 4-byte integers to 4-byte addresses)." },
-                { id: 208, text: "What is the danger of recursion in embedded systems?", options: ["It is slow", "Stack Overflow", "Heap fragmentation", "Compiler error"], correct: 1, explanation: "Each recursive call consumes Stack frames. Deep recursion can crash limited-RAM devices." },
-                { id: 209, text: "What is a function pointer used for?", options: ["Pointing to variables", "Implementing callbacks and state machines", "Dynamic allocation", "Interrupts only"], correct: 1, explanation: "Allows passing logic as arguments or swapping behavior at runtime." },
-                { id: 210, text: "What is a 'Buffer Overflow'?", options: ["Queue full", "Writing data past the end of an allocated array", "Memory leak", "Fast processing"], correct: 1, explanation: "Common security vulnerability where data overwrites adjacent memory." }
-            ],
-            // 3. C++ OOP
-            "cpp_oop": [
-                { id: 301, text: "What is 'Polymorphism'?", options: ["Multiple inheritance", "The ability of a function/object to take multiple forms (e.g., Virtual Functions)", "Data hiding", "Copying objects"], correct: 1, explanation: "Allows a base pointer to invoke the correct derived class method." },
-                { id: 302, text: "What is the purpose of a 'Virtual Destructor'?", options: ["To delete files", "To ensure the derived class destructor is called when deleting via a base pointer", "To save memory", "It is optional"], correct: 1, explanation: "Crucial for preventing memory leaks in polymorphic classes." },
-                { id: 303, text: "What is 'Encapsulation'?", options: ["Bundling data and methods, and restricting access (private/public)", "Inheritance", "Polymorphism", "Templates"], correct: 0, explanation: "Hides implementation details and protects object integrity." },
-                { id: 304, text: "What is a 'v-table'?", options: ["A variable table", "A lookup table generated by the compiler for virtual function resolution", "Video table", "Vector table"], correct: 1, explanation: "Mechanism for dynamic dispatch (runtime polymorphism)." },
-                { id: 305, text: "What is an 'Abstract Class'?", options: ["A class with no methods", "A class with at least one pure virtual function", "A confusing class", "A static class"], correct: 1, explanation: "Cannot be instantiated directly; serves as an interface." },
-                { id: 306, text: "Difference between 'struct' and 'class' in C++?", options: ["Structs cannot have methods", "Class members are private by default; Struct members are public", "No difference", "Structs are faster"], correct: 1, explanation: "Functionally identical otherwise." },
-                { id: 307, text: "What is 'Constructor Delegation'?", options: ["Calling one constructor from another in the same class", "Calling a destructor", "Creating a copy", "Inheriting constructors"], correct: 0, explanation: "Reduces code duplication in initialization logic." },
-                { id: 308, text: "What is the 'this' pointer?", options: ["Pointer to the next object", "Pointer to the current object instance", "Pointer to null", "Pointer to main"], correct: 1, explanation: "Implicitly passed to all non-static member functions." },
-                { id: 309, text: "Can a 'static' member function access non-static members?", options: ["Yes", "No", "Only public ones", "Only private ones"], correct: 1, explanation: "Static methods belong to the class, not an instance, so they have no 'this' pointer." },
-                { id: 310, text: "What is 'Friend' function?", options: ["A nice function", "A non-member function allowed to access private members of a class", "A child class", "A library function"], correct: 1, explanation: "Breaks encapsulation controlledly for helper functions." }
-            ],
-            // 4. C++ STL
-            "cpp_stl": [
-                { id: 401, text: "What is 'std::vector'?", options: ["A static array", "A dynamic array that resizes automatically", "A linked list", "A map"], correct: 1, explanation: "The default general-purpose container in C++." },
-                { id: 402, text: "What does 'std::unique_ptr' guarantee?", options: ["Shared ownership", "Exclusive ownership of a resource (no copies allowed)", "Null safety", "Speed"], correct: 1, explanation: "Automatically deletes the object when the pointer goes out of scope." },
-                { id: 403, text: "What is a 'Lambda Expression'?", options: ["A Greek letter", "An anonymous function defined inline", "A macro", "A template"], correct: 1, explanation: "Syntactic sugar for creating function objects (closures) on the fly." },
-                { id: 404, text: "What is RAII?", options: ["Resource Acquisition Is Initialization", "Random Access Index Interface", "Real AI", "Run All Init"], correct: 0, explanation: "Resources (memory, files, locks) are tied to object lifetime." },
-                { id: 405, text: "Difference between 'std::map' and 'std::unordered_map'?", options: ["Map is sorted (tree); Unordered_map is hashed", "Map is faster", "No difference", "Map allows duplicates"], correct: 0, explanation: "Map is O(log n), Unordered_map is O(1) average." },
-                { id: 406, text: "What is 'std::move' used for?", options: ["Moving files", "Casting an object to an rvalue to enable Move Semantics", "Copying memory", "Threading"], correct: 1, explanation: "Transfers ownership of resources efficiently without deep copying." },
-                { id: 407, text: "What is a 'Template'?", options: ["A blueprint for generic programming (types as parameters)", "A macro", "A class", "A file"], correct: 0, explanation: "Allows writing one function/class that works with any data type." },
-                { id: 408, text: "What does 'auto' keyword do in C++11?", options: ["Declares automatic variables", "Deduces the type of a variable at compile time", "Makes it fast", "Creates a loop"], correct: 1, explanation: "Reduces verbosity, especially with complex iterator types." },
-                { id: 409, text: "What is 'std::shared_ptr'?", options: ["Exclusive ownership", "Reference-counted shared ownership", "Weak reference", "Raw pointer"], correct: 1, explanation: "Deletes the object only when the last shared_ptr pointing to it is destroyed." },
-                { id: 410, text: "What is an 'Iterator'?", options: ["A loop counter", "An object that traverses a container (like a smart pointer)", "A compiler tool", "A bug"], correct: 1, explanation: "Provides a standard interface to loop through any STL container." }
-            ],
-            // 5. BARE METAL
-            "bare_metal": [
-                { id: 501, text: "What is an ISR?", options: ["Internal Service Routine", "Interrupt Service Routine", "Input Serial Read", "Integer Set Reset"], correct: 1, explanation: "Function called automatically by hardware when an interrupt occurs." },
-                { id: 502, text: "What is the Vector Table?", options: ["An array of pointers to ISRs", "A geometry tool", "RAM memory", "Stack"], correct: 0, explanation: "Located at the start of memory, telling the CPU where to jump for each exception." },
-                { id: 503, text: "What is a Watchdog Timer?", options: ["A security camera", "A hardware timer that resets the MCU if not 'kicked' periodically", "A clock", "A debugger"], correct: 1, explanation: "Recovers the system from software freezes." },
-                { id: 504, text: "What is DMA?", options: ["Direct Memory Access", "Dynamic Memory Alloc", "Digital Main Audio", "Dual Mode"], correct: 0, explanation: "Hardware module that copies memory without CPU intervention." },
-                { id: 505, text: "How do you atomically set a bit in a register (Cortex-M)?", options: ["Read-Modify-Write", "Bit-Banding", "Using 'volatile'", "Using 'const'"], correct: 1, explanation: "Bit-banding maps specific bits to unique memory addresses for atomic access." },
-                { id: 506, text: "What is a GPIO?", options: ["General Purpose Input/Output", "Graphic IO", "General Power", "Global IP"], correct: 0, explanation: "Pins used to control LEDs, read buttons, etc." },
-                { id: 507, text: "Difference between Polling and Interrupts?", options: ["Polling checks repeatedly; Interrupts notify only when event occurs", "Polling is faster", "Interrupts use more CPU", "No difference"], correct: 0, explanation: "Interrupts are generally more efficient for asynchronous events." },
-                { id: 508, text: "What is the Startup Code (crt0)?", options: ["Main function", "Code that runs before main() to init stack, globals (BSS/Data)", "Operating System", "Bootloader"], correct: 1, explanation: "Sets up the C runtime environment." },
-                { id: 509, text: "What is 'Debouncing'?", options: ["Removing noise from mechanical switches", "Optimizing code", "Cleaning memory", "Resetting"], correct: 0, explanation: "Hardware or software filtering to prevent multiple triggers from one button press." },
-                { id: 510, text: "What is NVIC?", options: ["Nested Vectored Interrupt Controller", "New Video IC", "Non-Volatile IC", "Network Interface"], correct: 0, explanation: "The standard interrupt controller in ARM Cortex-M." }
-            ],
-            // 6. PROTOCOLS
-            "protocols": [
-                { id: 601, text: "Which protocol is full-duplex?", options: ["I2C", "SPI", "Half-duplex UART", "OneWire"], correct: 1, explanation: "SPI has separate MOSI and MISO lines, sending and receiving simultaneously." },
-                { id: 602, text: "How many wires does I2C use (excluding ground)?", options: ["1", "2 (SDA, SCL)", "3", "4"], correct: 1, explanation: "SDA (Data) and SCL (Clock)." },
-                { id: 603, text: "What is 'Arbitration' in CAN bus?", options: ["A court case", "Mechanism where lower ID wins the bus without data loss", "Random selection", "Master/Slave"], correct: 1, explanation: "CAN is non-destructive bit-wise arbitration. Dominant (0) overwrites Recessive (1)." },
-                { id: 604, text: "What is the start bit in UART?", options: ["Logic High", "Logic Low (0)", "Logic High (1)", "No start bit"], correct: 1, explanation: "The idle line is High. The Start bit pulls it Low." },
-                { id: 605, text: "Which is faster: SPI or I2C?", options: ["I2C", "SPI", "Same", "UART"], correct: 1, explanation: "SPI can run at 10s of MHz (push-pull). I2C is open-drain and limited by capacitance." },
-                { id: 606, text: "What is 'Clock Stretching' in I2C?", options: ["Making clock slower", "Slave holding SCL low to pause the Master", "Master pausing", "Cable length"], correct: 1, explanation: "Flow control mechanism in I2C." },
-                { id: 607, text: "What does 'Differential Signaling' mean (e.g., RS485/CAN)?", options: ["Using 2 wires carrying inverted signals to reject noise", "Using different voltages", "Digital signals", "Wireless"], correct: 0, explanation: "Noise affects both wires equally, so the difference remains valid." },
-                { id: 608, text: "Maximum payload of a standard CAN frame?", options: ["4 bytes", "8 bytes", "64 bytes", "1500 bytes"], correct: 1, explanation: "Standard CAN 2.0B has an 8-byte data limit. CAN-FD increases this." },
-                { id: 609, text: "Role of Pull-up resistors in I2C?", options: ["Save power", "Restore line to Logic High (Open Drain)", "Limit current", "Filter noise"], correct: 1, explanation: "Devices can only pull low. Resistors pull high." },
-                { id: 610, text: "What is CPOL and CPHA in SPI?", options: ["Voltage levels", "Clock Polarity and Phase settings", "Cable types", "Speed settings"], correct: 1, explanation: "Defines when data is sampled (rising/falling edge)." }
-            ],
-            // 7. RTOS
-            "rtos": [
-                { id: 701, text: "What is a Context Switch?", options: ["Changing CPU modes", "Saving state of current task and restoring next task", "Turning off", "Changing variables"], correct: 1, explanation: "The core mechanism of multitasking." },
-                { id: 702, text: "Difference between Mutex and Binary Semaphore?", options: ["No difference", "Mutex has priority inheritance; Semaphore does not", "Semaphore is faster", "Mutex is for counting"], correct: 1, explanation: "Mutex implies ownership and prevents Priority Inversion." },
-                { id: 703, text: "What is 'Priority Inversion'?", options: ["Low priority task blocks High priority task indefinitely", "High priority task runs first", "Changing priorities", "Round Robin"], correct: 0, explanation: "Happens when a medium task preempts a low task holding a lock needed by a high task." },
-                { id: 704, text: "What is a Deadlock?", options: ["System crash", "Two tasks waiting for resources held by each other", "Task finished", "Memory full"], correct: 1, explanation: "Circular dependency causing a freeze." },
-                { id: 705, text: "What is 'Preemptive' scheduling?", options: ["Tasks run to completion", "OS forces a task switch based on priority/time slice", "First Come First Served", "Cooperative"], correct: 1, explanation: "Higher priority tasks interrupt lower ones immediately." },
-                { id: 706, text: "What is a 'Tick' in RTOS?", options: ["A bug", "The periodic timer interrupt driving the scheduler", "A sound", "One instruction"], correct: 1, explanation: "Heartbeat of the OS, usually 1ms or 10ms." },
-                { id: 707, text: "How do tasks communicate safely?", options: ["Global variables", "Queues / Message Passing", "Direct memory access", "Files"], correct: 1, explanation: "Queues provide thread-safe data transfer." },
-                { id: 708, text: "What is 'Stack Overflow' in RTOS?", options: ["Web site", "Task writes beyond its allocated stack size", "Heap error", "Recursion"], correct: 1, explanation: "Common crash cause. Checked via watermarking." },
-                { id: 709, text: "What is 'Cooperative' scheduling?", options: ["Tasks yield CPU voluntarily", "OS decides", "Preemptive", "Random"], correct: 0, explanation: "If a task hangs, the system hangs." },
-                { id: 710, text: "What is a 'Race Condition'?", options: ["Fast code", "Outcome depends on timing of threads accessing shared data", "Benchmark", "Timeout"], correct: 1, explanation: "Needs protection via Mutex/Critical Section." }
-            ],
-            // 8. LINUX KERNEL
-            "linux_kernel": [
-                { id: 801, text: "Monolithic vs Microkernel?", options: ["Mono: All services in kernel space; Micro: Minimal kernel, services in user space", "No difference", "Micro is bigger", "Mono is slower"], correct: 0, explanation: "Linux is Monolithic." },
-                { id: 802, text: "What is a Loadable Kernel Module (LKM)?", options: ["App", "Code added to kernel at runtime (e.g., driver)", "BIOS", "Firmware"], correct: 1, explanation: "Allows extending kernel without rebooting." },
-                { id: 803, text: "User Space vs Kernel Space?", options: ["Different RAM chips", "Privilege levels (Ring 3 vs Ring 0)", "File systems", "Display modes"], correct: 1, explanation: "Kernel has full hardware access; User is restricted." },
-                { id: 804, text: "What is a 'Device Tree'?", options: ["A drawing", "Data structure describing hardware topology to the kernel", "USB hub", "File system"], correct: 1, explanation: "Replaces hardcoded board files in ARM Linux." },
-                { id: 805, text: "Top Half vs Bottom Half interrupts?", options: ["Screen split", "Top: Critical/Fast ISR; Bottom: Deferred work", "Start/End of code", "Priorities"], correct: 1, explanation: "Keeps ISRs short. Bottom halves (Tasklets/Workqueues) run later." },
-                { id: 806, text: "What is 'kmalloc'?", options: ["User memory alloc", "Kernel memory allocator (physically contiguous)", "Key alloc", "Kill memory"], correct: 1, explanation: "Standard kernel allocator." },
-                { id: 807, text: "What is 'insmod'?", options: ["Install Module command", "Inside Mode", "Insert Mode", "Instruction"], correct: 0, explanation: "Loads a .ko module." },
-                { id: 808, text: "Character Device vs Block Device?", options: ["Char: Stream (Serial); Block: Random Access (Disk)", "No difference", "Char is faster", "Block is text"], correct: 0, explanation: "Fundamental driver types." },
-                { id: 809, text: "What is 'ioctl'?", options: ["I/O Control system call", "Input Output", "Interrupt Control", "Internet"], correct: 0, explanation: "Generic call to control device parameters." },
-                { id: 810, text: "What is the 'scheduler'?", options: ["Calendar", "Kernel subsystem deciding which process runs next (CFS)", "Clock", "Alarm"], correct: 1, explanation: "Completely Fair Scheduler (CFS) is default." }
-            ],
-            // 9. LINUX USER
-            "linux_user": [
-                { id: 901, text: "What is a 'System Call'?", options: ["Function call", "Request from user space to kernel space", "Hardware interrupt", "Boot"], correct: 1, explanation: "The only way user apps access hardware/kernel." },
-                { id: 902, text: "Process vs Thread?", options: ["Process: Shared memory; Thread: Isolated", "Process: Isolated memory; Thread: Shared memory", "Same", "Threads are bigger"], correct: 1, explanation: "Threads are 'lightweight processes' sharing the address space." },
-                { id: 903, text: "What is 'fork()'?", options: ["Cutlery", "System call to create a child process (copy of parent)", "Exit", "Thread"], correct: 1, explanation: "Primary way to spawn processes." },
-                { id: 904, text: "What is a 'Daemon'?", options: ["Virus", "Background process not attached to a terminal", "Driver", "Kernel"], correct: 1, explanation: "Services like sshd, httpd." },
-                { id: 905, text: "What is a 'Pipe' (|)?", options: ["Tube", "IPC mechanism connecting stdout of one process to stdin of another", "File", "Network"], correct: 1, explanation: "Fundamental Unix philosophy tool." },
-                { id: 906, text: "What is 'mmap'?", options: ["Memory Map file/device to memory", "Make Map", "Move Map", "Memory Alloc"], correct: 0, explanation: "Efficient file I/O or sharing memory." },
-                { id: 907, text: "What is a 'Zombie Process'?", options: ["Dead process waiting for parent to read exit status", "Running process", "Virus", "Daemon"], correct: 0, explanation: "Shows as [defunct] in ps." },
-                { id: 908, text: "Signal SIGKILL (9) vs SIGTERM (15)?", options: ["No difference", "SIGKILL cannot be caught/ignored; SIGTERM asks nicely", "SIGKILL is nicer", "SIGTERM crashes"], correct: 1, explanation: "Always try SIGTERM first." },
-                { id: 909, text: "What is 'Cross-Compilation'?", options: ["Compiling on Host (PC) for a different Target (ARM)", "Compiling twice", "Mixing C and C++", "Bad compiling"], correct: 0, explanation: "Essential for embedded dev." },
-                { id: 910, text: "Socket types: TCP vs UDP?", options: ["TCP: Connection/Reliable; UDP: Connectionless/Fast", "UDP is reliable", "TCP is faster", "Same"], correct: 0, explanation: "Standard networking choice." }
-            ],
-            // 10. EMERGING
-            "emerging": [
-                { id: 1001, text: "Key feature of Rust for embedded?", options: ["Garbage collection", "Memory safety without garbage collection", "Interpreted", "Slow"], correct: 1, explanation: "Ownership model prevents leaks/races at compile time." },
-                { id: 1002, text: "What is 'MicroPython'?", options: ["Small snake", "Python implementation optimized for microcontrollers", "C++ library", "OS"], correct: 1, explanation: "Runs Python on bare metal." },
-                { id: 1003, text: "Rust: What is 'Ownership'?", options: ["Copyright", "Rule that each value has a variable as its 'owner'", "Buying RAM", "Admin rights"], correct: 1, explanation: "Core concept preventing double-free errors." },
-                { id: 1004, text: "Python: GIL?", options: ["Global Interpreter Lock", "Get It Later", "Graph Interface", "General Loop"], correct: 0, explanation: "Prevents multiple native threads from executing Python bytecodes at once." },
-                { id: 1005, text: "What is FFI?", options: ["Foreign Function Interface (Calling C from Rust/Python)", "Fast File Interface", "Free Form Input", "Filter"], correct: 0, explanation: "Bridge between languages." },
-                { id: 1006, text: "Rust: 'unsafe' block?", options: ["Virus code", "Area where compiler checks are relaxed (e.g., raw pointers)", "Buggy code", "Comment"], correct: 1, explanation: "Needed for low-level hardware access." },
-                { id: 1007, text: "Why Python for testing embedded?", options: ["Slow", "Rapid scripting of test cases via Serial/Network", "Compiles to machine code", "Low memory"], correct: 1, explanation: "Industry standard for automated HIL testing." },
-                { id: 1008, text: "What is 'Cargo' in Rust?", options: ["Freight", "Package manager and build tool", "Variable", "OS"], correct: 1, explanation: "Handles dependencies seamlessly." },
-                { id: 1009, text: "Rust: 'Option<T>' type?", options: ["Configuration", "Enum representing a value or None (Null safety)", "Choice", "Menu"], correct: 1, explanation: "Replaces NULL pointers safely." },
-                { id: 1010, text: "Benefit of Rust vs C?", options: ["Easier", "Prevents buffer overflows/data races at compile time", "More legacy code", "Smaller binary"], correct: 1, explanation: "Safety first." }
-            ],
-            // 11. AUTOMOTIVE
-            "automotive": [
-                { id: 1101, text: "Role of RTE in AUTOSAR?", options: ["Hardware", "Middleware connecting SWCs", "OS", "Boot"], correct: 1, explanation: "Abstracts communication between software components." },
-                { id: 1102, text: "Protocol for low-speed body electronics?", options: ["CAN", "FlexRay", "LIN", "Ethernet"], correct: 2, explanation: "Low cost single-wire protocol." },
-                { id: 1103, text: "ASIL D means?", options: ["Lowest risk", "Highest safety integrity level", "Audio", "Display"], correct: 1, explanation: "Most critical safety classification in ISO 26262." },
-                { id: 1104, text: "UDS Service 0x10?", options: ["Reset", "Diagnostic Session Control", "Read ID", "Security"], correct: 1, explanation: "Switch between diagnostic sessions." },
-                { id: 1105, text: "MCAL interacts with?", options: ["Cloud", "Microcontroller Hardware", "User", "App"], correct: 1, explanation: "Microcontroller Abstraction Layer." },
-                { id: 1106, text: "FlexRay advantage?", options: ["Cheaper", "Deterministic time-slots", "Wireless", "Simple"], correct: 1, explanation: "Guaranteed timing for X-by-Wire." },
-                { id: 1107, text: "DBC file?", options: ["Debug", "CAN Database", "Driver", "Digital"], correct: 1, explanation: "Defines CAN messages and signals." },
-                { id: 1108, text: "Watchdog purpose?", options: ["Monitor execution timing", "Battery", "Boot", "Wifi"], correct: 0, explanation: "Resets system if it hangs." },
-                { id: 1109, text: "ISO 26262 governs?", options: ["Quality", "Functional Safety", "Environment", "Security"], correct: 1, explanation: "Safety for road vehicles." },
-                { id: 1110, text: "DoIP?", options: ["Data IP", "Diagnostics over IP", "Digital", "Display"], correct: 1, explanation: "Diagnostics via Ethernet." }
-            ],
-            // 12. DIGITAL ELECTRONICS
-            "digital_electronics": [
-                { id: 1201, text: "Gate producing 1 only if both inputs are 1?", options: ["OR", "XOR", "AND", "NAND"], correct: 2, explanation: "AND gate." },
-                { id: 1202, text: "Pull-up resistor purpose?", options: ["Increase current", "Prevent floating input", "Voltage divider", "Filter"], correct: 1, explanation: "Ensures logic High when line is idle." },
-                { id: 1203, text: "Resolution of 10-bit ADC at 5V?", options: ["4.88mV", "10mV", "1V", "0.5V"], correct: 0, explanation: "5V / 1024." },
-                { id: 1204, text: "Flip-Flop stores?", options: ["1 bit", "1 byte", "Voltage", "Current"], correct: 0, explanation: "Basic memory unit." },
-                { id: 1205, text: "TTL logic voltage?", options: ["5V", "12V", "110V", "3.3V"], correct: 0, explanation: "Transistor-Transistor Logic is standard 5V." },
-                { id: 1206, text: "Schmitt Trigger use?", options: ["Amplify", "Hysteresis (clean noise)", "Clock", "Memory"], correct: 1, explanation: "Prevents jitter on noisy inputs." },
-                { id: 1207, text: "Floating CMOS input?", options: ["Is 0", "Is 1", "Oscillates/High Current", "Safe"], correct: 2, explanation: "Always tie unused inputs to GND/VCC." },
-                { id: 1208, text: "PWM controls?", options: ["Frequency only", "Duty Cycle (Average Power)", "Voltage level", "Current"], correct: 1, explanation: "Used for dimming LEDs, motor speed." },
-                { id: 1209, text: "Shift Register use?", options: ["Shift gears", "Serial-to-Parallel expansion", "Memory", "CPU"], correct: 1, explanation: "More outputs from few pins." },
-                { id: 1210, text: "Ohm's Law?", options: ["V=IR", "F=ma", "E=mc2", "P=IV"], correct: 0, explanation: "Fundamental law." }
-            ],
-            // 13. TESTING & SAFETY
-            "testing_safety": [
-                { id: 1301, text: "MISRA C is?", options: ["Compiler", "Safety coding guidelines", "OS", "Chip"], correct: 1, explanation: "Prevents unsafe C usage." },
-                { id: 1302, text: "Static Analysis?", options: ["Run code", "Check code without running", "Test hardware", "Debug"], correct: 1, explanation: "Finds bugs at compile/edit time." },
-                { id: 1303, text: "Code Coverage?", options: ["Lines written", "% of code executed during test", "Comments", "Files"], correct: 1, explanation: "Metric for test quality." },
-                { id: 1304, text: "V-Model Unit Test phase?", options: ["Reqs", "Coding", "System", "Design"], correct: 1, explanation: "Verifies detailed design/code." },
-                { id: 1305, text: "Black Box testing?", options: ["With source code", "Without source code knowledge", "Night", "Hardware"], correct: 1, explanation: "Test functionality/inputs/outputs." },
-                { id: 1306, text: "Race Condition?", options: ["Fast", "Timing dependent bug", "Benchmark", "Timeout"], correct: 1, explanation: "Concurrency error." },
-                { id: 1307, text: "Fault Injection?", options: ["Fixing", "Deliberate error insertion", "Writing bad code", "Hardware"], correct: 1, explanation: "Tests robustness." },
-                { id: 1308, text: "Unit Test framework?", options: ["Unity/CUnit", "GDB", "Make", "Git"], correct: 0, explanation: "Tools for C testing." },
-                { id: 1309, text: "MC/DC coverage?", options: ["AC/DC", "Modified Condition/Decision", "Memory", "Motor"], correct: 1, explanation: "Required for ASIL D." },
-                { id: 1310, text: "Dynamic memory in safety?", options: ["Recommended", "Banned/Restricted", "Required", "Fast"], correct: 1, explanation: "Non-deterministic; risk of fragmentation." }
-            ],
-            // 14. DEBUGGING
-            "debugging": [
-                { id: 1401, text: "JTAG use?", options: ["Net", "Debug/Boundary Scan", "Graphics", "Audio"], correct: 1, explanation: "Hardware debug interface." },
-                { id: 1402, text: "Breakpoint?", options: ["Pause execution", "Break wire", "Error", "Leak"], correct: 0, explanation: "Stop at line." },
-                { id: 1403, text: "Linker Script?", options: ["Compiles", "Defines memory map", "Links libs", "Debugs"], correct: 1, explanation: "Places code/data in Flash/RAM." },
-                { id: 1404, text: "Hard Fault?", options: ["Damage", "Exception (illegal op/access)", "Reset", "Power"], correct: 1, explanation: "CPU crash handler." },
-                { id: 1405, text: "GDB?", options: ["GNU Debugger", "Bus", "Base", "Display"], correct: 0, explanation: "Standard debug tool." },
-                { id: 1406, text: "SWD vs JTAG?", options: ["SWD 2-wire", "Same", "SWD slower", "JTAG wireless"], correct: 0, explanation: "ARM specific low pin count." },
-                { id: 1407, text: "Semihosting?", options: ["Wireless", "Target I/O via Debugger", "VM", "Cloud"], correct: 1, explanation: "Printf to console via JTAG." },
-                { id: 1408, text: "Oscilloscope?", options: ["Logic", "Voltage vs Time", "Current", "R"], correct: 1, explanation: "Analog signal view." },
-                { id: 1409, text: "Watchpoint?", options: ["Time", "Break on data access", "Visual", "Clock"], correct: 1, explanation: "Stop on variable change." },
-                { id: 1410, text: "Stack Overflow?", options: ["Site", "Stack exceeds limit", "Heap", "Queue"], correct: 1, explanation: "Corruption of memory." }
-            ],
-            // 15. IOT
-            "iot_net": [
-                { id: 1501, text: "MQTT?", options: ["Heavy", "Lightweight Pub/Sub", "P2P", "DB"], correct: 1, explanation: "IoT standard protocol." },
-                { id: 1502, text: "Broker?", options: ["Sales", "Central message router", "Client", "Sensor"], correct: 1, explanation: "Server in MQTT." },
-                { id: 1503, text: "CoAP?", options: ["Video", "UDP-based web transfer", "PC", "File"], correct: 1, explanation: "HTTP for constrained devices." },
-                { id: 1504, text: "WiFi Freq?", options: ["900M", "2.4GHz", "10G", "433M"], correct: 1, explanation: "Standard ISM band." },
-                { id: 1505, text: "BLE?", options: ["Basic", "Bluetooth Low Energy", "Broadband", "Bus"], correct: 1, explanation: "Low power wireless." },
-                { id: 1506, text: "OTA?", options: ["Over The Air", "On Air", "Auth", "Object"], correct: 0, explanation: "Firmware update wireless." },
-                { id: 1507, text: "Edge Computing?", options: ["Cloud", "Local processing", "Web", "Geometry"], correct: 1, explanation: "Process near source." },
-                { id: 1508, text: "LoRaWAN?", options: ["RAM", "Long Range Low Power", "WiFi", "LAN"], correct: 1, explanation: "Long distance sensor net." },
-                { id: 1509, text: "TLS?", options: ["Speed", "Encryption/Auth", "Zip", "Route"], correct: 1, explanation: "Security." },
-                { id: 1510, text: "Gateway?", options: ["Fence", "Bridge Protocols/Net", "Switch", "DB"], correct: 1, explanation: "Connects local to cloud." }
-            ],
-            // 16. INTEGRATION ARCH
-            "integration_arch": [
-                { id: 1601, text: "In API-Led connectivity (Mulesoft), which layer exposes data directly from backend systems like SAP?", options: ["Experience API", "Process API", "System API", "Presentation API"], correct: 2, explanation: "System APIs unlock data from core systems (SAP, Mainframe) without applying business logic. Process APIs orchestrate data, and Experience APIs format it for the user." },
-                { id: 1602, text: "What distinguishes 'Orchestration' from 'Choreography' in microservices?", options: ["No difference", "Orchestration has a central conductor; Choreography is decentralized.", "Orchestration is faster.", "Choreography is for databases."], correct: 1, explanation: "Orchestration uses a central controller (ESB) to tell services what to do. Choreography allows services to react to events independently." },
-                { id: 1603, text: "What is the 'Circuit Breaker' pattern used for?", options: ["Power management", "Preventing cascading failures when a downstream service is down", "Testing circuits", "Routing data"], correct: 1, explanation: "If a service is failing, the circuit breaker 'trips' to return an error immediately instead of hanging the system." },
-                { id: 1604, text: "What is the main advantage of Asynchronous integration?", options: ["Immediate response", "Decoupling sender and receiver (Fire & Forget)", "Easier debugging", "Guaranteed order"], correct: 1, explanation: "The sender places a message in a queue and continues work. The receiver processes it later, handling high load spikes." },
-                { id: 1605, text: "What does 'Loose Coupling' achieve?", options: ["Faster wiring", "Components are independent; changing one doesn't break the other", "Strict connections", "Wireless data"], correct: 1, explanation: "A primary goal of integration. If the backend database schema changes, the mobile app shouldn't crash." },
-                { id: 1606, text: "What is a Microservice?", options: ["A small computer", "An architectural style where an app is a collection of small, independent services", "A tiny database", "A protocol"], correct: 1, explanation: "Each service handles one business capability (e.g., 'Payment') and communicates via APIs." },
-                { id: 1607, text: "When is Batch Processing preferred over Real-Time?", options: ["Stock trading", "High-volume, non-urgent data (e.g., nightly payroll)", "Chat apps", "Alarms"], correct: 1, explanation: "Batch is efficient for processing millions of records where immediate results aren't needed." },
-                { id: 1608, text: "What is an ESB (Enterprise Service Bus)?", options: ["Hardware bus", "Middleware for routing, transformation, and protocol conversion", "Cloud server", "Database"], correct: 1, explanation: "The 'Universal Translator' in SOA architectures." },
-                { id: 1609, text: "In Event-Driven Architecture, what triggers an action?", options: ["User click only", "A state change (Event) broadcast to listeners", "Timer", "Manager"], correct: 1, explanation: "Systems react to events (e.g., 'Order Placed') rather than direct commands." },
-                { id: 1610, text: "What is Monolithic Architecture?", options: ["Single deployable unit containing all code", "Many services", "Event driven", "Serverless"], correct: 0, explanation: "One big codebase. Hard to scale individual parts." }
-            ],
-            // 17. PROTOCOLS & STANDARDS (ENTERPRISE)
-            "protocols_standards": [
-                { id: 1701, text: "What is the standard data format for modern REST APIs?", options: ["XML", "JSON (JavaScript Object Notation)", "Binary", "Text"], correct: 1, explanation: "JSON is lightweight and native to web browsers." },
-                { id: 1702, text: "Which HTTP verb creates a new resource?", options: ["GET", "PUT", "POST", "DELETE"], correct: 2, explanation: "POST creates. PUT replaces. PATCH updates partially." },
-                { id: 1703, text: "What is HTTP Status 401?", options: ["OK", "Not Found", "Unauthorized (Authentication missing)", "Server Error"], correct: 2, explanation: "401 means 'Who are you?'. 403 means 'I know you, but you can't come in'." },
-                { id: 1704, text: "Difference between REST and SOAP?", options: ["REST is a protocol", "SOAP is a strict protocol; REST is an architectural style", "No difference", "REST uses XML only"], correct: 1, explanation: "SOAP has strict standards (WS-Security). REST is a set of guidelines (Stateless, Cacheable)." },
-                { id: 1705, text: "What is Swagger (OpenAPI)?", options: ["Coding style", "A specification for documenting REST APIs", "Database", "Server"], correct: 1, explanation: "A contract describing your API endpoints so others can use them." },
-                { id: 1706, text: "What is Idempotency?", options: ["Repeating a request has the same effect as doing it once", "Random results", "High power", "Fast response"], correct: 0, explanation: "Retrying a DELETE request multiple times should not cause errors or change the state further." },
-                { id: 1707, text: "What is OData?", options: ["Old Data", "Standard for queryable APIs (filtering in URL)", "Offline Data", "Only Data"], correct: 1, explanation: "Allows SQL-like queries in the URL: /Products?$filter=Price lt 20." },
-                { id: 1708, text: "What is WSDL?", options: ["Web Service Description Language (SOAP contract)", "Web Design Logic", "Wireless SDL", "Web Log"], correct: 0, explanation: "The XML 'manual' for a SOAP service." },
-                { id: 1709, text: "What is HATEOAS?", options: ["Filter", "Hypermedia As The Engine Of Application State (Links in response)", "Parsing", "Auth"], correct: 1, explanation: "API responses include links to related actions, guiding the client like a webpage." },
-                { id: 1710, text: "Which HTTP Status indicates a Server Error?", options: ["2xx", "3xx", "4xx", "5xx"], correct: 3, explanation: "500 is Internal Server Error." }
-            ],
-            // 18. MIDDLEWARE & CLOUD
-            "middleware_cloud": [
-                { id: 1801, text: "What is an iPaaS?", options: ["Infrastructure", "Cloud platform for building integrations (e.g., Mulesoft CloudHub)", "Language", "Protocol"], correct: 1, explanation: "Integration Platform as a Service. Connects SaaS and on-prem apps." },
-                { id: 1802, text: "In Kafka, what is a 'Topic'?", options: ["Conversation", "A category/feed for messages", "Header", "Table"], correct: 1, explanation: "Producers write to a topic; Consumers read from it." },
-                { id: 1803, text: "What is a 'Dead Letter Queue'?", options: ["Trash", "Queue for messages that failed processing", "Slow mail", "Deleted"], correct: 1, explanation: "Prevents data loss by saving failed messages for manual review." },
-                { id: 1804, text: "What is 'Hybrid Integration'?", options: ["Two clouds", "Connecting On-Premises systems with Cloud apps", "Two languages", "TCP/UDP"], correct: 1, explanation: "Connecting legacy on-prem SAP to cloud Salesforce." },
-                { id: 1805, text: "What is a Webhook?", options: ["Fishing", "User-defined HTTP callback (Server pushes data)", "Security flaw", "Spider"], correct: 1, explanation: "Don't call us, we'll call you. The server pushes data when an event happens." },
-                { id: 1806, text: "What is Pub/Sub?", options: ["Public/Subway", "Publish/Subscribe (Decoupled messaging)", "Public Subnet", "Push"], correct: 1, explanation: "Publishers don't know who subscribers are." },
-                { id: 1807, text: "What is Cloud Native?", options: ["On server", "Designed for cloud (Containers, Microservices)", "Java", "Internet"], correct: 1, explanation: "Scalable, resilient apps built for the cloud environment." },
-                { id: 1808, text: "What is ETL?", options: ["Extract, Transform, Load", "Evaluate Test Launch", "Error Log", "Ethernet"], correct: 0, explanation: "Traditional batch data integration for data warehouses." },
-                { id: 1809, text: "What is Apache Kafka primarily used for?", options: ["Web server", "High-throughput real-time streaming", "Database", "Firewall"], correct: 1, explanation: "Handling massive streams of events/logs in real-time." },
-                { id: 1810, text: "What is Azure Logic Apps?", options: ["Game", "Low-code workflow automation tool", "Gate", "Compiler"], correct: 1, explanation: "Microsoft's tool for visually orchestrating workflows." }
-            ],
-            // 19. OT/IT CONVERGENCE
-            "ot_it_convergence": [
-                { id: 1901, text: "OT (Operational Tech) vs IT Priority difference?", options: ["IT = Availability", "OT = Safety & Availability; IT = Confidentiality", "No difference", "OT is slow"], correct: 1, explanation: "OT manages physical machines where downtime costs money or lives." },
-                { id: 1902, text: "What is OPC UA?", options: ["Old Protocol", "Open Platform Communications Unified Architecture", "PC OS", "Oracle"], correct: 1, explanation: "The standard 'Universal Translator' for industrial interoperability." },
-                { id: 1903, text: "What is MQTT Sparkplug B?", options: ["Spark plug", "Standard payload definition for MQTT in Industry", "Wiring", "Battery"], correct: 1, explanation: "Adds structure (Metric, Value, Timestamp) to raw MQTT topics." },
-                { id: 1904, text: "What is the Purdue Model (ISA-95)?", options: ["University", "Hierarchical model of industrial control (L0-L4)", "Coding", "Machine"], correct: 1, explanation: "L0=Sensor, L1=PLC, L2=SCADA, L3=MES, L4=ERP." },
-                { id: 1905, text: "What is a 'Historian'?", options: ["Writer", "Time-series database for process data", "Log file", "Backup"], correct: 1, explanation: "Stores years of sensor readings for analysis." },
-                { id: 1906, text: "What is a Digital Twin?", options: ["Backup", "Virtual replica of a physical system", "Dual Core", "Game"], correct: 1, explanation: "Simulate changes virtually before applying to physical machines." },
-                { id: 1907, text: "Modbus TCP vs Modbus RTU?", options: ["TCP uses Ethernet; RTU uses Serial", "RTU is wireless", "TCP slow", "Same"], correct: 0, explanation: "Modbus TCP wraps the serial frame in a TCP/IP packet." },
-                { id: 1908, text: "What is an Industrial Gateway?", options: ["Door", "Hardware translating OT protocols to IT protocols", "Firewall", "Switch"], correct: 1, explanation: "Bridges the gap between the machine (PLCs) and the cloud." },
-                { id: 1909, text: "What is Edge Analytics?", options: ["Image edges", "Processing data at the source (machine) to save bandwidth", "Cloud", "Web"], correct: 1, explanation: "Filter data locally; send only insights to the cloud." },
-                { id: 1910, text: "Why is latency critical in OT?", options: ["Determinism (Real-time control)", "It isn't", "Speed", "Web loading"], correct: 0, explanation: "A 10ms delay in a PLC can cause a machine fault." }
-            ],
-            // 20. SECURITY
-            "security_api": [
-                { id: 2001, text: "Best OAuth 2.0 flow for Machine-to-Machine?", options: ["Auth Code", "Implicit", "Client Credentials Flow", "Password"], correct: 2, explanation: "No user interaction; server authenticates with its own ID/Secret." },
-                { id: 2002, text: "Parts of a JWT?", options: ["Start, End", "Header, Payload, Signature", "User, Key", "HTML"], correct: 1, explanation: "Base64 encoded JSON data with a signature for integrity." },
-                { id: 2003, text: "What is mTLS?", options: ["One way", "Mutual TLS (Client & Server authenticate each other)", "No encryption", "VPN"], correct: 1, explanation: "High security standard where the server also checks the client's certificate." },
-                { id: 2004, text: "AuthN vs AuthZ?", options: ["None", "AuthN = Who are you? AuthZ = What can you do?", "Wifi", "Easy"], correct: 1, explanation: "Authentication (Login) vs Authorization (Permissions)." },
-                { id: 2005, text: "What is SQL Injection?", options: ["Database feature", "Malicious SQL inserted into input fields", "Speed", "Install"], correct: 1, explanation: "Inputs must be sanitized to prevent attackers from reading/deleting DBs." },
-                { id: 2006, text: "Role of API Gateway?", options: ["Speed", "Single entry point for Auth, Rate Limiting, Throttling", "Storage", "Code"], correct: 1, explanation: "Protects backend services." },
-                { id: 2007, text: "What is CORS?", options: ["OS", "Cross-Origin Resource Sharing (Browser security)", "Storage", "Cloud"], correct: 1, explanation: "Prevents a webpage on Domain A from calling an API on Domain B without permission." },
-                { id: 2008, text: "What is Zero Trust?", options: ["Trust no one, verify everything", "Trust all", "No password", "Offline"], correct: 0, explanation: "Assume the network is compromised." },
-                { id: 2009, text: "API Key vs Token?", options: ["Keys identify app; Tokens identify user/session", "Keys safe", "Tokens metal", "Same"], correct: 0, explanation: "Tokens are usually short-lived." },
-                { id: 2010, text: "What is OIDC?", options: ["Identity layer on OAuth 2.0", "Internet", "DB", "Cable"], correct: 0, explanation: "Adds Standardized Authentication (Login) to OAuth's Authorization." }
-            ],
-            // 21. C# & .NET Core
-            "csharp_dotnet": [
-                { id: 2101, text: "What is the difference between 'Task' and 'Thread' in C#?", options: ["Thread is higher level", "Task is higher level abstraction over threads managed by thread pool", "Task is slower", "Thread is for UI only"], correct: 1, explanation: "Tasks are lightweight and use the ThreadPool, ideal for async operations." },
-                { id: 2102, text: "What does 'async/await' actually do?", options: ["Runs code on a new thread", "Enables non-blocking I/O by yielding control until the task completes", "Makes code faster", "Deletes data"], correct: 1, explanation: "It doesn't guarantee a new thread; it frees up the current context (like UI thread) while waiting." },
-                { id: 2103, text: "What is Dependency Injection (DI)?", options: ["Injecting viruses", "Design pattern to implement IoC (Inversion of Control) by injecting dependencies", "Database import", "Direct instantiation"], correct: 1, explanation: "Core to .NET Core. Classes receive objects they depend on rather than creating them." },
-                { id: 2104, text: "What is the purpose of 'Garbage Collection' (GC)?", options: ["Clean disk space", "Automatic memory management to reclaim unused objects", "Delete files", "Optimize CPU"], correct: 1, explanation: "Runs periodically to free heap memory from unreachable objects." },
-                { id: 2105, text: "Interface vs Abstract Class?", options: ["Interface: Multiple inheritance allowed, no implementation (pre-C# 8); Abstract: Single inheritance, can have state", "No difference", "Abstract is faster", "Interface is for UI"], correct: 0, explanation: "Interfaces define a contract. Abstract classes provide a base implementation." },
-                { id: 2106, text: "What is LINQ?", options: ["Line Input Query", "Language Integrated Query (Querying collections like SQL)", "Linker", "Linux Queue"], correct: 1, explanation: "Unified syntax for querying arrays, lists, XML, and databases." },
-                { id: 2107, text: "What is a 'Delegate'?", options: ["A manager", "A type-safe function pointer", "A variable", "A class"], correct: 1, explanation: "Holds a reference to a method. Basis for Events." },
-                { id: 2108, text: "Value Type vs Reference Type?", options: ["Value: Stack (struct, int); Ref: Heap (class, string)", "Value: Heap; Ref: Stack", "No difference", "Ref is slower"], correct: 0, explanation: "Determines memory allocation and assignment behavior." },
-                { id: 2109, text: "What is ASP.NET Core Middleware?", options: ["Software", "Components assembled into an app pipeline to handle requests and responses", "Hardware", "Database"], correct: 1, explanation: "Request -> Auth -> Logging -> MVC -> Response." },
-                { id: 2110, text: "What is 'boxing'?", options: ["Fighting", "Converting a Value Type to a Reference Type (Object)", "Creating a box", "Shipping"], correct: 1, explanation: "Performance cost. Moving stack data to heap." }
-            ],
-            // 22. IoT Data & DevOps
-            "iot_data_devops": [
-                { id: 2201, text: "Why use a Time-Series Database (InfluxDB) for IoT?", options: ["It is cheaper", "Optimized for high-volume write/read of timestamped data", "It supports SQL joins", "It is relational"], correct: 1, explanation: "Standard SQL DBs struggle with millions of sensor readings per second." },
-                { id: 2202, text: "What is 'Infrastructure as Code' (IaC)?", options: ["Writing comments", "Managing infrastructure (VMs, Load Balancers) via code files (Terraform/ARM)", "Coding in C", "Hard coding"], correct: 1, explanation: "Allows repeatable, version-controlled deployments of cloud resources." },
-                { id: 2203, text: "What is Docker?", options: ["A boat", "A platform for developing, shipping, and running applications in containers", "A VM", "A language"], correct: 1, explanation: "Containers bundle code + dependencies, ensuring it runs the same everywhere." },
-                { id: 2204, text: "Kubernetes is used for?", options: ["Writing code", "Orchestrating (managing/scaling) containerized applications", "Database management", "Testing"], correct: 1, explanation: "Manages thousands of containers across clusters of machines." },
-                { id: 2205, text: "What is a CI/CD Pipeline?", options: ["A water pipe", "Continuous Integration/Continuous Deployment (Automated build, test, deploy)", "Cable", "Process"], correct: 1, explanation: "Automates the path from git commit to production deployment." },
-                { id: 2206, text: "SQL (Relational) vs NoSQL (Document)?", options: ["SQL: Rigid Schema/ACID (Banks); NoSQL: Flexible Schema/Scalable (IoT metadata)", "No difference", "SQL is faster for big data", "NoSQL is for tables"], correct: 0, explanation: "NoSQL (like Mongo/Cosmos) handles varying JSON structures from different devices better." },
-                { id: 2207, text: "What is 'Device Provisioning'?", options: ["Buying devices", "Securely registering and configuring a device to connect to the cloud", "Fixing devices", "Charging"], correct: 1, explanation: "Essential for secure onboarding of thousands of devices at once (DPS)." },
-                { id: 2208, text: "Hot Storage vs Cold Storage?", options: ["Temperature", "Hot: Fast access/Expensive (Recent data); Cold: Slow access/Cheap (Archive)", "Hot is cloud", "Cold is offline"], correct: 1, explanation: "Cost optimization strategy. Keep last 30 days in Hot, 5 years in Cold." },
-                { id: 2209, text: "Blue-Green Deployment?", options: ["Colors", "Technique to reduce downtime by running two identical environments", "Testing", "Dev vs Prod"], correct: 1, explanation: "Switch traffic from Blue (Old) to Green (New) instantly. Easy rollback." },
-                { id: 2210, text: "What is 'Scalability' in IoT?", options: ["weighing scale", "Ability to handle growth (10 to 1M devices) without failure", "Screen size", "Speed"], correct: 1, explanation: "Systems must be designed to scale horizontally (add more servers)." }
-            ],
-            // 23. Edge AI & Machine Learning
-            "edge_ai": [
-                { id: 2301, text: "What is 'Edge AI'?", options: ["AI in the cloud", "Running machine learning models locally on the device (MCU/MPU) instead of the cloud", "A robot", "A new language"], correct: 1, explanation: "Reduces latency, bandwidth usage, and increases privacy by processing data at the source." },
-                { id: 2302, text: "What is TensorFlow Lite?", options: ["A lightweight version of TensorFlow optimized for mobile and embedded devices", "A cloud service", "A database", "A hardware chip"], correct: 0, explanation: "Specifically designed to run ML models on resource-constrained devices like microcontrollers." },
-                { id: 2303, text: "What is 'Model Quantization'?", options: ["Measuring models", "Reducing the precision of numbers (e.g., float32 to int8) to shrink model size and speed up inference", "Increasing size", "Deleting layers"], correct: 1, explanation: "Crucial for running complex models on limited hardware with minimal accuracy loss." },
-                { id: 2304, text: "What is TinyML?", options: ["Small ML", "Machine Learning specifically for ultra-low-power microcontrollers (mW range)", "Big Data", "Python script"], correct: 1, explanation: "Focuses on running ML on battery-powered devices (e.g., Cortex-M0/M4)." },
-                { id: 2305, text: "What is an NPU?", options: ["Network Processing Unit", "Neural Processing Unit (Hardware accelerator for AI)", "New Power Unit", "No Power Unit"], correct: 1, explanation: "Dedicated silicon on an SoC (like in i.MX8 or STM32N6) to run AI math efficiently." },
-                { id: 2306, text: "Why is 'Inference' different from 'Training'?", options: ["Training creates the model (heavy compute); Inference uses the model (lighter compute)", "No difference", "Inference is harder", "Training is on device"], correct: 0, explanation: "In IoT, Training usually happens in Cloud/PC; Inference happens on Device." },
-                { id: 2307, text: "What is 'Federated Learning'?", options: ["Learning together", "Training an algorithm across multiple decentralized edge devices without exchanging local data samples", "Cloud training", "School"], correct: 1, explanation: "Privacy-preserving AI where the raw data never leaves the device." },
-                { id: 2308, text: "What is OpenCV used for in IoT?", options: ["Opening files", "Real-time Computer Vision (Image Processing)", "Audio processing", "Networking"], correct: 1, explanation: "Standard library for detecting faces, objects, or motion in camera feeds." },
-                { id: 2309, text: "What is 'Anomaly Detection' in IIoT?", options: ["Finding ghosts", "Identifying rare items/events (e.g., vibration patterns) that differ significantly from the majority", "Detecting viruses", "Fixing bugs"], correct: 1, explanation: "Common use case for Predictive Maintenance (predicting motor failure)." },
-                { id: 2310, text: "What is the MLOps Pipeline for Edge?", options: ["A game", "Data Collection -> Training -> Quantization -> Deployment -> Monitoring", "Writing code", "Installing OS"], correct: 1, explanation: "The lifecycle of deploying and updating AI models on thousands of remote devices." }
-            ],
-            // 24. Future Trends
-            "future_tech": [
-                { id: 2401, text: "What is RAG (Retrieval-Augmented Generation) in IoT?", options: ["A cloth", "Enhancing LLMs by retrieving relevant real-time data (e.g., sensor manuals) before generating an answer", "Random number generation", "Routing protocol"], correct: 1, explanation: "Allows a generic AI to answer specific questions about *your* machines without retraining." },
-                { id: 2402, text: "Why is WebAssembly (Wasm) gaining traction on the Edge?", options: ["It runs in browser", "It provides a secure, lightweight sandbox for running portable code on constrained devices (lighter than Docker)", "It is faster than C", "It replaces Linux"], correct: 1, explanation: "Wasm allows 'serverless' functions to run safely on small gateways or even MCUs." },
-                { id: 2403, text: "What is an SBOM?", options: ["Software Bill of Materials", "System Boot On Mode", "Secure Binary Object Model", "Sensor Bus Object"], correct: 0, explanation: "A mandatory list of all open-source libraries in your firmware, required for security compliance." },
-                { id: 2404, text: "What is an 'Agentic Workflow' in AI?", options: ["A spy", "An AI system that can autonomously plan and execute multi-step actions (e.g., 'Fix the boiler' -> Query DB -> Adjust Setpoint)", "A chat bot", "A script"], correct: 1, explanation: "Moves beyond 'Chat' to 'Action'. The AI becomes a co-pilot for the operator." },
-                { id: 2405, text: "What is '5G Network Slicing'?", options: ["Cutting cables", "Virtualizing a single 5G network into multiple slices with guaranteed SLA (e.g., low latency for robots, high bandwidth for video)", "Sharing wifi", "Faster 4G"], correct: 1, explanation: "Critical for industrial SLAs. Ensure your robot arm doesn't lag because someone is watching Netflix." },
-                { id: 2406, text: "What is the 'Industrial Metaverse'?", options: ["A game", "Using Spatial Computing (AR/VR/Digital Twins) to visualize real-time IoT data on physical assets", "Facebook", "3D printing"], correct: 1, explanation: "Allows technicians to 'see' sensor data overlaying the machine via AR glasses." },
-                { id: 2407, text: "How do Vector Databases help in IoT AI?", options: ["Drawing lines", "Storing data as vectors (embeddings) to enable semantic search (e.g., 'Find similar vibration patterns')", "Faster SQL", "3D graphics"], correct: 1, explanation: "Standard databases match keywords. Vector DBs match *meaning* and *similarity*." },
-                { id: 2408, text: "What are Non-Terrestrial Networks (NTN)?", options: ["Underground cables", "Satellite-based IoT connectivity (3GPP standard) for remote coverage", "WiFi", "Fiber"], correct: 1, explanation: "Connecting assets in oceans/deserts where cell towers don't reach." },
-                { id: 2409, text: "What is 'Prompt Engineering' for Code Generation?", options: ["Writing fast", "Crafting specific inputs to guide LLMs to generate correct, secure code (e.g., C/C++ firmware)", "Compiling", "Testing"], correct: 1, explanation: "A critical skill for modern architects to leverage AI productivity." },
-                { id: 2410, text: "Why is 'Digital Ethics' important in AI-driven IoT?", options: ["It isn't", "To prevent AI from making unsafe/biased decisions (e.g., shutting down a safety system)", "To look good", "Compliance only"], correct: 1, explanation: "As AI takes control, we must ensure it behaves deterministically and safely." }
-            ]
-        };
-
-        // === 3. APP LOGIC ===
         const app = {
-            state: {
-                topicId: null,
-                topicName: null,
-                questions: [],
-                answers: {},
-                score: 0
-            },
-
-            init: function() {
-                this.renderMenu();
-            },
-
-            renderMenu: function() {
+            state: { topicId: null, subIndex: null, topicName: null, questions: [], answers: {}, score: 0 },
+            init: function () { this.renderMenu(); },
+            renderMenu: function () {
                 const container = document.getElementById('accordion-container');
                 let html = '';
-                
-                TOPICS.forEach((topic, index) => {
-                    // Inject Section Headers
-                    if (topic.section) {
-                        html += `
-                            <div class="mt-8 mb-3 flex items-center gap-2">
-                                <div class="h-px bg-brand-orange flex-1 opacity-50"></div>
-                                <span class="text-brand-orange text-xs font-bold uppercase tracking-widest px-2">${topic.section}</span>
-                                <div class="h-px bg-brand-orange flex-1 opacity-50"></div>
-                            </div>
-                        `;
-                    }
-                    
-                    html += `
-                    <div class="border border-gray-700 rounded bg-brand-gray overflow-hidden mb-3">
-                        <button onclick="app.toggleAccordion('${topic.id}')" 
-                            class="w-full flex items-center justify-between p-4 text-left hover:bg-[#383a3d] transition-colors">
-                            <span class="font-bold text-lg text-white">${topic.title}</span>
-                            <span id="icon-${topic.id}" class="text-gray-400 transform transition-transform duration-200">▼</span>
-                        </button>
-                        <div id="content-${topic.id}" class="hidden bg-brand-darker border-t border-gray-700">
-                            <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-3">
-                                ${topic.subs.map(sub => `
-                                    <label class="flex items-center space-x-3 cursor-pointer p-2 rounded hover:bg-gray-800 border border-transparent hover:border-gray-600 transition">
-                                        <input type="radio" name="subtopic" value="${topic.id}|${sub}" 
-                                            onchange="app.selectTopic(this.value)"
-                                            class="form-radio text-brand-orange h-4 w-4 bg-gray-700 border-gray-500 focus:ring-brand-orange">
-                                        <span class="text-gray-300 text-sm">${sub}</span>
-                                    </label>
-                                `).join('')}
-                            </div>
-                        </div>
-                    </div>`;
+                TOPICS.forEach((topic) => {
+                    if (topic.section) html += `<div class="mt-8 mb-3 flex items-center gap-2"><div class="h-px bg-brand-orange flex-1 opacity-50"></div><span class="text-brand-orange text-xs font-bold uppercase tracking-widest px-2">${topic.section}</span><div class="h-px bg-brand-orange flex-1 opacity-50"></div></div>`;
+                    html += `<div class="border border-gray-700 rounded bg-brand-gray overflow-hidden mb-3"><button onclick="app.toggleAccordion('${topic.id}')" class="w-full flex items-center justify-between p-4 text-left hover:bg-[#383a3d] transition-colors"><span class="font-bold text-lg text-white">${topic.title}</span><span id="icon-${topic.id}" class="text-gray-400 transform transition-transform duration-200">▼</span></button><div id="content-${topic.id}" class="hidden bg-brand-darker border-t border-gray-700"><div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-3">${topic.subs.map((sub, idx) => `<label class="flex items-center space-x-3 cursor-pointer p-2 rounded hover:bg-gray-800 border border-transparent hover:border-gray-600 transition"><input type="radio" name="subtopic" value="${topic.id}|${idx}" onchange="app.selectTopic(this.value)" class="form-radio text-brand-orange h-4 w-4 bg-gray-700 border-gray-500 focus:ring-brand-orange"><span class="text-gray-300 text-sm">${sub}</span></label>`).join('')}</div></div></div>`;
                 });
                 container.innerHTML = html;
             },
-
-            toggleAccordion: function(id) {
+            toggleAccordion: function (id) {
                 const content = document.getElementById(`content-${id}`);
                 const icon = document.getElementById(`icon-${id}`);
-                
-                // Close others
-                document.querySelectorAll('[id^="content-"]').forEach(el => {
-                    if (el.id !== `content-${id}`) el.classList.add('hidden');
-                });
-                document.querySelectorAll('[id^="icon-"]').forEach(el => {
-                    if (el.id !== `icon-${id}`) el.style.transform = 'rotate(0deg)';
-                });
-
+                document.querySelectorAll('[id^="content-"]').forEach(el => { if (el.id !== `content-${id}`) el.classList.add('hidden'); });
+                document.querySelectorAll('[id^="icon-"]').forEach(el => { if (el.id !== `icon-${id}`) el.style.transform = 'rotate(0deg)'; });
                 const isHidden = content.classList.contains('hidden');
                 content.classList.toggle('hidden');
                 icon.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
             },
-
-            selectTopic: function(value) {
-                const [majorId, sub] = value.split('|');
-                const majorTitle = TOPICS.find(t => t.id === majorId).title;
-                
+            selectTopic: function (value) {
+                const [majorId, subIdx] = value.split('|');
+                const topic = TOPICS.find(t => t.id === majorId);
+                const subName = topic.subs[parseInt(subIdx)];
                 this.state.topicId = majorId;
-                this.state.topicName = `${majorTitle}: ${sub}`;
-                
+                this.state.subIndex = subIdx;
+                this.state.topicName = `${topic.title}: ${subName}`;
                 const btn = document.getElementById('btn-start');
                 btn.disabled = false;
                 btn.classList.remove('opacity-50', 'cursor-not-allowed');
                 btn.classList.add('bg-brand-orange', 'hover:bg-brand-orange-hover');
-                btn.innerText = `Start: ${sub}`;
+                btn.innerText = `Start Session: ${subName}`;
             },
-
-            startAssessment: function() {
-                // Ensure questions exist
-                const dbQ = QUESTIONS_DB[this.state.topicId];
-                if (!dbQ) {
-                    alert("Error: Question bank missing for this topic.");
+            startAssessment: function () {
+                const lookupKey = `${this.state.topicId}_${this.state.subIndex}`;
+                const dbQ = QUESTIONS_DB[lookupKey];
+                if (!dbQ || dbQ.length === 0) {
+                    alert("Error: Question bank missing for this topic. Architecture is ready for data entry.");
                     return;
                 }
-                
-                // Randomize or pick 10
                 this.state.questions = JSON.parse(JSON.stringify(dbQ));
-                
                 this.state.answers = {};
                 document.getElementById('assessment-title').innerText = this.state.topicName;
                 this.renderQuestions();
                 this.switchTab('assessment', 2);
             },
-
-            renderQuestions: function() {
+            renderQuestions: function () {
                 const container = document.getElementById('questions-container');
-                container.innerHTML = this.state.questions.map((q, idx) => `
-                    <div class="bg-brand-gray rounded-lg p-6 border border-gray-700 shadow-lg relative">
-                        <span class="absolute top-0 left-0 bg-gray-700 text-xs px-2 py-1 rounded-br text-gray-300">Q${idx+1}</span>
-                        <div class="mt-2 mb-4">
-                            <h3 class="text-lg font-medium text-gray-100">${q.text}</h3>
-                        </div>
-                        <div class="space-y-3 mt-6">
-                            ${q.options.map((opt, i) => `
-                                <label class="flex items-start p-3 rounded cursor-pointer border border-gray-600 hover:border-brand-orange hover:bg-gray-800 transition-all group" onclick="app.recordAnswer(${q.id}, ${i}, this)">
-                                    <div class="flex items-center h-5">
-                                        <div class="w-5 h-5 rounded-full border border-gray-400 group-hover:border-brand-orange flex items-center justify-center mr-3 radio-indicator">
-                                            <div class="w-2.5 h-2.5 rounded-full bg-brand-orange opacity-0 transition-opacity"></div>
-                                        </div>
-                                    </div>
-                                    <span class="text-sm text-gray-300 group-hover:text-white select-none">${opt}</span>
-                                </label>
-                            `).join('')}
-                        </div>
-                    </div>
-                `).join('');
+                container.innerHTML = this.state.questions.map((q, idx) => `<div class="bg-brand-gray rounded-lg p-6 border border-gray-700 shadow-lg relative"><span class="absolute top-0 left-0 bg-gray-700 text-xs px-2 py-1 rounded-br text-gray-300">Q${idx + 1}</span><div class="mt-2 mb-4"><h3 class="text-lg font-medium text-gray-100">${q.text}</h3></div><div class="space-y-3 mt-6">${q.options.map((opt, i) => `<label class="flex items-start p-3 rounded cursor-pointer border border-gray-600 hover:border-brand-orange hover:bg-gray-800 transition-all group" onclick="app.recordAnswer(${q.id}, ${i}, this)"><div class="flex items-center h-5"><div class="w-5 h-5 rounded-full border border-gray-400 group-hover:border-brand-orange flex items-center justify-center mr-3 radio-indicator"><div class="w-2.5 h-2.5 rounded-full bg-brand-orange opacity-0 transition-opacity"></div></div></div><span class="text-sm text-gray-300 group-hover:text-white select-none">${opt}</span></label>`).join('')}</div></div>`).join('');
                 this.updateProgress();
             },
-
-            recordAnswer: function(qId, optIdx, el) {
+            recordAnswer: function (qId, optIdx, el) {
                 this.state.answers[qId] = optIdx;
-                
-                // UI Update
                 const parent = el.parentElement;
                 parent.querySelectorAll('.radio-indicator div').forEach(d => d.classList.add('opacity-0'));
                 parent.querySelectorAll('label').forEach(l => l.classList.remove('bg-gray-700', 'border-brand-orange'));
-                
                 el.querySelector('.radio-indicator div').classList.remove('opacity-0');
                 el.classList.add('bg-gray-700', 'border-brand-orange');
-                
                 this.updateProgress();
             },
-
-            updateProgress: function() {
+            updateProgress: function () {
                 const count = Object.keys(this.state.answers).length;
                 document.getElementById('progress-indicator').innerText = `${count}/10`;
             },
-
-            submitAssessment: function() {
-                if(Object.keys(this.state.answers).length < 10 && !confirm("Submit partial answers?")) return;
-                
+            submitAssessment: function () {
+                if (Object.keys(this.state.answers).length < 10 && !confirm("Submit partial answers?")) return;
                 let score = 0;
-                this.state.questions.forEach(q => {
-                    if(this.state.answers[q.id] === q.correct) score++;
-                });
-                
+                this.state.questions.forEach(q => { if (this.state.answers[q.id] === q.correct) score++; });
                 document.getElementById('final-score').innerText = `${score}/10`;
                 document.getElementById('score-message').innerText = score > 8 ? "Expert Proficiency" : score > 5 ? "Intermediate Proficiency" : "Foundational Proficiency";
-                
                 this.renderResults();
                 this.switchTab('results', 3);
             },
-
-            renderResults: function() {
+            renderResults: function () {
                 const tbody = document.getElementById('results-table-body');
                 const reviewContainer = document.getElementById('review-container');
-                
-                let tableHtml = '';
-                let reviewHtml = '';
-                
+                let tableHtml = ''; let reviewHtml = '';
                 this.state.questions.forEach((q, idx) => {
                     const isCorrect = this.state.answers[q.id] === q.correct;
                     const statusClass = isCorrect ? "bg-green-900 text-green-300" : "bg-red-900 text-red-300";
                     const statusText = isCorrect ? "Correct" : "Incorrect";
-                    
-                    // Table Row
-                    tableHtml += `
-                        <tr class="border-b border-gray-700 hover:bg-gray-800 transition">
-                            <td class="p-4 text-gray-400">Q${idx+1}</td>
-                            <td class="p-4 font-medium text-white truncate max-w-xs">${q.text}</td>
-                            <td class="p-4 text-center"><span class="${statusClass} text-xs px-2 py-1 rounded">${statusText}</span></td>
-                            <td class="p-4 text-right"><button onclick="app.goToReviewItem(${idx})" class="text-brand-orange hover:text-white text-xs underline">Review</button></td>
-                        </tr>
-                    `;
-
-                    // Review Card
-                    reviewHtml += `
-                        <div id="review-item-${idx}" class="bg-brand-gray rounded-lg border border-gray-700 overflow-hidden">
-                            <div class="p-4 border-b border-gray-700 flex justify-between bg-gray-800">
-                                <span class="font-bold text-gray-300">Question ${idx+1}</span>
-                                <span class="${isCorrect ? 'text-green-400' : 'text-red-400'} text-xl">${isCorrect ? '✔' : '✘'}</span>
-                            </div>
-                            <div class="p-6">
-                                <p class="mb-4 text-lg text-white">${q.text}</p>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                                    <div class="p-3 rounded border ${isCorrect ? 'border-green-800 bg-green-900/20' : 'border-red-800 bg-red-900/20'}">
-                                        <div class="text-xs uppercase text-gray-500 mb-1">Your Answer</div>
-                                        <div class="${isCorrect ? 'text-green-400' : 'text-red-400'}">
-                                            ${this.state.answers[q.id] !== undefined ? q.options[this.state.answers[q.id]] : 'Skipped'}
-                                        </div>
-                                    </div>
-                                    <div class="p-3 rounded border border-gray-600 bg-gray-800/50">
-                                        <div class="text-xs uppercase text-gray-500 mb-1">Correct Answer</div>
-                                        <div class="text-white">${q.options[q.correct]}</div>
-                                    </div>
-                                </div>
-                                <div class="bg-blue-900/20 border-l-4 border-blue-500 p-4 rounded-r">
-                                    <h4 class="text-blue-400 text-sm font-bold uppercase mb-1">Technical Explanation</h4>
-                                    <p class="text-sm text-gray-300 leading-relaxed">${q.explanation}</p>
-                                </div>
-                            </div>
-                        </div>
-                    `;
+                    tableHtml += `<tr class="border-b border-gray-700 hover:bg-gray-800 transition"><td class="p-4 text-gray-400">Q${idx + 1}</td><td class="p-4 font-medium text-white truncate max-w-xs">${q.text}</td><td class="p-4 text-center"><span class="${statusClass} text-xs px-2 py-1 rounded">${statusText}</span></td><td class="p-4 text-right"><button onclick="app.goToReviewItem(${idx})" class="text-brand-orange hover:text-white text-xs underline">Review</button></td></tr>`;
+                    reviewHtml += `<div id="review-item-${idx}" class="bg-brand-gray rounded-lg border border-gray-700 overflow-hidden"><div class="p-4 border-b border-gray-700 flex justify-between bg-gray-800"><span class="font-bold text-gray-300">Question ${idx + 1}</span><span class="${isCorrect ? 'text-green-400' : 'text-red-400'} text-xl">${isCorrect ? '✔' : '✘'}</span></div><div class="p-6"><p class="mb-4 text-lg text-white">${q.text}</p><div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6"><div class="p-3 rounded border ${isCorrect ? 'border-green-800 bg-green-900/20' : 'border-red-800 bg-red-900/20'}"><div class="text-xs uppercase text-gray-500 mb-1">Your Answer</div><div class="${isCorrect ? 'text-green-400' : 'text-red-400'}">${this.state.answers[q.id] !== undefined ? q.options[this.state.answers[q.id]] : 'Skipped'}</div></div><div class="p-3 rounded border border-gray-600 bg-gray-800/50"><div class="text-xs uppercase text-gray-500 mb-1">Correct Answer</div><div class="text-white">${q.options[q.correct]}</div></div></div><div class="bg-blue-900/20 border-l-4 border-blue-500 p-4 rounded-r"><h4 class="text-blue-400 text-sm font-bold uppercase mb-1">Technical Explanation</h4><p class="text-sm text-gray-300 leading-relaxed">${q.explanation}</p></div></div></div>`;
                 });
-
-                tbody.innerHTML = tableHtml;
-                reviewContainer.innerHTML = reviewHtml;
+                tbody.innerHTML = tableHtml; reviewContainer.innerHTML = reviewHtml;
             },
-
-            switchTab: function(tabName, stepNum) {
+            switchTab: function (tabName, stepNum) {
                 document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
                 document.getElementById(`tab-${tabName}`).classList.remove('hidden');
-                
-                // Update Step UI
-                if(stepNum) {
+                if (stepNum) {
                     document.querySelectorAll('.step-item').forEach((el, idx) => {
                         const circle = el.querySelector('span');
-                        if (idx + 1 < stepNum) {
-                            el.className = "step-item text-green-500 flex items-center gap-2";
-                            circle.className = "w-6 h-6 rounded-full border-2 border-green-500 flex items-center justify-center text-xs bg-green-500 text-brand-darker font-bold";
-                            circle.innerText = "✓";
-                        } else if (idx + 1 === stepNum) {
-                            el.className = "step-item text-brand-orange font-semibold flex items-center gap-2";
-                            circle.className = "w-6 h-6 rounded-full border-2 border-brand-orange flex items-center justify-center text-xs bg-brand-orange text-brand-darker font-bold";
-                            circle.innerText = idx + 1;
-                        } else {
-                            el.className = "step-item text-gray-500 flex items-center gap-2";
-                            circle.className = "w-6 h-6 rounded-full border-2 border-gray-500 flex items-center justify-center text-xs";
-                            circle.innerText = idx + 1;
-                        }
+                        if (idx + 1 < stepNum) { el.className = "step-item text-green-500 flex items-center gap-2 cursor-pointer hover:opacity-80"; circle.className = "w-6 h-6 rounded-full border-2 border-green-500 flex items-center justify-center text-xs bg-green-500 text-brand-darker font-bold"; circle.innerText = "✓"; }
+                        else if (idx + 1 === stepNum) { el.className = "step-item text-brand-orange font-semibold flex items-center gap-2"; circle.className = "w-6 h-6 rounded-full border-2 border-brand-orange flex items-center justify-center text-xs bg-brand-orange text-brand-darker font-bold"; circle.innerText = idx + 1; }
+                        else { el.className = "step-item text-gray-500 flex items-center gap-2"; circle.className = "w-6 h-6 rounded-full border-2 border-gray-500 flex items-center justify-center text-xs"; circle.innerText = idx + 1; }
                     });
                 }
             },
-
-            goToReview: function() { this.switchTab('review', 4); },
-            goToReviewItem: function(idx) {
-                this.switchTab('review', 4);
-                setTimeout(() => {
-                    document.getElementById(`review-item-${idx}`).scrollIntoView({behavior: 'smooth'});
-                }, 100);
-            }
+            goToReview: function () { this.switchTab('review', 4); },
+            goToReviewItem: function (idx) { this.switchTab('review', 4); setTimeout(() => { document.getElementById(`review-item-${idx}`).scrollIntoView({ behavior: 'smooth' }); }, 100); }
         };
-
         document.addEventListener('DOMContentLoaded', () => app.init());
     </script>
 </body>
+
 </html>
